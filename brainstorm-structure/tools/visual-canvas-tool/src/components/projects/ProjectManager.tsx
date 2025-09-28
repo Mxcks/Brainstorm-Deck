@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { Project } from '../../App'
+import type { Project } from '../../App'
 import './ProjectManager.css'
 
 interface ProjectManagerProps {

@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { ComponentData } from './ComponentInstance'
+import type { ComponentData } from './ComponentInstance'
 import './ComponentPalette.css'
 
 interface ComponentPaletteProps {

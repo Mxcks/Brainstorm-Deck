@@ -1,14 +1,7 @@
 import { useState } from 'react'
 import ProjectManager from './components/projects/ProjectManager'
+import CanvasSpace from './components/canvas/CanvasSpace'
 import './App.css'
-
-export interface Project {
-  id: string
-  name: string
-  createdAt: Date
-  lastModified: Date
-  canvasState: any // Will define this more specifically later
-}
 
 export interface Project {
   id: string
@@ -22,15 +15,17 @@ function App() {
   const [currentProject, setCurrentProject] = useState<Project | null>(null)
   const [projects, setProjects] = useState<Project[]>([])
 
-  const createTestProject = () => {
-    const newProject: Project = {
-      id: '1',
-      name: 'Test Project',
-      createdAt: new Date(),
-      lastModified: new Date(),
-      canvasState: { viewport: { x: 0, y: 0, scale: 1 }, components: [] }
-    }
-    setCurrentProject(newProject)
+  // Handle project updates from the canvas
+  const handleProjectUpdate = (updatedProject: Project) => {
+    // Update the current project
+    setCurrentProject(updatedProject)
+
+    // Update the project in the projects array
+    setProjects(prevProjects =>
+      prevProjects.map(project =>
+        project.id === updatedProject.id ? updatedProject : project
+      )
+    )
   }
 
   return (
@@ -47,10 +42,10 @@ function App() {
 
       <div className="app-content">
         {currentProject ? (
-          <div style={{ padding: '20px', color: 'white' }}>
-            <h3>Project: {currentProject.name}</h3>
-            <p>Canvas will be restored here</p>
-          </div>
+          <CanvasSpace
+            project={currentProject}
+            onProjectUpdate={handleProjectUpdate}
+          />
         ) : (
           <div className="welcome-screen">
             <h2>Welcome to Visual Canvas Tool</h2>

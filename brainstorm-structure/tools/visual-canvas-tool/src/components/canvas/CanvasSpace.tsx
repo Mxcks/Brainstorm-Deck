@@ -1,9 +1,9 @@
 import { useRef, useState, useCallback, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Project } from '../../App'
+import type { Project } from '../../App'
 import CanvasGrid from './CanvasGrid'
 import CanvasControls from './CanvasControls'
-import ComponentInstance, { ComponentData } from './ComponentInstance'
+import ComponentInstance, { type ComponentData } from './ComponentInstance'
 import ComponentPalette from './ComponentPalette'
 import './CanvasSpace.css'
 
