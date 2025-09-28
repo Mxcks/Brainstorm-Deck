@@ -1,0 +1,65 @@
+{
+  "system": {
+    "name": "Brainstorm Deck System",
+    "version": "1.0.0",
+    "architecture": "input-process-output",
+    "layers": {
+      "input": "brainstorm-structure",
+      "process": "brainstorm-deck", 
+      "output": "brainstorm-projects"
+    }
+  },
+  "paths": {
+    "structure_root": "../brainstorm-structure",
+    "deck_root": "../brainstorm-deck",
+    "projects_root": "../brainstorm-projects",
+    "tools_directory": "../brainstorm-structure/tools",
+    "templates_directory": "../brainstorm-structure/templates",
+    "configs_directory": "../brainstorm-structure/configs"
+  },
+  "processing": {
+    "default_workflow": "brainstorm-to-project",
+    "session_timeout": 3600,
+    "max_concurrent_sessions": 5,
+    "auto_cleanup": true,
+    "backup_enabled": true
+  },
+  "tools": {
+    "registry_file": "tools-registry.json",
+    "execution_timeout": 300,
+    "error_handling": "graceful",
+    "logging_level": "info"
+  },
+  "workflows": {
+    "directory": "../brainstorm-deck/workflows",
+    "default_template": "standard-workflow.json",
+    "validation_enabled": true,
+    "parallel_execution": false
+  },
+  "output": {
+    "project_template": "standard-project-structure",
+    "documentation_format": "markdown",
+    "metadata_tracking": true,
+    "archive_completed": true
+  },
+  "integrations": {
+    "version_control": {
+      "enabled": false,
+      "default_provider": "git"
+    },
+    "project_management": {
+      "enabled": false,
+      "default_provider": "none"
+    },
+    "deployment": {
+      "enabled": false,
+      "default_provider": "none"
+    }
+  },
+  "monitoring": {
+    "performance_tracking": true,
+    "error_logging": true,
+    "audit_trail": true,
+    "health_checks": true
+  }
+}

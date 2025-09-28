@@ -1,0 +1,50 @@
+.app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #1a1a1a;
+  color: white;
+  overflow: hidden;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #2a2a2a;
+  border-bottom: 1px solid #3a3a3a;
+  z-index: 100;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+.app-content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+
+.welcome-screen h2 {
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.welcome-screen p {
+  color: #cccccc;
+  font-size: 1.1rem;
+}

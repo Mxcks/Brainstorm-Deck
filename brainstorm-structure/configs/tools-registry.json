@@ -1,0 +1,75 @@
+{
+  "registry": {
+    "version": "1.0.0",
+    "last_updated": "2025-01-28",
+    "total_tools": 0
+  },
+  "categories": {
+    "analysis": {
+      "description": "Tools for analyzing and processing brainstorm data",
+      "tools": []
+    },
+    "transformation": {
+      "description": "Tools for converting and restructuring information", 
+      "tools": []
+    },
+    "integration": {
+      "description": "Tools for connecting with external systems",
+      "tools": []
+    },
+    "utility": {
+      "description": "General-purpose utilities for system operation",
+      "tools": []
+    }
+  },
+  "tool_template": {
+    "tool_id": "unique-identifier",
+    "name": "Human Readable Name",
+    "description": "Tool description and purpose",
+    "category": "analysis|transformation|integration|utility",
+    "version": "1.0.0",
+    "author": "Tool Author",
+    "created_date": "YYYY-MM-DD",
+    "last_modified": "YYYY-MM-DD",
+    "status": "active|inactive|deprecated",
+    "dependencies": [],
+    "configuration": {
+      "config_file": "path/to/config.json",
+      "required_parameters": [],
+      "optional_parameters": []
+    },
+    "interface": {
+      "input_schema": "path/to/input-schema.json",
+      "output_schema": "path/to/output-schema.json",
+      "execution_method": "script|function|api"
+    },
+    "implementation": {
+      "main_file": "path/to/implementation",
+      "language": "python|javascript|bash|other",
+      "runtime_requirements": []
+    },
+    "testing": {
+      "test_file": "path/to/tests",
+      "test_data": "path/to/test-data",
+      "validation_rules": []
+    },
+    "documentation": {
+      "readme": "path/to/documentation.md",
+      "examples": "path/to/examples",
+      "api_docs": "path/to/api-docs"
+    }
+  },
+  "workflows": {
+    "available_workflows": [],
+    "workflow_template": {
+      "workflow_id": "unique-identifier",
+      "name": "Human Readable Name",
+      "description": "Workflow description and purpose",
+      "version": "1.0.0",
+      "stages": [],
+      "input_requirements": [],
+      "output_specifications": [],
+      "execution_order": "sequential|parallel|conditional"
+    }
+  }
+}

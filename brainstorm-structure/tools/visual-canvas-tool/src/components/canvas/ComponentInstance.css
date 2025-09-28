@@ -1,0 +1,135 @@
+.component-instance {
+  cursor: move;
+  user-select: none;
+  z-index: 1;
+}
+
+.component-instance.selected {
+  z-index: 10;
+}
+
+.component-instance.dragging {
+  cursor: grabbing;
+  z-index: 100;
+}
+
+.component-content {
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Prevent component interaction during design */
+}
+
+.component-controls {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(42, 42, 42, 0.9);
+  border: 1px solid #646cff;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  backdrop-filter: blur(10px);
+}
+
+.component-label {
+  color: white;
+  font-weight: 500;
+}
+
+.delete-button {
+  background: transparent;
+  border: none;
+  color: #ff4444;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 1rem;
+  line-height: 1;
+  transition: all 0.2s;
+}
+
+.delete-button:hover {
+  background: #ff4444;
+  color: white;
+}
+
+.selection-border {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px solid #646cff;
+  border-radius: 4px;
+  pointer-events: none;
+  animation: pulse-border 2s infinite;
+}
+
+@keyframes pulse-border {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Demo component styles */
+.demo-button {
+  background: #646cff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.demo-button:hover {
+  background: #5a5fcf;
+}
+
+.demo-text {
+  color: white;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.demo-card {
+  background: #2a2a2a;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  padding: 16px;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.demo-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.demo-card p {
+  margin: 0;
+  color: #cccccc;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.demo-placeholder {
+  background: #3a3a3a;
+  border: 2px dashed #5a5a5a;
+  border-radius: 4px;
+  padding: 16px;
+  color: #999;
+  text-align: center;
+  font-size: 0.9rem;
+}

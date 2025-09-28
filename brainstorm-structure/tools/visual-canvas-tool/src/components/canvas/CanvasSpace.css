@@ -1,0 +1,69 @@
+.canvas-space {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+
+.canvas-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  cursor: grab;
+  user-select: none;
+}
+
+.canvas-container.dragging {
+  cursor: grabbing;
+}
+
+.canvas-viewport {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-origin: 0 0;
+}
+
+.canvas-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.canvas-center-marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: #646cff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.canvas-center-marker::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 2px;
+  background: #646cff;
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+}
+
+.canvas-center-marker::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 40px;
+  background: #646cff;
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+}
