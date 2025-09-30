@@ -1,0 +1,522 @@
+# ============================================================================
+# VISUAL CANVAS TOOL - LEFT SIDEBAR COMPONENT ORDER FORM
+# ============================================================================
+# Purpose: Left sidebar navigation menu with collapsible functionality
+# Created: 2025-09-30
+# Version: 1.0.0
+# ============================================================================
+
+# ============================================================================
+# LAYER 1: IDENTIFICATION & METADATA
+# ============================================================================
+
+component_identification:
+  component_id: "LEFT-SIDEBAR"
+  component_name: "LeftSidebar"
+  component_file: "src/components/layout/LeftSidebar.tsx"
+  css_file: "src/components/layout/LeftSidebar.css"
+  component_type: "navigation_sidebar"
+  version: "1.0.0"
+  parent_component: "App"
+  
+# ============================================================================
+# LAYER 2: VISUAL SPECIFICATIONS
+# ============================================================================
+
+visual_specifications:
+  dimensions:
+    width_expanded: "240px"
+    width_collapsed: "60px"
+    height: "calc(100vh - 60px)"
+    padding_expanded: "16px"
+    padding_collapsed: "8px"
+    
+  layout:
+    display: "flex"
+    flex_direction: "column"
+    gap: "8px"
+    
+  colors:
+    background: "var(--bg-secondary)"  # #161b22
+    border_right: "1px solid var(--border-primary)"  # #30363d
+    button_background: "var(--bg-tertiary)"  # #30363d
+    button_hover: "var(--accent-subtle)"  # rgba(124, 152, 133, 0.1)
+    button_active: "var(--accent-primary)"  # #7c9885
+    text_color: "var(--text-primary)"  # #e6edf3
+    icon_color: "var(--text-secondary)"  # #8b949e
+    
+  positioning:
+    position: "fixed"
+    top: "60px"
+    left: "0"
+    z_index: "90"
+    grid_area: "sidebar"
+    
+  transitions:
+    width_transition: "width 0.2s ease-in-out"
+    opacity_transition: "opacity 0.2s ease-in-out"
+
+# ============================================================================
+# LAYER 3: COMPONENT STRUCTURE
+# ============================================================================
+
+component_structure:
+  sections:
+    - section: "Collapse Toggle"
+      position: "top"
+      elements:
+        - element: "Collapse Button"
+          type: "button"
+          icon: "◀ (collapsed) / ▶ (expanded)"
+          description: "Toggles sidebar collapse state"
+          
+    - section: "Navigation Buttons"
+      position: "middle"
+      elements:
+        - element: "Component Creator Button"
+          type: "button"
+          icon: "➕"
+          label: "Create Component"
+          action: "Opens component creation interface"
+          
+        - element: "Library Button"
+          type: "button"
+          icon: "📚"
+          label: "Library"
+          action: "Opens component library view"
+          
+        - element: "Settings Button"
+          type: "button"
+          icon: "⚙️"
+          label: "Settings"
+          action: "Opens settings view"
+          
+    - section: "Bottom Actions"
+      position: "bottom"
+      elements:
+        - element: "Help Button"
+          type: "button"
+          icon: "❓"
+          label: "Help"
+          action: "Opens help documentation"
+
+# ============================================================================
+# LAYER 4: PROPS & PARAMETERS
+# ============================================================================
+
+props_interface:
+  props:
+    - name: "collapsed"
+      type: "boolean"
+      required: true
+      description: "Whether sidebar is collapsed"
+      
+    - name: "onToggleCollapse"
+      type: "() => void"
+      required: true
+      description: "Callback to toggle collapse state"
+      
+    - name: "activeView"
+      type: "'canvas' | 'library' | 'settings'"
+      required: true
+      description: "Currently active view"
+      
+    - name: "onViewChange"
+      type: "(view: 'canvas' | 'library' | 'settings') => void"
+      required: true
+      description: "Callback when view changes"
+      
+    - name: "onCreateComponent"
+      type: "() => void"
+      required: true
+      description: "Callback to open component creator"
+
+# ============================================================================
+# LAYER 5: STATE MANAGEMENT
+# ============================================================================
+
+state_management:
+  local_state:
+    - state_name: "hoveredButton"
+      type: "string | null"
+      description: "ID of currently hovered button for tooltip"
+      initial_value: "null"
+      
+  state_flow:
+    incoming:
+      - "collapsed from App"
+      - "activeView from App"
+    outgoing:
+      - "onToggleCollapse() to App"
+      - "onViewChange(view) to App"
+      - "onCreateComponent() to App"
+
+# ============================================================================
+# LAYER 6: BUTTON SPECIFICATIONS
+# ============================================================================
+
+button_specifications:
+  collapse_button:
+    dimensions:
+      width_expanded: "100%"
+      width_collapsed: "44px"
+      height: "44px"
+      padding: "12px"
+      
+    styling:
+      background: "var(--bg-tertiary)"
+      border: "1px solid var(--border-primary)"
+      border_radius: "var(--radius-md)"
+      color: "var(--text-secondary)"
+      hover_background: "var(--accent-subtle)"
+      hover_border: "var(--accent-primary)"
+      
+    icon:
+      expanded_state: "◀"
+      collapsed_state: "▶"
+      size: "16px"
+      
+    behavior:
+      on_click: "Calls onToggleCollapse()"
+      tooltip: "Collapse sidebar / Expand sidebar"
+      
+  navigation_button:
+    dimensions:
+      width_expanded: "100%"
+      width_collapsed: "44px"
+      height: "44px"
+      padding_expanded: "12px 16px"
+      padding_collapsed: "12px"
+      
+    styling:
+      background: "var(--bg-tertiary)"
+      border: "1px solid var(--border-primary)"
+      border_radius: "var(--radius-md)"
+      color: "var(--text-primary)"
+      hover_background: "var(--accent-subtle)"
+      hover_border: "var(--accent-primary)"
+      active_background: "var(--accent-primary)"
+      active_color: "var(--text-primary)"
+      
+    layout:
+      display: "flex"
+      align_items: "center"
+      gap: "12px"
+      justify_content_expanded: "flex-start"
+      justify_content_collapsed: "center"
+      
+    icon:
+      size: "20px"
+      color: "var(--text-secondary)"
+      active_color: "var(--text-primary)"
+      
+    label:
+      font_size: "14px"
+      font_weight: "500"
+      display_when_collapsed: "none"
+      display_when_expanded: "block"
+      
+    behavior:
+      on_click: "Calls onViewChange(view) or onCreateComponent()"
+      tooltip_when_collapsed: "Shows button label"
+      
+  create_component_button:
+    special_styling:
+      background: "var(--accent-primary)"
+      hover_background: "var(--accent-hover)"
+      color: "var(--text-primary)"
+      font_weight: "600"
+      
+    icon: "➕"
+    label: "Create Component"
+    action: "onCreateComponent()"
+    
+  library_button:
+    icon: "📚"
+    label: "Library"
+    action: "onViewChange('library')"
+    active_when: "activeView === 'library'"
+    
+  settings_button:
+    icon: "⚙️"
+    label: "Settings"
+    action: "onViewChange('settings')"
+    active_when: "activeView === 'settings'"
+    
+  help_button:
+    icon: "❓"
+    label: "Help"
+    action: "Opens help documentation (external link or modal)"
+    position: "bottom of sidebar"
+
+# ============================================================================
+# LAYER 7: INTERACTIONS & EVENTS
+# ============================================================================
+
+interactions:
+  collapse_toggle:
+    event: "onClick"
+    action: "Toggle sidebar collapsed state"
+    visual_feedback: "Width animates between 240px and 60px"
+    result: "onToggleCollapse() called"
+    
+  navigation_button_click:
+    event: "onClick"
+    action: "Change active view"
+    visual_feedback: "Button background changes to accent-primary"
+    result: "onViewChange(view) called"
+    
+  create_component_click:
+    event: "onClick"
+    action: "Open component creator"
+    visual_feedback: "Button background changes to accent-hover"
+    result: "onCreateComponent() called"
+    
+  button_hover:
+    event: "onMouseEnter"
+    action: "Show tooltip if collapsed"
+    visual_feedback: "Background changes to accent-subtle, border to accent-primary"
+    
+  button_leave:
+    event: "onMouseLeave"
+    action: "Hide tooltip"
+    visual_feedback: "Background returns to normal"
+
+# ============================================================================
+# LAYER 8: TOOLTIP SYSTEM
+# ============================================================================
+
+tooltip_system:
+  when_shown: "Only when sidebar is collapsed"
+  position: "Right of button"
+  offset: "8px"
+  
+  styling:
+    background: "var(--bg-secondary)"
+    border: "1px solid var(--border-primary)"
+    border_radius: "var(--radius-sm)"
+    padding: "6px 12px"
+    font_size: "13px"
+    color: "var(--text-primary)"
+    box_shadow: "0 2px 8px rgba(0, 0, 0, 0.3)"
+    z_index: "1000"
+    
+  animation:
+    fade_in: "0.1s ease-in"
+    fade_out: "0.1s ease-out"
+    
+  content:
+    collapse_button: "Expand sidebar"
+    create_component: "Create Component"
+    library: "Library"
+    settings: "Settings"
+    help: "Help"
+
+# ============================================================================
+# LAYER 9: ACCESSIBILITY
+# ============================================================================
+
+accessibility:
+  aria_labels:
+    sidebar: "Navigation sidebar"
+    collapse_button: "Toggle sidebar collapse"
+    create_button: "Create new component"
+    library_button: "Open component library"
+    settings_button: "Open settings"
+    help_button: "Open help documentation"
+    
+  keyboard_navigation:
+    - key: "Tab"
+      action: "Navigate through buttons"
+    - key: "Enter / Space"
+      action: "Activate focused button"
+    - key: "Ctrl+B / Cmd+B"
+      action: "Toggle sidebar collapse"
+    - key: "Ctrl+N / Cmd+N"
+      action: "Create component (same as clicking create button)"
+      
+  focus_management:
+    focus_visible: "2px solid var(--accent-primary)"
+    focus_offset: "2px"
+    focus_order: "Collapse → Create → Library → Settings → Help"
+    
+  screen_reader:
+    collapsed_state_announcement: "Sidebar collapsed"
+    expanded_state_announcement: "Sidebar expanded"
+    active_view_announcement: "Currently viewing {view}"
+
+# ============================================================================
+# LAYER 10: RESPONSIVE BEHAVIOR
+# ============================================================================
+
+responsive_behavior:
+  mobile:
+    default_state: "collapsed"
+    overlay_mode: true
+    backdrop: "rgba(0, 0, 0, 0.5)"
+    close_on_selection: true
+    
+  tablet:
+    default_state: "expanded"
+    width_expanded: "200px"
+    
+  desktop:
+    default_state: "expanded"
+    width_expanded: "240px"
+
+# ============================================================================
+# LAYER 11: ANIMATION SPECIFICATIONS
+# ============================================================================
+
+animations:
+  sidebar_collapse:
+    property: "width"
+    duration: "0.2s"
+    easing: "ease-in-out"
+    from: "240px"
+    to: "60px"
+    
+  sidebar_expand:
+    property: "width"
+    duration: "0.2s"
+    easing: "ease-in-out"
+    from: "60px"
+    to: "240px"
+    
+  label_fade:
+    property: "opacity"
+    duration: "0.15s"
+    easing: "ease-in-out"
+    when_collapsing: "opacity 1 → 0"
+    when_expanding: "opacity 0 → 1"
+    
+  button_hover:
+    property: "background-color, border-color"
+    duration: "0.2s"
+    easing: "ease-in-out"
+
+# ============================================================================
+# LAYER 12: INTEGRATION POINTS
+# ============================================================================
+
+integration_points:
+  parent_component:
+    name: "App"
+    receives_from_parent:
+      - "collapsed"
+      - "activeView"
+    sends_to_parent:
+      - "onToggleCollapse()"
+      - "onViewChange(view)"
+      - "onCreateComponent()"
+      
+  affects_components:
+    - component: "Canvas"
+      effect: "Width adjusts based on sidebar state"
+      calculation: "calc(100vw - {sidebar_width})"
+      
+    - component: "Library"
+      effect: "Width adjusts based on sidebar state"
+      
+    - component: "Settings"
+      effect: "Width adjusts based on sidebar state"
+
+# ============================================================================
+# LAYER 13: IMPLEMENTATION CODE STRUCTURE
+# ============================================================================
+
+implementation_structure:
+  typescript_interface: |
+    interface LeftSidebarProps {
+      collapsed: boolean;
+      onToggleCollapse: () => void;
+      activeView: 'canvas' | 'library' | 'settings';
+      onViewChange: (view: 'canvas' | 'library' | 'settings') => void;
+      onCreateComponent: () => void;
+    }
+    
+  component_structure: |
+    const LeftSidebar: React.FC<LeftSidebarProps> = ({
+      collapsed,
+      onToggleCollapse,
+      activeView,
+      onViewChange,
+      onCreateComponent
+    }) => {
+      const [hoveredButton, setHoveredButton] = useState<string | null>(null);
+      
+      return (
+        <aside className={`left-sidebar ${collapsed ? 'collapsed' : ''}`}>
+          <button onClick={onToggleCollapse}>
+            {collapsed ? '▶' : '◀'}
+          </button>
+          
+          <button onClick={onCreateComponent}>
+            ➕ {!collapsed && 'Create Component'}
+          </button>
+          
+          <button onClick={() => onViewChange('library')}>
+            📚 {!collapsed && 'Library'}
+          </button>
+          
+          <button onClick={() => onViewChange('settings')}>
+            ⚙️ {!collapsed && 'Settings'}
+          </button>
+        </aside>
+      );
+    };
+    
+  css_classes:
+    - class: "left-sidebar"
+      description: "Main sidebar container"
+      
+    - class: "left-sidebar.collapsed"
+      description: "Collapsed state modifier"
+      
+    - class: "sidebar-button"
+      description: "Navigation button base class"
+      
+    - class: "sidebar-button.active"
+      description: "Active button state"
+      
+    - class: "sidebar-button.create"
+      description: "Create component button special styling"
+
+# ============================================================================
+# LAYER 14: IMPLEMENTATION NOTES
+# ============================================================================
+
+implementation_notes:
+  new_component: true
+  files_to_create:
+    - file: "src/components/layout/LeftSidebar.tsx"
+      description: "New sidebar component"
+      
+    - file: "src/components/layout/LeftSidebar.css"
+      description: "Sidebar styles"
+      
+  files_to_modify:
+    - file: "src/App.tsx"
+      changes:
+        - "Add sidebarCollapsed state"
+        - "Add activeView state"
+        - "Add LeftSidebar component to layout"
+        - "Update Canvas width calculation"
+        
+    - file: "src/App.css"
+      changes:
+        - "Update grid layout to include sidebar"
+        - "Adjust canvas positioning"
+        
+  dependencies:
+    - "CSS variables (already defined in index.css)"
+    - "React hooks (useState)"
+    - "TypeScript types"
+    
+  icon_options:
+    note: "Using emoji icons for simplicity. Can be replaced with icon library (e.g., React Icons, Lucide) later"
+    alternatives:
+      - "React Icons (react-icons)"
+      - "Lucide React (lucide-react)"
+      - "Heroicons (@heroicons/react)"
+

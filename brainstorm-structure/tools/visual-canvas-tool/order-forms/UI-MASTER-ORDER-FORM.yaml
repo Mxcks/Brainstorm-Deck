@@ -1,0 +1,323 @@
+# ============================================================================
+# VISUAL CANVAS TOOL - UI MASTER ORDER FORM
+# ============================================================================
+# Purpose: Master UI layout and structure specification for React UI Component Design Tool
+# Created: 2025-09-30
+# Version: 1.0.0
+# ============================================================================
+
+# ============================================================================
+# LAYER 1: IDENTIFICATION & METADATA
+# ============================================================================
+
+component_identification:
+  component_id: "UI-MASTER-LAYOUT"
+  component_name: "Visual Canvas Tool - Master UI Layout"
+  component_type: "application_layout"
+  version: "1.0.0"
+  created_date: "2025-09-30"
+  last_modified: "2025-09-30"
+  author: "AI Assistant"
+  
+component_classification:
+  category: "ui_layout"
+  complexity: "medium"
+  framework: "React 19 + TypeScript"
+  styling: "CSS with CSS Variables"
+  
+# ============================================================================
+# LAYER 2: VISUAL SPECIFICATIONS
+# ============================================================================
+
+visual_specifications:
+  layout_structure:
+    type: "fixed_layout"
+    description: "Top header + left sidebar + main canvas area"
+    dimensions:
+      total_width: "100vw"
+      total_height: "100vh"
+      overflow: "hidden"
+    
+  layout_grid:
+    display: "grid"
+    grid_template_areas: |
+      "header header"
+      "sidebar canvas"
+    grid_template_columns: "auto 1fr"
+    grid_template_rows: "auto 1fr"
+    
+  color_scheme:
+    theme: "dark"
+    primary_accent: "#7c9885"  # Sage green
+    accent_hover: "#8fa896"    # Lighter sage green
+    accent_subtle: "rgba(124, 152, 133, 0.1)"
+    background_primary: "#0d1117"
+    background_secondary: "#161b22"
+    background_tertiary: "#30363d"
+    text_primary: "#e6edf3"
+    text_secondary: "#8b949e"
+    border_primary: "#30363d"
+    border_subtle: "#21262d"
+    canvas_color: "#f5f5dc"  # Beige for canvas elements
+    canvas_border: "rgba(245, 245, 220, 0.2)"
+    canvas_line: "rgba(245, 245, 220, 0.1)"
+    
+  typography:
+    font_family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif"
+    font_size_xs: "12px"
+    font_size_sm: "14px"
+    font_size_base: "16px"
+    font_size_lg: "18px"
+    font_size_xl: "20px"
+    line_height: "1.5"
+    font_weight_normal: 400
+    font_weight_medium: 500
+    font_weight_semibold: 600
+    font_weight_bold: 700
+    
+  spacing:
+    spacing_xs: "4px"
+    spacing_sm: "8px"
+    spacing_md: "16px"
+    spacing_lg: "24px"
+    spacing_xl: "32px"
+    
+  border_radius:
+    radius_sm: "4px"
+    radius_md: "6px"
+    radius_lg: "8px"
+    
+  transitions:
+    transition_base: "0.2s ease-in-out"
+    transition_fast: "0.1s ease-in-out"
+    transition_slow: "0.3s ease-in-out"
+
+# ============================================================================
+# LAYER 3: COMPONENT STRUCTURE
+# ============================================================================
+
+component_structure:
+  root_component:
+    name: "App"
+    file: "src/App.tsx"
+    description: "Root application component"
+    
+  child_components:
+    - component_id: "TOP-HEADER"
+      name: "TopHeader"
+      file: "src/components/layout/TopHeader.tsx"
+      grid_area: "header"
+      order_form: "UI-TOP-HEADER-ORDER-FORM.yaml"
+      description: "Top header with title and project selector"
+      
+    - component_id: "LEFT-SIDEBAR"
+      name: "LeftSidebar"
+      file: "src/components/layout/LeftSidebar.tsx"
+      grid_area: "sidebar"
+      order_form: "UI-LEFT-SIDEBAR-ORDER-FORM.yaml"
+      description: "Left sidebar menu with navigation buttons"
+      
+    - component_id: "CANVAS-WORKSPACE"
+      name: "Canvas"
+      file: "src/components/canvas/Canvas.tsx"
+      grid_area: "canvas"
+      order_form: "UI-CANVAS-ORDER-FORM.yaml"
+      description: "Main canvas workspace for UI components"
+
+# ============================================================================
+# LAYER 4: LAYOUT DIMENSIONS
+# ============================================================================
+
+layout_dimensions:
+  top_header:
+    height: "60px"
+    width: "100%"
+    position: "fixed"
+    top: "0"
+    left: "0"
+    z_index: "100"
+    
+  left_sidebar:
+    width: "240px"
+    width_collapsed: "60px"
+    height: "calc(100vh - 60px)"
+    position: "fixed"
+    top: "60px"
+    left: "0"
+    z_index: "90"
+    collapsible: true
+    
+  canvas_workspace:
+    width: "calc(100vw - 240px)"
+    width_when_sidebar_collapsed: "calc(100vw - 60px)"
+    height: "calc(100vh - 60px)"
+    position: "relative"
+    top: "60px"
+    left: "240px"
+    left_when_sidebar_collapsed: "60px"
+    overflow: "hidden"
+
+# ============================================================================
+# LAYER 5: STATE MANAGEMENT
+# ============================================================================
+
+state_management:
+  global_state:
+    - state_name: "currentProject"
+      type: "Project | null"
+      description: "Currently selected project"
+      initial_value: "null"
+      managed_by: "App.tsx"
+      
+    - state_name: "projects"
+      type: "Project[]"
+      description: "List of all projects"
+      initial_value: "[]"
+      managed_by: "App.tsx"
+      
+    - state_name: "sidebarCollapsed"
+      type: "boolean"
+      description: "Whether left sidebar is collapsed"
+      initial_value: "false"
+      managed_by: "App.tsx"
+      
+    - state_name: "activeView"
+      type: "'canvas' | 'library' | 'settings'"
+      description: "Currently active view"
+      initial_value: "'canvas'"
+      managed_by: "App.tsx"
+
+# ============================================================================
+# LAYER 6: DATA FLOW
+# ============================================================================
+
+data_flow:
+  project_management:
+    source: "DataService (localStorage)"
+    flow: "DataService → App → TopHeader/Canvas"
+    description: "Projects loaded from storage and passed to components"
+    
+  sidebar_navigation:
+    source: "LeftSidebar"
+    flow: "LeftSidebar → App → Canvas/Library/Settings"
+    description: "Navigation events trigger view changes"
+    
+  component_creation:
+    source: "ComponentCreator"
+    flow: "ComponentCreator → Canvas → App → DataService"
+    description: "New components created and saved"
+
+# ============================================================================
+# LAYER 7: RESPONSIVE BEHAVIOR
+# ============================================================================
+
+responsive_behavior:
+  breakpoints:
+    mobile: "< 768px"
+    tablet: "768px - 1024px"
+    desktop: "> 1024px"
+    
+  mobile_layout:
+    sidebar_default_state: "collapsed"
+    sidebar_overlay: true
+    header_height: "50px"
+    
+  tablet_layout:
+    sidebar_default_state: "expanded"
+    sidebar_width: "200px"
+    
+  desktop_layout:
+    sidebar_default_state: "expanded"
+    sidebar_width: "240px"
+
+# ============================================================================
+# LAYER 8: ACCESSIBILITY
+# ============================================================================
+
+accessibility:
+  keyboard_navigation:
+    - key: "Ctrl+B / Cmd+B"
+      action: "Toggle sidebar"
+    - key: "Ctrl+N / Cmd+N"
+      action: "Create new component"
+    - key: "Ctrl+L / Cmd+L"
+      action: "Open library"
+    - key: "Ctrl+, / Cmd+,"
+      action: "Open settings"
+      
+  aria_labels:
+    root: "Visual Canvas Tool Application"
+    header: "Application Header"
+    sidebar: "Navigation Sidebar"
+    canvas: "Component Canvas Workspace"
+    
+  focus_management:
+    initial_focus: "Canvas workspace"
+    focus_trap_modals: true
+    focus_visible_outline: "2px solid var(--accent-primary)"
+
+# ============================================================================
+# LAYER 9: INTEGRATION POINTS
+# ============================================================================
+
+integration_points:
+  data_service:
+    file: "src/services/dataService.ts"
+    purpose: "Data persistence (localStorage → The Know Database)"
+    methods:
+      - "loadProjects()"
+      - "saveProject(project)"
+      - "deleteProject(projectId)"
+      
+  the_know_integration:
+    status: "planned"
+    systems:
+      - "Database System (replace localStorage)"
+      - "Trigger System (natural language commands)"
+      - "Template System (component templates)"
+      - "Personality System (UI adaptation)"
+
+# ============================================================================
+# LAYER 10: IMPLEMENTATION NOTES
+# ============================================================================
+
+implementation_notes:
+  build_order:
+    - step: 1
+      component: "Update App.tsx layout structure"
+      description: "Add grid layout for header + sidebar + canvas"
+      
+    - step: 2
+      component: "Create TopHeader component"
+      description: "Build header with title and project selector"
+      reference: "UI-TOP-HEADER-ORDER-FORM.yaml"
+      
+    - step: 3
+      component: "Create LeftSidebar component"
+      description: "Build sidebar with navigation buttons"
+      reference: "UI-LEFT-SIDEBAR-ORDER-FORM.yaml"
+      
+    - step: 4
+      component: "Update Canvas component"
+      description: "Adjust canvas to work with new layout"
+      reference: "UI-CANVAS-ORDER-FORM.yaml"
+      
+    - step: 5
+      component: "Add sidebar collapse functionality"
+      description: "Implement collapse/expand with state management"
+      
+  css_variables:
+    location: "src/index.css"
+    description: "All colors, spacing, and design tokens defined as CSS variables"
+    usage: "Use var(--variable-name) in all component styles"
+    
+  file_structure:
+    - "src/App.tsx (root component)"
+    - "src/App.css (root styles)"
+    - "src/components/layout/TopHeader.tsx"
+    - "src/components/layout/TopHeader.css"
+    - "src/components/layout/LeftSidebar.tsx"
+    - "src/components/layout/LeftSidebar.css"
+    - "src/components/canvas/Canvas.tsx (existing, update)"
+    - "src/components/canvas/Canvas.css (existing, update)"
+

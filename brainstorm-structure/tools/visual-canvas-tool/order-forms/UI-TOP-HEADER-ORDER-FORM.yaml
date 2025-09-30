@@ -1,0 +1,386 @@
+# ============================================================================
+# VISUAL CANVAS TOOL - TOP HEADER COMPONENT ORDER FORM
+# ============================================================================
+# Purpose: Top header with title and project selector
+# Created: 2025-09-30
+# Version: 1.0.0
+# ============================================================================
+
+# ============================================================================
+# LAYER 1: IDENTIFICATION & METADATA
+# ============================================================================
+
+component_identification:
+  component_id: "TOP-HEADER"
+  component_name: "TopHeader"
+  component_file: "src/components/layout/TopHeader.tsx"
+  css_file: "src/components/layout/TopHeader.css"
+  component_type: "layout_header"
+  version: "1.0.0"
+  parent_component: "App"
+  
+# ============================================================================
+# LAYER 2: VISUAL SPECIFICATIONS
+# ============================================================================
+
+visual_specifications:
+  dimensions:
+    height: "60px"
+    width: "100%"
+    padding: "0 24px"
+    
+  layout:
+    display: "flex"
+    justify_content: "space-between"
+    align_items: "center"
+    
+  colors:
+    background: "var(--bg-secondary)"  # #161b22
+    border_bottom: "1px solid var(--border-primary)"  # #30363d
+    text_color: "var(--text-primary)"  # #e6edf3
+    
+  positioning:
+    position: "fixed"
+    top: "0"
+    left: "0"
+    z_index: "100"
+    grid_area: "header"
+    
+  typography:
+    title_font_size: "20px"
+    title_font_weight: "600"
+    title_color: "var(--text-primary)"
+
+# ============================================================================
+# LAYER 3: COMPONENT STRUCTURE
+# ============================================================================
+
+component_structure:
+  left_section:
+    - element: "Application Title"
+      type: "h1"
+      content: "Visual Canvas Tool"
+      styling:
+        margin: "0"
+        font_size: "20px"
+        font_weight: "600"
+        color: "var(--text-primary)"
+        
+  right_section:
+    - element: "Project Selector"
+      type: "component"
+      component_name: "ProjectManager"
+      file: "src/components/projects/ProjectManager.tsx"
+      description: "Dropdown for selecting/creating projects"
+
+# ============================================================================
+# LAYER 4: PROPS & PARAMETERS
+# ============================================================================
+
+props_interface:
+  props:
+    - name: "currentProject"
+      type: "Project | null"
+      required: true
+      description: "Currently selected project"
+      
+    - name: "projects"
+      type: "Project[]"
+      required: true
+      description: "List of all projects"
+      
+    - name: "onProjectChange"
+      type: "(project: Project | null) => void"
+      required: true
+      description: "Callback when project selection changes"
+      
+    - name: "onProjectsUpdate"
+      type: "(projects: Project[]) => void"
+      required: true
+      description: "Callback when projects list updates"
+
+# ============================================================================
+# LAYER 5: STATE MANAGEMENT
+# ============================================================================
+
+state_management:
+  local_state: []
+  description: "No local state - all state managed by parent (App)"
+  
+  state_flow:
+    incoming:
+      - "currentProject from App"
+      - "projects from App"
+    outgoing:
+      - "onProjectChange(project) to App"
+      - "onProjectsUpdate(projects) to App"
+
+# ============================================================================
+# LAYER 6: FUNCTIONALITY
+# ============================================================================
+
+functionality:
+  primary_functions:
+    - function: "Display Application Title"
+      description: "Shows 'Visual Canvas Tool' as main title"
+      trigger: "On render"
+      
+    - function: "Project Selection"
+      description: "Allows user to select from existing projects"
+      trigger: "User clicks project selector"
+      flow: "User clicks → Dropdown opens → User selects project → onProjectChange called"
+      
+    - function: "Project Creation"
+      description: "Allows user to create new project"
+      trigger: "User clicks 'New Project' in dropdown"
+      flow: "User clicks → Form appears → User enters name → Project created → onProjectsUpdate called"
+      
+    - function: "Project Deletion"
+      description: "Allows user to delete project"
+      trigger: "User clicks delete button on project"
+      flow: "User clicks → Confirmation dialog → User confirms → Project deleted → onProjectsUpdate called"
+
+# ============================================================================
+# LAYER 7: INTERACTIONS & EVENTS
+# ============================================================================
+
+interactions:
+  project_selector_button:
+    event: "onClick"
+    action: "Toggle dropdown open/closed"
+    visual_feedback: "Background changes to accent-subtle, border changes to accent-primary"
+    
+  project_item:
+    event: "onClick"
+    action: "Select project"
+    visual_feedback: "Item highlighted with accent-subtle background"
+    result: "onProjectChange(project) called, dropdown closes"
+    
+  new_project_button:
+    event: "onClick"
+    action: "Show project creation form"
+    visual_feedback: "Button background changes to accent-hover"
+    
+  delete_project_button:
+    event: "onClick"
+    action: "Delete project with confirmation"
+    visual_feedback: "Button background changes to red on hover"
+    result: "onProjectsUpdate(updatedProjects) called"
+
+# ============================================================================
+# LAYER 8: CHILD COMPONENTS
+# ============================================================================
+
+child_components:
+  project_manager:
+    component_name: "ProjectManager"
+    file: "src/components/projects/ProjectManager.tsx"
+    description: "Handles project selection, creation, and deletion"
+    
+    visual_specs:
+      button:
+        background: "var(--bg-tertiary)"
+        border: "1px solid var(--border-primary)"
+        border_radius: "var(--radius-md)"
+        padding: "8px 16px"
+        min_width: "200px"
+        font_size: "14px"
+        
+      dropdown:
+        background: "var(--bg-secondary)"
+        border: "1px solid var(--border-primary)"
+        border_radius: "var(--radius-lg)"
+        box_shadow: "0 4px 12px rgba(0, 0, 0, 0.3)"
+        min_width: "300px"
+        max_height: "400px"
+        position: "absolute"
+        top: "100%"
+        right: "0"
+        margin_top: "4px"
+        
+      project_item:
+        padding: "12px 16px"
+        border_bottom: "1px solid var(--border-subtle)"
+        hover_background: "var(--bg-tertiary)"
+        active_background: "var(--accent-subtle)"
+        active_border_left: "3px solid var(--accent-primary)"
+        
+      new_project_button:
+        background: "var(--accent-primary)"
+        color: "var(--text-primary)"
+        padding: "8px 16px"
+        border_radius: "var(--radius-md)"
+        width: "100%"
+        hover_background: "var(--accent-hover)"
+
+# ============================================================================
+# LAYER 9: ACCESSIBILITY
+# ============================================================================
+
+accessibility:
+  aria_labels:
+    header: "Application header"
+    title: "Visual Canvas Tool"
+    project_selector: "Project selector"
+    
+  keyboard_navigation:
+    - key: "Tab"
+      action: "Navigate to project selector"
+    - key: "Enter / Space"
+      action: "Open project dropdown"
+    - key: "Arrow Up / Down"
+      action: "Navigate through projects"
+    - key: "Enter"
+      action: "Select highlighted project"
+    - key: "Escape"
+      action: "Close dropdown"
+      
+  focus_management:
+    focus_visible: "2px solid var(--accent-primary)"
+    focus_offset: "2px"
+
+# ============================================================================
+# LAYER 10: RESPONSIVE BEHAVIOR
+# ============================================================================
+
+responsive_behavior:
+  mobile:
+    height: "50px"
+    padding: "0 16px"
+    title_font_size: "18px"
+    project_selector_min_width: "150px"
+    
+  tablet:
+    height: "55px"
+    padding: "0 20px"
+    title_font_size: "19px"
+    
+  desktop:
+    height: "60px"
+    padding: "0 24px"
+    title_font_size: "20px"
+
+# ============================================================================
+# LAYER 11: INTEGRATION POINTS
+# ============================================================================
+
+integration_points:
+  parent_component:
+    name: "App"
+    receives_from_parent:
+      - "currentProject"
+      - "projects"
+    sends_to_parent:
+      - "onProjectChange(project)"
+      - "onProjectsUpdate(projects)"
+      
+  data_service:
+    name: "DataService"
+    accessed_by: "ProjectManager child component"
+    methods_used:
+      - "loadProjects()"
+      - "addProject(project)"
+      - "updateProject(project)"
+      - "deleteProject(projectId)"
+
+# ============================================================================
+# LAYER 12: IMPLEMENTATION CODE STRUCTURE
+# ============================================================================
+
+implementation_structure:
+  typescript_interface: |
+    interface TopHeaderProps {
+      currentProject: Project | null;
+      projects: Project[];
+      onProjectChange: (project: Project | null) => void;
+      onProjectsUpdate: (projects: Project[]) => void;
+    }
+    
+  component_structure: |
+    const TopHeader: React.FC<TopHeaderProps> = ({
+      currentProject,
+      projects,
+      onProjectChange,
+      onProjectsUpdate
+    }) => {
+      return (
+        <header className="top-header">
+          <h1 className="app-title">Visual Canvas Tool</h1>
+          <ProjectManager
+            currentProject={currentProject}
+            projects={projects}
+            setCurrentProject={onProjectChange}
+            setProjects={onProjectsUpdate}
+          />
+        </header>
+      );
+    };
+    
+  css_classes:
+    - class: "top-header"
+      description: "Main header container"
+      
+    - class: "app-title"
+      description: "Application title text"
+
+# ============================================================================
+# LAYER 13: TESTING REQUIREMENTS
+# ============================================================================
+
+testing_requirements:
+  unit_tests:
+    - test: "Renders application title"
+      description: "Verify 'Visual Canvas Tool' is displayed"
+      
+    - test: "Renders ProjectManager component"
+      description: "Verify ProjectManager is rendered with correct props"
+      
+    - test: "Calls onProjectChange when project selected"
+      description: "Verify callback is called with correct project"
+      
+  integration_tests:
+    - test: "Project selection updates App state"
+      description: "Verify selecting project updates parent state"
+      
+    - test: "Project creation adds to projects list"
+      description: "Verify new project appears in list"
+      
+  visual_tests:
+    - test: "Header has correct height and styling"
+      description: "Verify 60px height, correct background, border"
+      
+    - test: "Title and selector are properly aligned"
+      description: "Verify space-between layout works correctly"
+
+# ============================================================================
+# LAYER 14: IMPLEMENTATION NOTES
+# ============================================================================
+
+implementation_notes:
+  existing_code:
+    status: "Partially exists"
+    location: "src/App.tsx (app-header div)"
+    changes_needed:
+      - "Extract header into separate TopHeader component"
+      - "Move ProjectManager into TopHeader"
+      - "Update App.tsx to use TopHeader component"
+      
+  new_files_to_create:
+    - file: "src/components/layout/TopHeader.tsx"
+      description: "New header component"
+      
+    - file: "src/components/layout/TopHeader.css"
+      description: "Header styles"
+      
+  files_to_modify:
+    - file: "src/App.tsx"
+      changes: "Replace app-header div with TopHeader component"
+      
+    - file: "src/App.css"
+      changes: "Move header styles to TopHeader.css"
+      
+  dependencies:
+    - "ProjectManager component (already exists)"
+    - "Project type definition (already exists in App.tsx)"
+    - "CSS variables (already defined in index.css)"
+

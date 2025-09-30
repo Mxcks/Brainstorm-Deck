@@ -1,0 +1,597 @@
+# ============================================================================
+# VISUAL CANVAS TOOL - ACCESSIBILITY DETAILED SPECIFICATION
+# ============================================================================
+# Purpose: Comprehensive accessibility requirements and WCAG compliance
+# Created: 2025-09-30
+# Version: 1.0.0
+# ============================================================================
+
+# ============================================================================
+# SECTION 1: WCAG COMPLIANCE LEVELS
+# ============================================================================
+
+wcag_compliance:
+  target_level: "WCAG 2.1 Level AA"
+  
+  level_a_requirements:
+    - requirement: "1.1.1 Non-text Content"
+      description: "All non-text content has text alternative"
+      implementation: "Alt text for images, aria-label for icons"
+      
+    - requirement: "1.3.1 Info and Relationships"
+      description: "Information and relationships can be programmatically determined"
+      implementation: "Semantic HTML, ARIA roles, proper heading hierarchy"
+      
+    - requirement: "1.4.1 Use of Color"
+      description: "Color is not the only visual means of conveying information"
+      implementation: "Use icons + color, text labels + color"
+      
+    - requirement: "2.1.1 Keyboard"
+      description: "All functionality available via keyboard"
+      implementation: "Tab navigation, keyboard shortcuts, focus management"
+      
+    - requirement: "2.4.1 Bypass Blocks"
+      description: "Mechanism to bypass repeated content"
+      implementation: "Skip to main content link"
+      
+    - requirement: "3.1.1 Language of Page"
+      description: "Default language can be programmatically determined"
+      implementation: "<html lang='en'>"
+      
+  level_aa_requirements:
+    - requirement: "1.4.3 Contrast (Minimum)"
+      description: "Text has contrast ratio of at least 4.5:1"
+      implementation: "Test all text colors against backgrounds"
+      
+    - requirement: "1.4.5 Images of Text"
+      description: "Use text rather than images of text"
+      implementation: "Use web fonts, not text images"
+      
+    - requirement: "2.4.6 Headings and Labels"
+      description: "Headings and labels describe topic or purpose"
+      implementation: "Clear, descriptive headings and labels"
+      
+    - requirement: "2.4.7 Focus Visible"
+      description: "Keyboard focus indicator is visible"
+      implementation: "Custom focus styles, 2px solid outline"
+      
+    - requirement: "3.2.3 Consistent Navigation"
+      description: "Navigation mechanisms are consistent"
+      implementation: "Sidebar always in same location"
+      
+    - requirement: "3.3.1 Error Identification"
+      description: "Errors are identified and described to user"
+      implementation: "Error messages, validation feedback"
+      
+    - requirement: "3.3.2 Labels or Instructions"
+      description: "Labels or instructions provided for user input"
+      implementation: "Form labels, placeholder text, help text"
+
+# ============================================================================
+# SECTION 2: KEYBOARD NAVIGATION
+# ============================================================================
+
+keyboard_navigation:
+  global_shortcuts:
+    - shortcut: "Tab"
+      action: "Move focus to next focusable element"
+      scope: "Global"
+      
+    - shortcut: "Shift+Tab"
+      action: "Move focus to previous focusable element"
+      scope: "Global"
+      
+    - shortcut: "Enter / Space"
+      action: "Activate focused element (button, link)"
+      scope: "Global"
+      
+    - shortcut: "Escape"
+      action: "Close modal, dropdown, or cancel action"
+      scope: "Global"
+      
+  application_shortcuts:
+    - shortcut: "Ctrl+B / Cmd+B"
+      action: "Toggle sidebar collapse"
+      scope: "Application"
+      aria_label: "Toggle sidebar"
+      
+    - shortcut: "Ctrl+N / Cmd+N"
+      action: "Create new component"
+      scope: "Application"
+      aria_label: "Create new component"
+      
+    - shortcut: "Ctrl+L / Cmd+L"
+      action: "Open library"
+      scope: "Application"
+      aria_label: "Open library"
+      
+    - shortcut: "Ctrl+, / Cmd+,"
+      action: "Open settings"
+      scope: "Application"
+      aria_label: "Open settings"
+      
+    - shortcut: "Ctrl+S / Cmd+S"
+      action: "Save project"
+      scope: "Application"
+      aria_label: "Save project"
+      
+  canvas_shortcuts:
+    - shortcut: "Arrow keys"
+      action: "Move selected component (1px)"
+      scope: "Canvas"
+      modifier: "Shift+Arrow = 10px"
+      
+    - shortcut: "Delete / Backspace"
+      action: "Delete selected component"
+      scope: "Canvas"
+      confirmation: "Required"
+      
+    - shortcut: "Ctrl+C / Cmd+C"
+      action: "Copy selected component"
+      scope: "Canvas"
+      
+    - shortcut: "Ctrl+V / Cmd+V"
+      action: "Paste component"
+      scope: "Canvas"
+      
+    - shortcut: "Ctrl+Z / Cmd+Z"
+      action: "Undo last action"
+      scope: "Canvas"
+      status: "Future enhancement"
+      
+    - shortcut: "Ctrl+Shift+Z / Cmd+Shift+Z"
+      action: "Redo last action"
+      scope: "Canvas"
+      status: "Future enhancement"
+      
+  focus_order:
+    description: "Logical focus order through interface"
+    
+    order:
+      - element: "Skip to main content link"
+        position: 1
+        
+      - element: "Project selector"
+        position: 2
+        
+      - element: "Sidebar collapse button"
+        position: 3
+        
+      - element: "Create component button"
+        position: 4
+        
+      - element: "Library button"
+        position: 5
+        
+      - element: "Settings button"
+        position: 6
+        
+      - element: "Help button"
+        position: 7
+        
+      - element: "Canvas (main content)"
+        position: 8
+        
+      - element: "Canvas components (in order)"
+        position: 9
+        
+      - element: "Canvas controls"
+        position: 10
+
+# ============================================================================
+# SECTION 3: SCREEN READER SUPPORT
+# ============================================================================
+
+screen_reader_support:
+  aria_labels:
+    application_level:
+      - element: "main"
+        role: "main"
+        aria_label: "Visual Canvas Tool Application"
+        
+      - element: "header"
+        role: "banner"
+        aria_label: "Application header"
+        
+      - element: "nav (sidebar)"
+        role: "navigation"
+        aria_label: "Main navigation"
+        
+      - element: "main content area"
+        role: "main"
+        aria_label: "Canvas workspace"
+        
+    interactive_elements:
+      - element: "Project selector button"
+        aria_label: "Select project"
+        aria_haspopup: "listbox"
+        aria_expanded: "false / true"
+        
+      - element: "Sidebar collapse button"
+        aria_label: "Collapse sidebar / Expand sidebar"
+        aria_pressed: "false / true"
+        
+      - element: "Create component button"
+        aria_label: "Create new component"
+        
+      - element: "Library button"
+        aria_label: "Open component library"
+        aria_current: "page (when active)"
+        
+      - element: "Settings button"
+        aria_label: "Open settings"
+        aria_current: "page (when active)"
+        
+      - element: "Canvas component"
+        aria_label: "{componentType} component: {componentName}"
+        aria_selected: "false / true"
+        role: "button"
+        tabindex: "0"
+        
+  live_regions:
+    description: "Announce dynamic changes to screen readers"
+    
+    use_cases:
+      - use_case: "Component created"
+        aria_live: "polite"
+        message: "{componentType} component created"
+        
+      - use_case: "Component deleted"
+        aria_live: "polite"
+        message: "{componentType} component deleted"
+        
+      - use_case: "Project switched"
+        aria_live: "polite"
+        message: "Switched to project {projectName}"
+        
+      - use_case: "Error occurred"
+        aria_live: "assertive"
+        message: "Error: {errorMessage}"
+        
+  screen_reader_only_text:
+    description: "Text visible only to screen readers"
+    
+    implementation: |
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+      
+    use_cases:
+      - use_case: "Skip to main content"
+        text: "Skip to main content"
+        
+      - use_case: "Icon buttons"
+        text: "Create component (icon-only button)"
+        
+      - use_case: "Status indicators"
+        text: "Active (for active navigation item)"
+
+# ============================================================================
+# SECTION 4: VISUAL ACCESSIBILITY
+# ============================================================================
+
+visual_accessibility:
+  color_contrast:
+    description: "Ensure sufficient contrast for readability"
+    
+    text_contrast:
+      - text: "Primary text on primary background"
+        foreground: "#e6edf3"
+        background: "#0d1117"
+        ratio: "12.6:1"
+        requirement: "4.5:1 (AA)"
+        status: "Pass"
+        
+      - text: "Secondary text on primary background"
+        foreground: "#8b949e"
+        background: "#0d1117"
+        ratio: "5.8:1"
+        requirement: "4.5:1 (AA)"
+        status: "Pass"
+        
+      - text: "Accent text on primary background"
+        foreground: "#7c9885"
+        background: "#0d1117"
+        ratio: "4.9:1"
+        requirement: "4.5:1 (AA)"
+        status: "Pass"
+        
+      - text: "Button text on accent background"
+        foreground: "#ffffff"
+        background: "#7c9885"
+        ratio: "4.2:1"
+        requirement: "4.5:1 (AA)"
+        status: "Borderline - may need adjustment"
+        
+    non_text_contrast:
+      - element: "Focus indicator"
+        foreground: "#7c9885"
+        background: "#0d1117"
+        ratio: "4.9:1"
+        requirement: "3:1 (AA)"
+        status: "Pass"
+        
+      - element: "Button border"
+        foreground: "#30363d"
+        background: "#0d1117"
+        ratio: "2.4:1"
+        requirement: "3:1 (AA)"
+        status: "Fail - needs darker border or different approach"
+        
+  focus_indicators:
+    description: "Visible focus indicators for keyboard navigation"
+    
+    default_focus:
+      outline: "2px solid var(--accent-primary)"
+      outline_offset: "2px"
+      border_radius: "var(--radius-md)"
+      
+    custom_focus:
+      buttons: "2px solid #7c9885, box-shadow: 0 0 0 3px rgba(124, 152, 133, 0.2)"
+      inputs: "2px solid #7c9885, box-shadow: 0 0 0 3px rgba(124, 152, 133, 0.2)"
+      canvas_components: "3px solid #7c9885, box-shadow: 0 0 8px rgba(124, 152, 133, 0.4)"
+      
+    implementation: |
+      /* Remove default outline */
+      *:focus {
+        outline: none;
+      }
+      
+      /* Add custom focus indicator */
+      *:focus-visible {
+        outline: 2px solid var(--accent-primary);
+        outline-offset: 2px;
+        border-radius: var(--radius-md);
+      }
+      
+      /* Enhanced focus for interactive elements */
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible {
+        outline: 2px solid var(--accent-primary);
+        box-shadow: 0 0 0 3px var(--accent-subtle);
+      }
+      
+  reduced_motion:
+    description: "Respect user's motion preferences"
+    
+    implementation: |
+      /* Disable animations for users who prefer reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+      
+    affected_animations:
+      - "Sidebar collapse/expand"
+      - "Modal fade in/out"
+      - "Dropdown slide"
+      - "Component drag feedback"
+      - "Hover transitions"
+      
+  font_sizing:
+    description: "Support browser font size adjustments"
+    
+    strategy: "Use rem units for font sizes"
+    
+    implementation: |
+      /* Base font size */
+      html {
+        font-size: 16px; /* User can override in browser settings */
+      }
+      
+      /* Use rem for all font sizes */
+      .text-xs { font-size: 0.75rem; }  /* 12px */
+      .text-sm { font-size: 0.875rem; } /* 14px */
+      .text-base { font-size: 1rem; }   /* 16px */
+      .text-lg { font-size: 1.125rem; } /* 18px */
+      .text-xl { font-size: 1.25rem; }  /* 20px */
+      
+    zoom_support:
+      description: "Support browser zoom up to 200%"
+      requirement: "WCAG 2.1 Level AA"
+      testing: "Test at 100%, 150%, 200% zoom"
+
+# ============================================================================
+# SECTION 5: MOTOR DISABILITY SUPPORT
+# ============================================================================
+
+motor_disability_support:
+  large_touch_targets:
+    description: "Ensure touch targets are large enough"
+    
+    minimum_size: "44x44px"
+    recommended_size: "48x48px"
+    
+    implementation:
+      buttons: "min-height: 44px, min-width: 44px, padding: 12px"
+      links: "min-height: 44px, padding: 12px"
+      inputs: "min-height: 44px, padding: 12px"
+      
+  click_tolerance:
+    description: "Forgiving click/tap areas"
+    
+    strategies:
+      - strategy: "Padding around clickable elements"
+        implementation: "Add padding to increase clickable area"
+        
+      - strategy: "Larger hit areas than visual size"
+        implementation: "Use ::before or ::after pseudo-elements"
+        
+  drag_alternatives:
+    description: "Provide alternatives to drag interactions"
+    
+    alternatives:
+      - interaction: "Drag component"
+        alternative: "Select component, use arrow keys to move"
+        
+      - interaction: "Resize component"
+        alternative: "Select component, use input fields to set size"
+        
+      - interaction: "Pan canvas"
+        alternative: "Use pan buttons (up, down, left, right)"
+        
+  timeout_handling:
+    description: "No time limits on interactions"
+    
+    principle: "Users can take as long as needed"
+    
+    exceptions:
+      - exception: "Session timeout"
+        duration: "30 minutes"
+        warning: "5 minutes before timeout"
+        extension: "User can extend session"
+
+# ============================================================================
+# SECTION 6: COGNITIVE ACCESSIBILITY
+# ============================================================================
+
+cognitive_accessibility:
+  clear_language:
+    description: "Use simple, clear language"
+    
+    guidelines:
+      - "Use common words"
+      - "Avoid jargon"
+      - "Keep sentences short"
+      - "Use active voice"
+      - "Provide examples"
+      
+  consistent_design:
+    description: "Consistent UI patterns throughout"
+    
+    consistency:
+      - "Buttons always look like buttons"
+      - "Navigation always in same location"
+      - "Colors have consistent meaning"
+      - "Icons have consistent meaning"
+      
+  error_prevention:
+    description: "Prevent errors before they happen"
+    
+    strategies:
+      - strategy: "Confirmation dialogs"
+        use_case: "Delete project, delete component"
+        
+      - strategy: "Validation"
+        use_case: "Form inputs, component properties"
+        
+      - strategy: "Undo functionality"
+        use_case: "Component actions"
+        status: "Future enhancement"
+        
+  help_and_documentation:
+    description: "Provide help when needed"
+    
+    help_features:
+      - feature: "Tooltips"
+        trigger: "Hover or focus"
+        content: "Brief description of element"
+        
+      - feature: "Help button"
+        location: "Sidebar"
+        content: "Link to documentation"
+        
+      - feature: "Onboarding"
+        trigger: "First time user"
+        content: "Interactive tutorial"
+        status: "Future enhancement"
+
+# ============================================================================
+# SECTION 7: USE CASE SCENARIOS
+# ============================================================================
+
+accessibility_scenarios:
+  scenario_1_keyboard_only_user:
+    description: "User with motor disability using only keyboard"
+    
+    user_flow:
+      - step: 1
+        action: "User presses Tab to navigate"
+        result: "Focus moves to project selector"
+        
+      - step: 2
+        action: "User presses Enter to open dropdown"
+        result: "Dropdown opens, focus moves to first project"
+        
+      - step: 3
+        action: "User presses Arrow Down to navigate projects"
+        result: "Focus moves through project list"
+        
+      - step: 4
+        action: "User presses Enter to select project"
+        result: "Project selected, dropdown closes, canvas loads"
+        
+      - step: 5
+        action: "User presses Ctrl+N to create component"
+        result: "Component creator modal opens, focus on first field"
+        
+      - step: 6
+        action: "User fills form and presses Enter"
+        result: "Component created, modal closes, focus on new component"
+        
+      - step: 7
+        action: "User presses Arrow keys to move component"
+        result: "Component moves 1px per key press"
+        
+  scenario_2_screen_reader_user:
+    description: "Blind user using screen reader (NVDA/JAWS)"
+    
+    user_flow:
+      - step: 1
+        action: "User navigates to app"
+        announcement: "Visual Canvas Tool Application, main landmark"
+        
+      - step: 2
+        action: "User presses H to navigate by headings"
+        announcement: "Visual Canvas Tool, heading level 1"
+        
+      - step: 3
+        action: "User presses Tab to navigate"
+        announcement: "Select project, button, collapsed"
+        
+      - step: 4
+        action: "User presses Enter to activate"
+        announcement: "Select project, button, expanded"
+        
+      - step: 5
+        action: "User presses Arrow Down"
+        announcement: "My Project, 1 of 3"
+        
+      - step: 6
+        action: "User presses Enter to select"
+        announcement: "Switched to project My Project"
+        
+  scenario_3_low_vision_user:
+    description: "User with low vision using 200% zoom and high contrast"
+    
+    user_flow:
+      - step: 1
+        action: "User zooms browser to 200%"
+        result: "UI scales proportionally, no horizontal scroll"
+        
+      - step: 2
+        action: "User enables high contrast mode"
+        result: "Colors adjust to high contrast theme"
+        
+      - step: 3
+        action: "User navigates with Tab"
+        result: "Focus indicator clearly visible (3px outline)"
+        
+      - step: 4
+        action: "User reads text"
+        result: "Text remains readable at 200% zoom"
+

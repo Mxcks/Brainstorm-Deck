@@ -1,0 +1,441 @@
+# ============================================================================
+# VISUAL CANVAS TOOL - RESPONSIVE BEHAVIOR DETAILED SPECIFICATION
+# ============================================================================
+# Purpose: Comprehensive responsive design patterns and multi-device support
+# Created: 2025-09-30
+# Version: 1.0.0
+# ============================================================================
+
+# ============================================================================
+# SECTION 1: BREAKPOINT SYSTEM
+# ============================================================================
+
+breakpoint_system:
+  breakpoints:
+    mobile_small:
+      range: "< 480px"
+      description: "Small phones (iPhone SE, etc.)"
+      typical_devices: ["iPhone SE", "Small Android phones"]
+      
+    mobile:
+      range: "480px - 767px"
+      description: "Standard phones"
+      typical_devices: ["iPhone 12/13/14", "Standard Android phones"]
+      
+    tablet_portrait:
+      range: "768px - 1023px"
+      description: "Tablets in portrait mode"
+      typical_devices: ["iPad portrait", "Android tablets portrait"]
+      
+    tablet_landscape:
+      range: "1024px - 1279px"
+      description: "Tablets in landscape mode, small laptops"
+      typical_devices: ["iPad landscape", "Small laptops"]
+      
+    desktop:
+      range: "1280px - 1919px"
+      description: "Standard desktop monitors"
+      typical_devices: ["Standard monitors", "Laptops"]
+      
+    desktop_large:
+      range: ">= 1920px"
+      description: "Large desktop monitors"
+      typical_devices: ["4K monitors", "Ultra-wide monitors"]
+      
+  css_implementation:
+    media_queries: |
+      /* Mobile Small */
+      @media (max-width: 479px) { }
+      
+      /* Mobile */
+      @media (min-width: 480px) and (max-width: 767px) { }
+      
+      /* Tablet Portrait */
+      @media (min-width: 768px) and (max-width: 1023px) { }
+      
+      /* Tablet Landscape */
+      @media (min-width: 1024px) and (max-width: 1279px) { }
+      
+      /* Desktop */
+      @media (min-width: 1280px) and (max-width: 1919px) { }
+      
+      /* Desktop Large */
+      @media (min-width: 1920px) { }
+
+# ============================================================================
+# SECTION 2: COMPONENT RESPONSIVE BEHAVIOR
+# ============================================================================
+
+component_responsive_behavior:
+  top_header:
+    mobile_small:
+      height: "50px"
+      padding: "0 12px"
+      title_font_size: "16px"
+      title_display: "abbreviated ('VC Tool')"
+      project_selector_width: "120px"
+      hamburger_menu: true
+      
+    mobile:
+      height: "50px"
+      padding: "0 16px"
+      title_font_size: "18px"
+      title_display: "abbreviated ('Visual Canvas')"
+      project_selector_width: "150px"
+      hamburger_menu: true
+      
+    tablet_portrait:
+      height: "55px"
+      padding: "0 20px"
+      title_font_size: "19px"
+      title_display: "full"
+      project_selector_width: "180px"
+      hamburger_menu: false
+      
+    tablet_landscape:
+      height: "60px"
+      padding: "0 24px"
+      title_font_size: "20px"
+      title_display: "full"
+      project_selector_width: "200px"
+      hamburger_menu: false
+      
+    desktop:
+      height: "60px"
+      padding: "0 24px"
+      title_font_size: "20px"
+      title_display: "full"
+      project_selector_width: "220px"
+      hamburger_menu: false
+      
+  left_sidebar:
+    mobile_small:
+      default_state: "hidden"
+      behavior: "overlay (slides over canvas)"
+      width_expanded: "240px"
+      backdrop: "rgba(0, 0, 0, 0.5)"
+      close_on_selection: true
+      open_trigger: "hamburger menu button"
+      animation: "slide-in from left"
+      
+    mobile:
+      default_state: "hidden"
+      behavior: "overlay"
+      width_expanded: "240px"
+      backdrop: "rgba(0, 0, 0, 0.5)"
+      close_on_selection: true
+      open_trigger: "hamburger menu button"
+      animation: "slide-in from left"
+      
+    tablet_portrait:
+      default_state: "collapsed"
+      behavior: "push (pushes canvas)"
+      width_collapsed: "60px"
+      width_expanded: "200px"
+      backdrop: "none"
+      close_on_selection: false
+      animation: "width transition"
+      
+    tablet_landscape:
+      default_state: "expanded"
+      behavior: "push"
+      width_collapsed: "60px"
+      width_expanded: "220px"
+      backdrop: "none"
+      close_on_selection: false
+      animation: "width transition"
+      
+    desktop:
+      default_state: "expanded"
+      behavior: "push"
+      width_collapsed: "60px"
+      width_expanded: "240px"
+      backdrop: "none"
+      close_on_selection: false
+      animation: "width transition"
+      
+  canvas:
+    mobile_small:
+      width: "100vw"
+      height: "calc(100vh - 50px)"
+      grid_size: "10px"
+      zoom_controls: "simplified (buttons only)"
+      pan_method: "touch (two-finger)"
+      zoom_method: "pinch"
+      component_min_size: "60x40px"
+      
+    mobile:
+      width: "100vw"
+      height: "calc(100vh - 50px)"
+      grid_size: "15px"
+      zoom_controls: "simplified"
+      pan_method: "touch"
+      zoom_method: "pinch"
+      component_min_size: "60x40px"
+      
+    tablet_portrait:
+      width: "calc(100vw - 60px)"
+      height: "calc(100vh - 55px)"
+      grid_size: "20px"
+      zoom_controls: "full"
+      pan_method: "touch or mouse"
+      zoom_method: "pinch or wheel"
+      component_min_size: "80x40px"
+      
+    tablet_landscape:
+      width: "calc(100vw - 220px)"
+      height: "calc(100vh - 60px)"
+      grid_size: "20px"
+      zoom_controls: "full"
+      pan_method: "touch or mouse"
+      zoom_method: "pinch or wheel"
+      component_min_size: "100x40px"
+      
+    desktop:
+      width: "calc(100vw - 240px)"
+      height: "calc(100vh - 60px)"
+      grid_size: "20px"
+      zoom_controls: "full"
+      pan_method: "mouse (Alt+drag)"
+      zoom_method: "wheel"
+      component_min_size: "120x40px"
+
+# ============================================================================
+# SECTION 3: TOUCH VS MOUSE INTERACTIONS
+# ============================================================================
+
+interaction_patterns:
+  touch_devices:
+    description: "Tablets and phones with touch screens"
+    
+    gestures:
+      - gesture: "Tap"
+        action: "Select component"
+        equivalent: "Click"
+        
+      - gesture: "Long press"
+        action: "Open context menu"
+        equivalent: "Right-click"
+        duration: "500ms"
+        
+      - gesture: "Drag"
+        action: "Move component"
+        equivalent: "Click and drag"
+        
+      - gesture: "Two-finger drag"
+        action: "Pan canvas"
+        equivalent: "Alt+drag"
+        
+      - gesture: "Pinch"
+        action: "Zoom canvas"
+        equivalent: "Mouse wheel"
+        
+      - gesture: "Double tap"
+        action: "Edit component"
+        equivalent: "Double-click"
+        
+    considerations:
+      - consideration: "Touch targets"
+        requirement: "Minimum 44x44px"
+        reason: "Finger size, accessibility"
+        implementation: "Increase button padding on touch devices"
+        
+      - consideration: "Hover states"
+        behavior: "No hover on touch devices"
+        solution: "Use active/focus states instead"
+        
+      - consideration: "Drag feedback"
+        behavior: "Show visual feedback during drag"
+        implementation: "Increase component opacity, show shadow"
+        
+  mouse_devices:
+    description: "Desktop computers with mouse"
+    
+    interactions:
+      - interaction: "Click"
+        action: "Select component"
+        
+      - interaction: "Right-click"
+        action: "Open context menu"
+        
+      - interaction: "Click and drag"
+        action: "Move component"
+        
+      - interaction: "Alt+drag"
+        action: "Pan canvas"
+        
+      - interaction: "Mouse wheel"
+        action: "Zoom canvas"
+        
+      - interaction: "Double-click"
+        action: "Edit component"
+        
+      - interaction: "Hover"
+        action: "Show tooltips, highlight"
+        
+    considerations:
+      - consideration: "Hover states"
+        behavior: "Show on mouse over"
+        implementation: "CSS :hover, onMouseEnter/Leave"
+        
+      - consideration: "Cursor changes"
+        behavior: "Change cursor based on action"
+        cursors: ["default", "pointer", "grab", "grabbing", "move", "text"]
+        
+  hybrid_devices:
+    description: "Devices with both touch and mouse (Surface, iPad with mouse)"
+    
+    strategy: "Support both interaction methods simultaneously"
+    implementation: |
+      // Detect input method dynamically
+      const [inputMethod, setInputMethod] = useState<'touch' | 'mouse'>('mouse');
+      
+      useEffect(() => {
+        const handleTouchStart = () => setInputMethod('touch');
+        const handleMouseMove = () => setInputMethod('mouse');
+        
+        window.addEventListener('touchstart', handleTouchStart);
+        window.addEventListener('mousemove', handleMouseMove);
+        
+        return () => {
+          window.removeEventListener('touchstart', handleTouchStart);
+          window.removeEventListener('mousemove', handleMouseMove);
+        };
+      }, []);
+
+# ============================================================================
+# SECTION 4: ORIENTATION CHANGES
+# ============================================================================
+
+orientation_handling:
+  portrait_to_landscape:
+    description: "Device rotates from portrait to landscape"
+    
+    use_cases:
+      - use_case: "Tablet rotation"
+        trigger: "User rotates tablet"
+        changes:
+          - "Sidebar may expand (if collapsed in portrait)"
+          - "Canvas width increases"
+          - "More horizontal space for components"
+        implementation: |
+          useEffect(() => {
+            const handleOrientationChange = () => {
+              const isLandscape = window.innerWidth > window.innerHeight;
+              
+              if (isLandscape && window.innerWidth >= 1024) {
+                setSidebarCollapsed(false);
+              }
+            };
+            
+            window.addEventListener('orientationchange', handleOrientationChange);
+            window.addEventListener('resize', handleOrientationChange);
+            
+            return () => {
+              window.removeEventListener('orientationchange', handleOrientationChange);
+              window.removeEventListener('resize', handleOrientationChange);
+            };
+          }, []);
+          
+  landscape_to_portrait:
+    description: "Device rotates from landscape to portrait"
+    
+    use_cases:
+      - use_case: "Tablet rotation"
+        trigger: "User rotates tablet"
+        changes:
+          - "Sidebar may collapse (to save space)"
+          - "Canvas width decreases"
+        behavior: "Collapse sidebar automatically on tablets in portrait"
+
+# ============================================================================
+# SECTION 5: USE CASE SCENARIOS
+# ============================================================================
+
+use_case_scenarios:
+  scenario_1_mobile_user:
+    device: "iPhone 13"
+    screen_size: "390x844px"
+    orientation: "portrait"
+    
+    user_flow:
+      - step: 1
+        action: "User opens app"
+        ui_state: "Header visible, sidebar hidden, canvas full width"
+        
+      - step: 2
+        action: "User taps hamburger menu"
+        ui_state: "Sidebar slides in from left, backdrop appears"
+        
+      - step: 3
+        action: "User taps 'Create Component'"
+        ui_state: "Sidebar closes, component creator modal opens"
+        
+      - step: 4
+        action: "User creates button"
+        ui_state: "Modal closes, button appears on canvas"
+        
+      - step: 5
+        action: "User drags button with finger"
+        ui_state: "Button follows finger, visual feedback"
+        
+      - step: 6
+        action: "User pinches to zoom"
+        ui_state: "Canvas zooms in/out smoothly"
+        
+  scenario_2_tablet_user:
+    device: "iPad Pro"
+    screen_size: "1024x1366px"
+    orientation: "landscape"
+    
+    user_flow:
+      - step: 1
+        action: "User opens app"
+        ui_state: "Header visible, sidebar expanded (220px), canvas fills remaining space"
+        
+      - step: 2
+        action: "User clicks 'Create Component'"
+        ui_state: "Component creator modal opens (centered)"
+        
+      - step: 3
+        action: "User creates input field"
+        ui_state: "Modal closes, input appears on canvas"
+        
+      - step: 4
+        action: "User drags input with mouse"
+        ui_state: "Input follows cursor, cursor changes to 'grabbing'"
+        
+      - step: 5
+        action: "User rotates to portrait"
+        ui_state: "Sidebar collapses to 60px, canvas width increases"
+        
+  scenario_3_desktop_user:
+    device: "Desktop PC"
+    screen_size: "1920x1080px"
+    orientation: "landscape"
+    
+    user_flow:
+      - step: 1
+        action: "User opens app"
+        ui_state: "Header visible, sidebar expanded (240px), canvas fills remaining space"
+        
+      - step: 2
+        action: "User hovers over 'Create Component' button"
+        ui_state: "Button background changes, cursor changes to pointer"
+        
+      - step: 3
+        action: "User clicks 'Create Component'"
+        ui_state: "Component creator modal opens"
+        
+      - step: 4
+        action: "User creates form"
+        ui_state: "Modal closes, form appears on canvas"
+        
+      - step: 5
+        action: "User Alt+drags canvas"
+        ui_state: "Canvas pans, cursor changes to 'grab'"
+        
+      - step: 6
+        action: "User scrolls mouse wheel"
+        ui_state: "Canvas zooms in/out"
+

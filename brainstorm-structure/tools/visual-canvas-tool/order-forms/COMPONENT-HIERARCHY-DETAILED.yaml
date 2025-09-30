@@ -1,0 +1,590 @@
+# ============================================================================
+# VISUAL CANVAS TOOL - COMPONENT HIERARCHY DETAILED SPECIFICATION
+# ============================================================================
+# Purpose: Comprehensive component relationships, data flow, and communication patterns
+# Created: 2025-09-30
+# Version: 1.0.0
+# ============================================================================
+
+# ============================================================================
+# SECTION 1: COMPLETE COMPONENT TREE
+# ============================================================================
+
+component_tree:
+  root:
+    component: "App"
+    file: "src/App.tsx"
+    responsibility: "Root application state and routing"
+    
+    children:
+      - component: "TopHeader"
+        file: "src/components/layout/TopHeader.tsx"
+        responsibility: "Application title and project management"
+        
+        children:
+          - component: "ProjectManager"
+            file: "src/components/projects/ProjectManager.tsx"
+            responsibility: "Project selection, creation, deletion"
+            
+            children:
+              - component: "ProjectDropdown"
+                responsibility: "Dropdown menu for projects"
+                
+                children:
+                  - component: "ProjectList"
+                    responsibility: "List of all projects"
+                    
+                    children:
+                      - component: "ProjectItem"
+                        responsibility: "Individual project in list"
+                        props: ["project", "isActive", "onSelect", "onDelete"]
+                        
+                  - component: "NewProjectForm"
+                    responsibility: "Form to create new project"
+                    
+                    children:
+                      - component: "TextInput"
+                        responsibility: "Project name input"
+                      - component: "FormButtons"
+                        responsibility: "Create/Cancel buttons"
+                        
+      - component: "LeftSidebar"
+        file: "src/components/layout/LeftSidebar.tsx"
+        responsibility: "Navigation and view switching"
+        
+        children:
+          - component: "CollapseButton"
+            responsibility: "Toggle sidebar collapse"
+            
+          - component: "NavigationButton"
+            responsibility: "Reusable navigation button"
+            instances:
+              - "CreateComponentButton"
+              - "LibraryButton"
+              - "SettingsButton"
+              - "HelpButton"
+              
+          - component: "Tooltip"
+            responsibility: "Show button labels when collapsed"
+            conditional: "Only rendered when sidebar is collapsed"
+            
+      - component: "MainContent"
+        file: "src/components/layout/MainContent.tsx"
+        responsibility: "Render active view based on state"
+        
+        children:
+          - component: "Canvas"
+            file: "src/components/canvas/Canvas.tsx"
+            responsibility: "Main canvas workspace for UI components"
+            conditional: "Rendered when activeView === 'canvas'"
+            
+            children:
+              - component: "CanvasViewport"
+                responsibility: "Transformable viewport (pan/zoom)"
+                
+                children:
+                  - component: "CanvasGrid"
+                    responsibility: "Background grid"
+                    
+                  - component: "CanvasComponent"
+                    file: "src/components/canvas/CanvasComponent.tsx"
+                    responsibility: "Individual UI component on canvas"
+                    instances: "Multiple (one per component in project)"
+                    
+                    children:
+                      - component: "ComponentRenderer"
+                        responsibility: "Render actual UI component (button, input, etc.)"
+                        
+                      - component: "SelectionHandles"
+                        responsibility: "Resize handles when selected"
+                        conditional: "Only when component is selected"
+                        
+              - component: "CanvasControls"
+                responsibility: "Canvas control buttons"
+                
+                children:
+                  - component: "ZoomInfo"
+                    responsibility: "Display current zoom level"
+                  - component: "ResetViewButton"
+                    responsibility: "Reset pan/zoom to default"
+                    
+          - component: "Library"
+            file: "src/components/library/Library.tsx"
+            responsibility: "Component library view"
+            conditional: "Rendered when activeView === 'library'"
+            status: "To be implemented"
+            
+          - component: "Settings"
+            file: "src/components/settings/Settings.tsx"
+            responsibility: "Settings view"
+            conditional: "Rendered when activeView === 'settings'"
+            status: "To be implemented"
+            
+      - component: "ComponentCreator"
+        file: "src/components/creator/ComponentCreator.tsx"
+        responsibility: "Modal for creating new UI components"
+        conditional: "Rendered when creatorOpen === true"
+        status: "To be implemented"
+        
+        children:
+          - component: "CreatorModal"
+            responsibility: "Modal container"
+            
+            children:
+              - component: "CreatorForm"
+                responsibility: "Form for component properties"
+                
+                children:
+                  - component: "TypeSelector"
+                    responsibility: "Select component type (button, input, etc.)"
+                  - component: "PropertyEditor"
+                    responsibility: "Edit component properties"
+                  - component: "PreviewPanel"
+                    responsibility: "Live preview of component"
+
+# ============================================================================
+# SECTION 2: DATA FLOW PATTERNS
+# ============================================================================
+
+data_flow_patterns:
+  pattern_1_top_down_props:
+    name: "Top-Down Props Flow"
+    description: "Data flows from parent to child via props"
+    
+    use_cases:
+      - use_case: "Project data to Canvas"
+        flow: "App → Canvas"
+        data: "currentProject"
+        reason: "Canvas needs project data to render components"
+        
+      - use_case: "Sidebar state to buttons"
+        flow: "App → LeftSidebar → NavigationButton"
+        data: "collapsed, activeView"
+        reason: "Buttons need to know if sidebar is collapsed and which view is active"
+        
+      - use_case: "Component data to renderer"
+        flow: "Canvas → CanvasComponent → ComponentRenderer"
+        data: "component properties (colors, sizes, etc.)"
+        reason: "Renderer needs properties to display component correctly"
+        
+    implementation:
+      code: |
+        // Parent (App)
+        <Canvas currentProject={currentProject} />
+        
+        // Child (Canvas)
+        const Canvas: React.FC<{ currentProject: Project }> = ({ currentProject }) => {
+          return <div>{/* Use currentProject */}</div>
+        }
+        
+  pattern_2_callback_props:
+    name: "Callback Props (Child to Parent Communication)"
+    description: "Child components call parent functions via callback props"
+    
+    use_cases:
+      - use_case: "Project selection"
+        flow: "ProjectItem → ProjectManager → TopHeader → App"
+        callback: "onProjectChange(project)"
+        reason: "User selects project, needs to update App state"
+        
+      - use_case: "Sidebar collapse toggle"
+        flow: "CollapseButton → LeftSidebar → App"
+        callback: "onToggleCollapse()"
+        reason: "User clicks collapse button, needs to update App state"
+        
+      - use_case: "Component update"
+        flow: "CanvasComponent → Canvas → App"
+        callback: "onComponentUpdate(componentId, updates)"
+        reason: "User drags component, needs to update project data"
+        
+      - use_case: "View change"
+        flow: "NavigationButton → LeftSidebar → App"
+        callback: "onViewChange(view)"
+        reason: "User clicks Library button, needs to switch view"
+        
+    implementation:
+      code: |
+        // Parent (App)
+        const handleProjectChange = (project: Project) => {
+          setCurrentProject(project);
+        };
+        <TopHeader onProjectChange={handleProjectChange} />
+        
+        // Child (TopHeader)
+        <ProjectManager onProjectChange={onProjectChange} />
+        
+        // Grandchild (ProjectManager)
+        <ProjectItem onClick={() => onProjectChange(project)} />
+        
+  pattern_3_state_lifting:
+    name: "State Lifting"
+    description: "State is lifted to common ancestor when multiple components need it"
+    
+    use_cases:
+      - use_case: "Sidebar collapsed state"
+        shared_by: ["LeftSidebar", "Canvas", "Library", "Settings"]
+        lifted_to: "App"
+        reason: "Canvas width depends on sidebar state, so state must be in App"
+        
+      - use_case: "Active view state"
+        shared_by: ["LeftSidebar", "MainContent"]
+        lifted_to: "App"
+        reason: "Sidebar buttons need to know active view, MainContent needs to render correct view"
+        
+      - use_case: "Current project state"
+        shared_by: ["TopHeader", "Canvas", "Library"]
+        lifted_to: "App"
+        reason: "Multiple components need access to current project"
+        
+    implementation:
+      code: |
+        // App (common ancestor)
+        const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+        
+        <LeftSidebar 
+          collapsed={sidebarCollapsed}
+          onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
+        />
+        <Canvas sidebarCollapsed={sidebarCollapsed} />
+        
+  pattern_4_derived_state:
+    name: "Derived State"
+    description: "State computed from other state, not stored separately"
+    
+    use_cases:
+      - use_case: "Canvas width"
+        derived_from: "sidebarCollapsed"
+        calculation: "sidebarCollapsed ? 'calc(100vw - 60px)' : 'calc(100vw - 240px)'"
+        reason: "Canvas width depends on sidebar state, no need to store separately"
+        
+      - use_case: "Active button styling"
+        derived_from: "activeView"
+        calculation: "button.view === activeView ? 'active' : ''"
+        reason: "Button appearance depends on active view"
+        
+      - use_case: "Component count"
+        derived_from: "currentProject.canvasState.components"
+        calculation: "currentProject.canvasState.components.length"
+        reason: "Count is always current, no need to store separately"
+        
+    implementation:
+      code: |
+        // Don't do this (storing derived state)
+        const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+        const [canvasWidth, setCanvasWidth] = useState('calc(100vw - 240px)');
+        
+        // Do this (compute derived state)
+        const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+        const canvasWidth = sidebarCollapsed ? 'calc(100vw - 60px)' : 'calc(100vw - 240px)';
+        
+  pattern_5_event_bubbling:
+    name: "Event Bubbling"
+    description: "Events bubble up from child to parent"
+    
+    use_cases:
+      - use_case: "Component drag"
+        flow: "CanvasComponent (mousedown) → document (mousemove) → CanvasComponent (update)"
+        reason: "Drag events need to work even when mouse leaves component"
+        
+      - use_case: "Canvas pan"
+        flow: "Canvas (mousedown) → document (mousemove) → Canvas (update viewport)"
+        reason: "Pan needs to work even when mouse leaves canvas"
+        
+      - use_case: "Click outside to close"
+        flow: "document (click) → check if click is outside dropdown → close dropdown"
+        reason: "Dropdown should close when clicking outside"
+        
+    implementation:
+      code: |
+        // Component drag with event bubbling
+        const handleMouseDown = (e: React.MouseEvent) => {
+          const handleMouseMove = (e: MouseEvent) => {
+            // Update position
+          };
+          const handleMouseUp = () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+          };
+          document.addEventListener('mousemove', handleMouseMove);
+          document.addEventListener('mouseup', handleMouseUp);
+        };
+
+# ============================================================================
+# SECTION 3: COMPONENT COMMUNICATION PATTERNS
+# ============================================================================
+
+component_communication:
+  sibling_communication:
+    description: "Siblings communicate through common parent"
+    
+    use_cases:
+      - use_case: "Sidebar button click affects Canvas"
+        siblings: ["LeftSidebar", "Canvas"]
+        common_parent: "App"
+        flow: "LeftSidebar → App (state update) → Canvas (re-render with new props)"
+        example: "User clicks Library button, Canvas unmounts, Library mounts"
+        
+      - use_case: "Project selection affects Canvas"
+        siblings: ["TopHeader", "Canvas"]
+        common_parent: "App"
+        flow: "TopHeader → App (state update) → Canvas (re-render with new project)"
+        example: "User selects different project, Canvas shows new project's components"
+        
+    anti_pattern: "Don't use refs or events to communicate between siblings"
+    
+  parent_child_communication:
+    description: "Parent passes props, child calls callbacks"
+    
+    use_cases:
+      - use_case: "Parent controls child state"
+        pattern: "Controlled component"
+        example: "App controls LeftSidebar collapsed state"
+        implementation: |
+          // Parent
+          const [collapsed, setCollapsed] = useState(false);
+          <LeftSidebar collapsed={collapsed} onToggleCollapse={() => setCollapsed(!collapsed)} />
+          
+          // Child
+          <button onClick={onToggleCollapse}>{collapsed ? '▶' : '◀'}</button>
+          
+      - use_case: "Child manages own state"
+        pattern: "Uncontrolled component"
+        example: "ProjectDropdown manages its own open/closed state"
+        implementation: |
+          // Child manages own state
+          const [isOpen, setIsOpen] = useState(false);
+          <button onClick={() => setIsOpen(!isOpen)}>Toggle</button>
+          
+    best_practice: "Use controlled components for state that affects other components"
+    
+  deep_prop_drilling:
+    description: "Props passed through multiple levels"
+    
+    use_cases:
+      - use_case: "Project data to CanvasComponent"
+        levels: "App → Canvas → CanvasViewport → CanvasComponent"
+        data: "onComponentUpdate callback"
+        problem: "Intermediate components don't use the prop"
+        
+    solutions:
+      - solution: "Context API"
+        when: "Data needed by many deeply nested components"
+        example: "Theme, user preferences"
+        
+      - solution: "Component composition"
+        when: "Can restructure to avoid drilling"
+        example: "Pass components as children"
+        
+      - solution: "Accept prop drilling"
+        when: "Only 2-3 levels, clear data flow"
+        example: "Current implementation is fine"
+
+# ============================================================================
+# SECTION 4: STATE UPDATE PATTERNS
+# ============================================================================
+
+state_update_patterns:
+  synchronous_updates:
+    description: "State updates that happen immediately"
+    
+    use_cases:
+      - use_case: "Toggle sidebar"
+        trigger: "User clicks collapse button"
+        update: "setSidebarCollapsed(!sidebarCollapsed)"
+        side_effects: "Canvas width recalculates"
+        
+      - use_case: "Switch view"
+        trigger: "User clicks navigation button"
+        update: "setActiveView(view)"
+        side_effects: "Different component renders in MainContent"
+        
+  asynchronous_updates:
+    description: "State updates that involve async operations"
+    
+    use_cases:
+      - use_case: "Load projects"
+        trigger: "App mounts"
+        flow: |
+          1. Component mounts
+          2. Call DataService.loadProjects() (async)
+          3. Wait for response
+          4. setProjects(loadedProjects)
+          5. Component re-renders with projects
+        error_handling: "Try-catch, show error message"
+        
+      - use_case: "Save project"
+        trigger: "Component position changes"
+        flow: |
+          1. User drags component
+          2. onComponentUpdate called
+          3. Update local state (optimistic update)
+          4. Call DataService.saveProject() (async)
+          5. If error, revert local state
+        error_handling: "Optimistic update with rollback"
+        
+  batched_updates:
+    description: "Multiple state updates batched together"
+    
+    use_cases:
+      - use_case: "Create new project"
+        updates:
+          - "Add project to projects array"
+          - "Set as current project"
+          - "Close dropdown"
+        implementation: |
+          const handleCreateProject = (project: Project) => {
+            setProjects([...projects, project]);
+            setCurrentProject(project);
+            setDropdownOpen(false);
+            // React batches these updates automatically
+          };
+          
+  debounced_updates:
+    description: "State updates delayed to reduce frequency"
+    
+    use_cases:
+      - use_case: "Save viewport state"
+        trigger: "User pans/zooms canvas"
+        problem: "Too many save operations"
+        solution: "Debounce save by 500ms"
+        implementation: |
+          const debouncedSave = useCallback(
+            debounce((viewport) => {
+              DataService.saveProject({ ...project, canvasState: { ...canvasState, viewport } });
+            }, 500),
+            [project]
+          );
+
+# ============================================================================
+# SECTION 5: COMPONENT LIFECYCLE INTERACTIONS
+# ============================================================================
+
+lifecycle_interactions:
+  mount_sequence:
+    description: "Order of component mounting"
+    
+    sequence:
+      - step: 1
+        component: "App"
+        actions: ["Initialize state", "Load projects from DataService"]
+        
+      - step: 2
+        component: "TopHeader"
+        actions: ["Render title", "Render ProjectManager"]
+        
+      - step: 3
+        component: "LeftSidebar"
+        actions: ["Render navigation buttons"]
+        
+      - step: 4
+        component: "Canvas"
+        actions: ["Initialize viewport", "Render components"]
+        conditional: "Only if currentProject exists"
+        
+  unmount_sequence:
+    description: "Cleanup when components unmount"
+    
+    use_cases:
+      - use_case: "Canvas unmounts when switching to Library"
+        cleanup:
+          - "Remove event listeners (pan, zoom)"
+          - "Clear any timeouts (debounced saves)"
+          - "Cancel any pending async operations"
+          
+      - use_case: "CanvasComponent unmounts when deleted"
+        cleanup:
+          - "Remove drag event listeners"
+          - "Clear selection state"
+          
+  update_sequence:
+    description: "What happens when props/state change"
+    
+    use_cases:
+      - use_case: "Project changes"
+        trigger: "User selects different project"
+        sequence:
+          - "App state updates (currentProject)"
+          - "TopHeader re-renders (shows new project name)"
+          - "Canvas re-renders (shows new project's components)"
+          - "Old CanvasComponents unmount"
+          - "New CanvasComponents mount"
+          
+      - use_case: "Sidebar collapses"
+        trigger: "User clicks collapse button"
+        sequence:
+          - "App state updates (sidebarCollapsed)"
+          - "LeftSidebar re-renders (width changes, labels hide)"
+          - "Canvas re-renders (width recalculates)"
+          - "CSS transitions animate the changes"
+
+# ============================================================================
+# SECTION 6: ERROR BOUNDARIES AND ERROR HANDLING
+# ============================================================================
+
+error_handling:
+  error_boundaries:
+    description: "Catch errors in component tree"
+    
+    use_cases:
+      - use_case: "Canvas rendering error"
+        boundary: "Wrap Canvas in ErrorBoundary"
+        fallback: "Show error message, offer to reload"
+        recovery: "User can switch projects or refresh"
+        
+      - use_case: "Component creation error"
+        boundary: "Wrap ComponentCreator in ErrorBoundary"
+        fallback: "Show error message, keep modal open"
+        recovery: "User can try again or cancel"
+        
+  error_propagation:
+    description: "How errors propagate up the tree"
+    
+    use_cases:
+      - use_case: "DataService error"
+        origin: "DataService.loadProjects() throws"
+        propagation: "Canvas → App → ErrorBoundary"
+        handling: "Show error message, offer retry"
+        
+      - use_case: "Invalid component data"
+        origin: "CanvasComponent receives invalid props"
+        propagation: "CanvasComponent → Canvas → ErrorBoundary"
+        handling: "Skip invalid component, log error"
+
+# ============================================================================
+# SECTION 7: PERFORMANCE CONSIDERATIONS
+# ============================================================================
+
+performance:
+  memoization:
+    description: "Prevent unnecessary re-renders"
+    
+    use_cases:
+      - use_case: "CanvasComponent memoization"
+        reason: "Many components on canvas, expensive to re-render all"
+        implementation: "React.memo with custom comparison"
+        
+      - use_case: "Callback memoization"
+        reason: "Callbacks cause child re-renders if not memoized"
+        implementation: "useCallback for all callback props"
+        
+  lazy_loading:
+    description: "Load components only when needed"
+    
+    use_cases:
+      - use_case: "Library component"
+        reason: "Not needed until user clicks Library button"
+        implementation: "React.lazy(() => import('./Library'))"
+        
+      - use_case: "Settings component"
+        reason: "Not needed until user clicks Settings button"
+        implementation: "React.lazy(() => import('./Settings'))"
+        
+  virtualization:
+    description: "Render only visible items"
+    
+    use_cases:
+      - use_case: "Large project list"
+        reason: "Hundreds of projects, slow to render all"
+        implementation: "react-window or react-virtualized"
+        threshold: "Use when > 50 projects"
+
