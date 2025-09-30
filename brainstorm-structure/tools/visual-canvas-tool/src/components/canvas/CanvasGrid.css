@@ -1,9 +1,0 @@
-.canvas-grid {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  pointer-events: none;
-  z-index: 0;
-}

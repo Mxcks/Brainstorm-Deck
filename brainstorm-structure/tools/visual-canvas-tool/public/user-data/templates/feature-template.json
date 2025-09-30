@@ -1,0 +1,62 @@
+{
+  "id": "template-feature",
+  "name": "Feature Template",
+  "description": "Standard template for feature components",
+  "type": "feature",
+  "defaultProperties": {
+    "title": "New Feature",
+    "description": "Feature description...",
+    "size": { "width": 200, "height": 120 },
+    "status": "planned",
+    "priority": "medium",
+    "estimatedHours": 8,
+    "tags": [],
+    "assignee": null,
+    "dueDate": null
+  },
+  "fields": [
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Feature Title",
+      "required": true,
+      "placeholder": "Enter feature name..."
+    },
+    {
+      "name": "description",
+      "type": "textarea",
+      "label": "Description",
+      "required": false,
+      "placeholder": "Describe the feature..."
+    },
+    {
+      "name": "priority",
+      "type": "select",
+      "label": "Priority",
+      "required": true,
+      "options": ["low", "medium", "high", "critical"]
+    },
+    {
+      "name": "status",
+      "type": "select",
+      "label": "Status",
+      "required": true,
+      "options": ["planned", "in-progress", "completed", "blocked"]
+    },
+    {
+      "name": "estimatedHours",
+      "type": "number",
+      "label": "Estimated Hours",
+      "required": false,
+      "min": 0,
+      "max": 1000
+    },
+    {
+      "name": "tags",
+      "type": "tags",
+      "label": "Tags",
+      "required": false,
+      "placeholder": "Add tags..."
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { Project } from '../../App'
+import type { Project } from '../../App'
+import DataService from '../../services/dataService'
 import './ProjectManager.css'
 
 interface ProjectManagerProps {
@@ -20,31 +21,22 @@ const ProjectManager: React.FC<ProjectManagerProps> = ({
   const [isCreating, setIsCreating] = useState(false)
   const [newProjectName, setNewProjectName] = useState('')
 
-  // Load projects from localStorage on mount
+  // Load projects from DataService on mount
   useEffect(() => {
-    const savedProjects = localStorage.getItem('visual-canvas-projects')
-    if (savedProjects) {
+    const loadProjects = async () => {
       try {
-        const parsed = JSON.parse(savedProjects).map((p: any) => ({
-          ...p,
-          createdAt: new Date(p.createdAt),
-          lastModified: new Date(p.lastModified)
-        }))
-        setProjects(parsed)
+        const dataService = DataService.getInstance()
+        const loadedProjects = await dataService.loadProjects()
+        setProjects(loadedProjects)
       } catch (error) {
         console.error('Failed to load projects:', error)
       }
     }
+
+    loadProjects()
   }, [setProjects])
 
-  // Save projects to localStorage whenever projects change
-  useEffect(() => {
-    if (projects.length > 0) {
-      localStorage.setItem('visual-canvas-projects', JSON.stringify(projects))
-    }
-  }, [projects])
-
-  const createProject = () => {
+  const createProject = async () => {
     if (!newProjectName.trim()) return
 
     const newProject: Project = {
@@ -58,12 +50,20 @@ const ProjectManager: React.FC<ProjectManagerProps> = ({
       }
     }
 
-    const updatedProjects = [...projects, newProject]
-    setProjects(updatedProjects)
-    setCurrentProject(newProject)
-    setNewProjectName('')
-    setIsCreating(false)
-    setIsDropdownOpen(false)
+    try {
+      const dataService = DataService.getInstance()
+      await dataService.addProject(newProject)
+
+      // Reload projects from the data service to ensure consistency
+      const updatedProjects = await dataService.loadProjects()
+      setProjects(updatedProjects)
+      setCurrentProject(newProject)
+      setNewProjectName('')
+      setIsCreating(false)
+      setIsDropdownOpen(false)
+    } catch (error) {
+      console.error('Failed to create project:', error)
+    }
   }
 
   const selectProject = (project: Project) => {
@@ -71,15 +71,23 @@ const ProjectManager: React.FC<ProjectManagerProps> = ({
     setIsDropdownOpen(false)
   }
 
-  const deleteProject = (projectId: string, e: React.MouseEvent) => {
+  const deleteProject = async (projectId: string, e: React.MouseEvent) => {
     e.stopPropagation()
-    
+
     if (confirm('Are you sure you want to delete this project?')) {
-      const updatedProjects = projects.filter(p => p.id !== projectId)
-      setProjects(updatedProjects)
-      
-      if (currentProject?.id === projectId) {
-        setCurrentProject(null)
+      try {
+        const dataService = DataService.getInstance()
+        await dataService.deleteProject(projectId)
+
+        // Reload projects from the data service to ensure consistency
+        const updatedProjects = await dataService.loadProjects()
+        setProjects(updatedProjects)
+
+        if (currentProject?.id === projectId) {
+          setCurrentProject(null)
+        }
+      } catch (error) {
+        console.error('Failed to delete project:', error)
       }
     }
   }

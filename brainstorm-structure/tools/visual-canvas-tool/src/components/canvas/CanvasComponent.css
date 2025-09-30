@@ -1,0 +1,224 @@
+.canvas-component {
+  border: 2px solid #3a3a3a;
+  border-radius: 8px;
+  background: #2a2a2a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.canvas-component:hover {
+  border-color: #4a4a4a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.canvas-component.selected {
+  border-color: #2196F3;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.3);
+}
+
+.canvas-component.dragging {
+  opacity: 0.8;
+  transform: rotate(2deg);
+  z-index: 1000;
+}
+
+/* Component Types */
+.component-type-feature {
+  border-left: 4px solid #4CAF50;
+}
+
+.component-type-task {
+  border-left: 4px solid #2196F3;
+}
+
+.component-type-bug {
+  border-left: 4px solid #F44336;
+}
+
+.component-type-note {
+  border-left: 4px solid #FF9800;
+}
+
+/* Component Status */
+.component-status-planned {
+  background: #2a2a2a;
+}
+
+.component-status-in-progress {
+  background: #1e3a5f;
+}
+
+.component-status-completed {
+  background: #1e4d2e;
+}
+
+.component-status-blocked {
+  background: #4d1e1e;
+}
+
+/* Component Priority */
+.component-priority-low {
+  opacity: 0.8;
+}
+
+.component-priority-medium {
+  opacity: 0.9;
+}
+
+.component-priority-high {
+  opacity: 1;
+}
+
+.component-priority-critical {
+  opacity: 1;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Component Layout */
+.component-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid #3a3a3a;
+  min-height: 32px;
+}
+
+.component-type-indicator {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #4a4a4a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.component-priority-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #666;
+}
+
+.component-priority-high .component-priority-indicator {
+  background: #FF9800;
+}
+
+.component-priority-critical .component-priority-indicator {
+  background: #F44336;
+}
+
+.component-content {
+  flex: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.component-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  word-wrap: break-word;
+}
+
+.component-title-edit {
+  background: #3a3a3a;
+  border: 1px solid #4a4a4a;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  width: 100%;
+}
+
+.component-title-edit:focus {
+  outline: none;
+  border-color: #2196F3;
+}
+
+.component-description {
+  font-size: 0.85rem;
+  color: #ccc;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.component-footer {
+  padding: 8px 12px;
+  border-top: 1px solid #3a3a3a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 32px;
+}
+
+.component-status {
+  font-size: 0.8rem;
+  color: #aaa;
+  text-transform: capitalize;
+}
+
+/* Selection Handles */
+.selection-handles {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  pointer-events: none;
+}
+
+.handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #2196F3;
+  border: 1px solid white;
+  border-radius: 50%;
+  pointer-events: all;
+  cursor: nw-resize;
+}
+
+.handle-nw {
+  top: 0;
+  left: 0;
+  cursor: nw-resize;
+}
+
+.handle-ne {
+  top: 0;
+  right: 0;
+  cursor: ne-resize;
+}
+
+.handle-sw {
+  bottom: 0;
+  left: 0;
+  cursor: sw-resize;
+}
+
+.handle-se {
+  bottom: 0;
+  right: 0;
+  cursor: se-resize;
+}

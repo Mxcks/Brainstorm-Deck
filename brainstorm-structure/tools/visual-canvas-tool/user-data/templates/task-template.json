@@ -1,0 +1,68 @@
+{
+  "id": "template-task",
+  "name": "Task Template",
+  "description": "Standard template for task components",
+  "type": "task",
+  "defaultProperties": {
+    "title": "New Task",
+    "description": "Task description...",
+    "size": { "width": 180, "height": 100 },
+    "status": "planned",
+    "priority": "medium",
+    "estimatedHours": 4,
+    "tags": [],
+    "assignee": null,
+    "dueDate": null
+  },
+  "fields": [
+    {
+      "name": "title",
+      "type": "text",
+      "label": "Task Title",
+      "required": true,
+      "placeholder": "Enter task name..."
+    },
+    {
+      "name": "description",
+      "type": "textarea",
+      "label": "Description",
+      "required": false,
+      "placeholder": "Describe the task..."
+    },
+    {
+      "name": "priority",
+      "type": "select",
+      "label": "Priority",
+      "required": true,
+      "options": ["low", "medium", "high", "urgent"]
+    },
+    {
+      "name": "status",
+      "type": "select",
+      "label": "Status",
+      "required": true,
+      "options": ["planned", "in-progress", "completed", "blocked"]
+    },
+    {
+      "name": "estimatedHours",
+      "type": "number",
+      "label": "Estimated Hours",
+      "required": false,
+      "min": 0,
+      "max": 100
+    },
+    {
+      "name": "assignee",
+      "type": "text",
+      "label": "Assignee",
+      "required": false,
+      "placeholder": "Assign to..."
+    },
+    {
+      "name": "dueDate",
+      "type": "date",
+      "label": "Due Date",
+      "required": false
+    }
+  ]
+}

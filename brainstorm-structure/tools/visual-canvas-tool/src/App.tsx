@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ProjectManager from './components/projects/ProjectManager'
+import Canvas from './components/canvas/Canvas'
+import DataService from './services/dataService'
 import './App.css'
 
 export interface Project {
@@ -10,27 +12,32 @@ export interface Project {
   canvasState: any // Will define this more specifically later
 }
 
-export interface Project {
-  id: string
-  name: string
-  createdAt: Date
-  lastModified: Date
-  canvasState: any
-}
-
 function App() {
   const [currentProject, setCurrentProject] = useState<Project | null>(null)
   const [projects, setProjects] = useState<Project[]>([])
 
-  const createTestProject = () => {
-    const newProject: Project = {
-      id: '1',
-      name: 'Test Project',
-      createdAt: new Date(),
-      lastModified: new Date(),
-      canvasState: { viewport: { x: 0, y: 0, scale: 1 }, components: [] }
+  // Auto-select first project for testing (temporary)
+  useEffect(() => {
+    if (projects.length > 0 && !currentProject) {
+      setCurrentProject(projects[0])
     }
-    setCurrentProject(newProject)
+  }, [projects, currentProject])
+
+  // Handle project updates from canvas
+  const handleProjectUpdate = async (updatedProject: Project) => {
+    try {
+      const dataService = DataService.getInstance()
+      await dataService.updateProject(updatedProject)
+      setCurrentProject(updatedProject)
+
+      // Update the projects list
+      const updatedProjects = projects.map(p =>
+        p.id === updatedProject.id ? updatedProject : p
+      )
+      setProjects(updatedProjects)
+    } catch (error) {
+      console.error('Failed to update project:', error)
+    }
   }
 
   return (
@@ -47,10 +54,10 @@ function App() {
 
       <div className="app-content">
         {currentProject ? (
-          <div style={{ padding: '20px', color: 'white' }}>
-            <h3>Project: {currentProject.name}</h3>
-            <p>Canvas will be restored here</p>
-          </div>
+          <Canvas
+            project={currentProject}
+            onProjectUpdate={handleProjectUpdate}
+          />
         ) : (
           <div className="welcome-screen">
             <h2>Welcome to Visual Canvas Tool</h2>

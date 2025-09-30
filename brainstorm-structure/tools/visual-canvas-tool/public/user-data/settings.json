@@ -1,0 +1,44 @@
+{
+  "user": {
+    "name": "Demo User",
+    "preferences": {
+      "theme": "dark",
+      "autoSave": true,
+      "autoSaveInterval": 30000,
+      "gridSnap": true,
+      "gridSize": 20,
+      "showGrid": true
+    }
+  },
+  "canvas": {
+    "defaultZoom": 1.0,
+    "minZoom": 0.1,
+    "maxZoom": 3.0,
+    "panSensitivity": 1.0,
+    "zoomSensitivity": 0.1
+  },
+  "components": {
+    "defaultSize": {
+      "width": 200,
+      "height": 120
+    },
+    "colors": {
+      "feature": "#4CAF50",
+      "bug": "#F44336",
+      "task": "#2196F3",
+      "note": "#FF9800"
+    },
+    "statusColors": {
+      "planned": "#9E9E9E",
+      "in-progress": "#2196F3",
+      "completed": "#4CAF50",
+      "blocked": "#F44336"
+    }
+  },
+  "storage": {
+    "dataPath": "./user-data/",
+    "backupEnabled": true,
+    "backupInterval": 300000,
+    "maxBackups": 10
+  }
+}

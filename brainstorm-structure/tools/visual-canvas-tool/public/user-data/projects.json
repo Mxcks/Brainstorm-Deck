@@ -1,0 +1,125 @@
+[
+  {
+    "id": "proj-001",
+    "name": "E-commerce Platform",
+    "createdAt": "2025-01-20T10:30:00.000Z",
+    "lastModified": "2025-01-28T14:22:00.000Z",
+    "canvasState": {
+      "viewport": { "x": 0, "y": 0, "scale": 1 },
+      "components": [
+        {
+          "id": "comp-001",
+          "type": "feature",
+          "title": "User Authentication",
+          "description": "Login, signup, password reset functionality",
+          "position": { "x": 100, "y": 100 },
+          "size": { "width": 200, "height": 120 },
+          "status": "planned",
+          "priority": "high"
+        },
+        {
+          "id": "comp-002",
+          "type": "feature",
+          "title": "Product Catalog",
+          "description": "Browse products, search, filter, categories",
+          "position": { "x": 350, "y": 100 },
+          "size": { "width": 200, "height": 120 },
+          "status": "in-progress",
+          "priority": "high"
+        },
+        {
+          "id": "comp-003",
+          "type": "feature",
+          "title": "Shopping Cart",
+          "description": "Add/remove items, quantity management",
+          "position": { "x": 100, "y": 250 },
+          "size": { "width": 200, "height": 120 },
+          "status": "planned",
+          "priority": "medium"
+        },
+        {
+          "id": "comp-004",
+          "type": "feature",
+          "title": "Payment Processing",
+          "description": "Stripe integration, order confirmation",
+          "position": { "x": 350, "y": 250 },
+          "size": { "width": 200, "height": 120 },
+          "status": "planned",
+          "priority": "high"
+        }
+      ]
+    }
+  },
+  {
+    "id": "proj-002",
+    "name": "Task Management App",
+    "createdAt": "2025-01-25T09:15:00.000Z",
+    "lastModified": "2025-01-28T16:45:00.000Z",
+    "canvasState": {
+      "viewport": { "x": -50, "y": -25, "scale": 0.8 },
+      "components": [
+        {
+          "id": "comp-005",
+          "type": "feature",
+          "title": "Task Creation",
+          "description": "Create tasks with title, description, due date",
+          "position": { "x": 50, "y": 50 },
+          "size": { "width": 180, "height": 100 },
+          "status": "completed",
+          "priority": "high"
+        },
+        {
+          "id": "comp-006",
+          "type": "feature",
+          "title": "Task Lists",
+          "description": "Organize tasks into lists/projects",
+          "position": { "x": 280, "y": 50 },
+          "size": { "width": 180, "height": 100 },
+          "status": "in-progress",
+          "priority": "medium"
+        },
+        {
+          "id": "comp-007",
+          "type": "feature",
+          "title": "Collaboration",
+          "description": "Share tasks, assign to team members",
+          "position": { "x": 50, "y": 180 },
+          "size": { "width": 180, "height": 100 },
+          "status": "planned",
+          "priority": "low"
+        }
+      ]
+    }
+  },
+  {
+    "id": "proj-003",
+    "name": "Weather Dashboard",
+    "createdAt": "2025-01-28T08:00:00.000Z",
+    "lastModified": "2025-01-28T08:00:00.000Z",
+    "canvasState": {
+      "viewport": { "x": 0, "y": 0, "scale": 1.2 },
+      "components": [
+        {
+          "id": "comp-008",
+          "type": "feature",
+          "title": "Current Weather",
+          "description": "Display current temperature, conditions, humidity",
+          "position": { "x": 150, "y": 80 },
+          "size": { "width": 160, "height": 90 },
+          "status": "planned",
+          "priority": "high"
+        },
+        {
+          "id": "comp-009",
+          "type": "feature",
+          "title": "5-Day Forecast",
+          "description": "Show weather forecast for next 5 days",
+          "position": { "x": 150, "y": 200 },
+          "size": { "width": 160, "height": 90 },
+          "status": "planned",
+          "priority": "medium"
+        }
+      ]
+    }
+  }
+]
