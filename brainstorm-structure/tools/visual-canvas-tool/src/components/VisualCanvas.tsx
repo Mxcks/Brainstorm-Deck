@@ -45,8 +45,7 @@ function ComponentRenderer({
   canvasMode,
   onMouseDown,
   onContextMenu,
-  onComponentInteraction,
-  onComponentResize
+  onComponentInteraction
 }: {
   component: CanvasComponent
   isVisible: boolean
@@ -55,7 +54,6 @@ function ComponentRenderer({
   onMouseDown: (e: React.MouseEvent, componentId: string) => void
   onContextMenu: (e: React.MouseEvent, componentId: string) => void
   onComponentInteraction: (componentId: string, action: string, data?: any) => void
-  onComponentResize?: (componentId: string, newPosition: { x: number; y: number }, newSize: { width: number; height: number }) => void
 }) {
   if (!isVisible) return null
 
@@ -198,15 +196,6 @@ function ComponentRenderer({
       style={{ position: 'relative' }}
     >
       {getComponentContent()}
-      {canvasMode === 'design' && isSelected && onComponentResize && (
-        <ResizeHandles
-          componentId={component.id}
-          position={component.position}
-          size={size}
-          onResize={onComponentResize}
-          isVisible={true}
-        />
-      )}
     </div>
   )
 }
@@ -449,9 +438,34 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
               onMouseDown={handleComponentMouseDown}
               onContextMenu={handleComponentContextMenu}
               onComponentInteraction={handleComponentInteraction}
-              onComponentResize={onComponentResize}
             />
           ))}
+
+          {/* Resize handles for selected component */}
+          {canvasMode === 'design' && selectedComponent && onComponentResize && (() => {
+            const selectedComp = components.find(c => c.id === selectedComponent)
+            if (!selectedComp) return null
+
+            const defaultSizes = {
+              button: { width: 120, height: 40 },
+              input: { width: 200, height: 40 },
+              text: { width: 150, height: 30 },
+              container: { width: 300, height: 200 }
+            }
+
+            const size = selectedComp.size || defaultSizes[selectedComp.type as keyof typeof defaultSizes] || { width: 100, height: 40 }
+
+            return (
+              <ResizeHandles
+                key={`resize-${selectedComp.id}`}
+                componentId={selectedComp.id}
+                position={selectedComp.position}
+                size={size}
+                onResize={onComponentResize}
+                isVisible={true}
+              />
+            )
+          })()}
         </div>
 
         {/* Context Menu */}

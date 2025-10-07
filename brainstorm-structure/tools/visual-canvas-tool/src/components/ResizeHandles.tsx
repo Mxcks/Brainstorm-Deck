@@ -133,64 +133,135 @@ export default function ResizeHandles({
     }
   }
 
+  // Calculate box dimensions with padding
+  const boxPadding = 4 // 4px outside the component
+  const boxWidth = size.width + (boxPadding * 2)
+  const boxHeight = size.height + (boxPadding * 2)
+  const boxLeft = position.x - boxPadding
+  const boxTop = position.y - boxPadding
+
   return (
-    <div className="resize-handles-container">
+    <div
+      className="resize-handles-container"
+      style={{
+        position: 'absolute',
+        left: boxLeft,
+        top: boxTop,
+        width: boxWidth,
+        height: boxHeight,
+        pointerEvents: 'none',
+        zIndex: 15
+      }}
+    >
       {/* Sage green resize box */}
-      <div 
+      <div
         className="resize-box"
         style={{
           position: 'absolute',
-          left: -2,
-          top: -2,
-          width: size.width + 4,
-          height: size.height + 4,
+          left: 0,
+          top: 0,
+          width: boxWidth,
+          height: boxHeight,
           border: '2px solid #7c9885',
           pointerEvents: 'none',
-          zIndex: 10
+          zIndex: 10,
+          boxSizing: 'border-box'
         }}
       />
 
-      {/* Corner handles (circles) - diagonal resize */}
+      {/* Corner handles (circles) - positioned exactly on corners */}
       <div
-        className="resize-handle corner-handle top-left"
-        style={{ cursor: getCursor('top-left') }}
+        className="resize-handle corner-handle"
+        style={{
+          cursor: getCursor('top-left'),
+          position: 'absolute',
+          left: -4, // Half handle width to center on corner
+          top: -4,
+          pointerEvents: 'all'
+        }}
         onMouseDown={(e) => handleMouseDown(e, 'top-left')}
       />
       <div
-        className="resize-handle corner-handle top-right"
-        style={{ cursor: getCursor('top-right') }}
+        className="resize-handle corner-handle"
+        style={{
+          cursor: getCursor('top-right'),
+          position: 'absolute',
+          right: -4,
+          top: -4,
+          pointerEvents: 'all'
+        }}
         onMouseDown={(e) => handleMouseDown(e, 'top-right')}
       />
       <div
-        className="resize-handle corner-handle bottom-left"
-        style={{ cursor: getCursor('bottom-left') }}
+        className="resize-handle corner-handle"
+        style={{
+          cursor: getCursor('bottom-left'),
+          position: 'absolute',
+          left: -4,
+          bottom: -4,
+          pointerEvents: 'all'
+        }}
         onMouseDown={(e) => handleMouseDown(e, 'bottom-left')}
       />
       <div
-        className="resize-handle corner-handle bottom-right"
-        style={{ cursor: getCursor('bottom-right') }}
+        className="resize-handle corner-handle"
+        style={{
+          cursor: getCursor('bottom-right'),
+          position: 'absolute',
+          right: -4,
+          bottom: -4,
+          pointerEvents: 'all'
+        }}
         onMouseDown={(e) => handleMouseDown(e, 'bottom-right')}
       />
 
-      {/* Edge handles (rectangles) - single-axis resize */}
+      {/* Edge handles (rectangles) - positioned exactly on edge midpoints */}
       <div
-        className="resize-handle edge-handle top"
-        style={{ cursor: getCursor('top') }}
+        className="resize-handle edge-handle edge-top"
+        style={{
+          cursor: getCursor('top'),
+          position: 'absolute',
+          left: '50%',
+          top: -3, // Half handle height to center on edge
+          transform: 'translateX(-50%)',
+          pointerEvents: 'all'
+        }}
         onMouseDown={(e) => handleMouseDown(e, 'top')}
       />
       <div
-        className="resize-handle edge-handle bottom"
-        style={{ cursor: getCursor('bottom') }}
+        className="resize-handle edge-handle edge-bottom"
+        style={{
+          cursor: getCursor('bottom'),
+          position: 'absolute',
+          left: '50%',
+          bottom: -3,
+          transform: 'translateX(-50%)',
+          pointerEvents: 'all'
+        }}
         onMouseDown={(e) => handleMouseDown(e, 'bottom')}
       />
       <div
-        className="resize-handle edge-handle left"
-        style={{ cursor: getCursor('left') }}
+        className="resize-handle edge-handle edge-left"
+        style={{
+          cursor: getCursor('left'),
+          position: 'absolute',
+          left: -3, // Half handle width to center on edge
+          top: '50%',
+          transform: 'translateY(-50%)',
+          pointerEvents: 'all'
+        }}
         onMouseDown={(e) => handleMouseDown(e, 'left')}
       />
       <div
-        className="resize-handle edge-handle right"
-        style={{ cursor: getCursor('right') }}
+        className="resize-handle edge-handle edge-right"
+        style={{
+          cursor: getCursor('right'),
+          position: 'absolute',
+          right: -3,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          pointerEvents: 'all'
+        }}
         onMouseDown={(e) => handleMouseDown(e, 'right')}
       />
     </div>
