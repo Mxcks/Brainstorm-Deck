@@ -248,6 +248,7 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
   })
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; componentId: string } | null>(null)
   const [reorderSubmenu, setReorderSubmenu] = useState<boolean>(false)
+  const [showHelpModal, setShowHelpModal] = useState<boolean>(false)
 
   // Calculate which components are visible in the viewport
   const getVisibleComponents = useCallback(() => {
@@ -482,7 +483,23 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
         <button onClick={() => console.log('Fit all')} title="Fit to Components">
           📐 Fit All
         </button>
-        
+        <button
+          onClick={() => setShowHelpModal(true)}
+          title="Component Development Guide"
+          style={{
+            background: 'var(--accent-primary)',
+            color: 'white',
+            border: 'none',
+            borderRadius: '6px',
+            padding: '0.5rem 1rem',
+            cursor: 'pointer',
+            fontSize: '0.9rem',
+            fontWeight: '500'
+          }}
+        >
+          📚 Dev Guide
+        </button>
+
         <div className="mode-toggle">
           <button
             className={`mode-btn ${canvasMode === 'design' ? 'active' : ''}`}
@@ -659,6 +676,207 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
           }
         </span>
       </div>
+
+      {/* Component Development Help Modal */}
+      {showHelpModal && (
+        <div
+          className="help-modal-overlay"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.7)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10000
+          }}
+          onClick={() => setShowHelpModal(false)}
+        >
+          <div
+            className="help-modal"
+            style={{
+              background: 'var(--bg-primary)',
+              border: '1px solid var(--border-primary)',
+              borderRadius: '12px',
+              padding: '2rem',
+              maxWidth: '800px',
+              maxHeight: '80vh',
+              overflow: 'auto',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+              color: 'var(--text-primary)'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+              <h2 style={{ margin: 0, color: 'var(--accent-primary)', fontSize: '1.5rem' }}>
+                📚 Component Development Guide
+              </h2>
+              <button
+                onClick={() => setShowHelpModal(false)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  fontSize: '1.5rem',
+                  cursor: 'pointer',
+                  color: 'var(--text-secondary)',
+                  padding: '0.25rem'
+                }}
+                title="Close"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div style={{ lineHeight: '1.6', fontSize: '0.95rem' }}>
+              <section style={{ marginBottom: '2rem' }}>
+                <h3 style={{ color: 'var(--accent-primary)', marginBottom: '1rem', fontSize: '1.2rem' }}>
+                  🎯 Overview
+                </h3>
+                <p style={{ margin: '0 0 1rem 0', color: 'var(--text-secondary)' }}>
+                  The Visual Canvas Tool uses a modular architecture where components and their backend logic are separated.
+                  This guide shows you how to add new interactive components to the system.
+                </p>
+              </section>
+
+              <section style={{ marginBottom: '2rem' }}>
+                <h3 style={{ color: 'var(--accent-primary)', marginBottom: '1rem', fontSize: '1.2rem' }}>
+                  📁 File Structure
+                </h3>
+                <div style={{ background: 'var(--bg-secondary)', padding: '1rem', borderRadius: '6px', fontFamily: 'monospace', fontSize: '0.85rem' }}>
+                  <div>📂 src/component-library/</div>
+                  <div>&nbsp;&nbsp;📂 basic/</div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;📄 YourComponent.tsx</div>
+                  <div>&nbsp;&nbsp;📄 index.ts</div>
+                  <div>&nbsp;&nbsp;📄 types.ts</div>
+                  <div></div>
+                  <div>📂 src/component-backend/</div>
+                  <div>&nbsp;&nbsp;📂 handlers/</div>
+                  <div>&nbsp;&nbsp;&nbsp;&nbsp;📄 YourComponentHandler.ts</div>
+                  <div>&nbsp;&nbsp;📄 index.ts</div>
+                  <div>&nbsp;&nbsp;📄 types.ts</div>
+                </div>
+              </section>
+
+              <section style={{ marginBottom: '2rem' }}>
+                <h3 style={{ color: 'var(--accent-primary)', marginBottom: '1rem', fontSize: '1.2rem' }}>
+                  🔧 Step 1: Create Component Definition
+                </h3>
+                <p style={{ margin: '0 0 0.5rem 0', color: 'var(--text-secondary)' }}>
+                  Create a new file in <code style={{ background: 'var(--bg-secondary)', padding: '2px 4px', borderRadius: '3px' }}>src/component-library/basic/YourComponent.tsx</code>:
+                </p>
+                <div style={{ background: 'var(--bg-secondary)', padding: '1rem', borderRadius: '6px', fontFamily: 'monospace', fontSize: '0.85rem', overflow: 'auto', whiteSpace: 'pre-wrap' }}>
+{`import { ComponentDefinition } from '../types'
+
+export const YourComponent: ComponentDefinition = {
+  id: 'your-component',
+  name: 'Your Component',
+  category: 'basic',
+  icon: '🎯',
+  description: 'Your component description',
+  defaultSize: { width: 120, height: 40 },
+  defaultData: { text: 'Default' },
+  hasBackend: true,
+  backendActions: ['click', 'change'],
+  render: ({ data, size, isPreview, onInteraction }) => (
+    <div onClick={isPreview ? () => onInteraction?.('click') : undefined}>
+      {data.text}
+    </div>
+  )
+}`}
+                </div>
+              </section>
+
+              <section style={{ marginBottom: '2rem' }}>
+                <h3 style={{ color: 'var(--accent-primary)', marginBottom: '1rem', fontSize: '1.2rem' }}>
+                  ⚙️ Step 2: Create Backend Handler
+                </h3>
+                <p style={{ margin: '0 0 0.5rem 0', color: 'var(--text-secondary)' }}>
+                  Create a new file in <code style={{ background: 'var(--bg-secondary)', padding: '2px 4px', borderRadius: '3px' }}>src/component-backend/handlers/YourComponentHandler.ts</code>:
+                </p>
+                <div style={{ background: 'var(--bg-secondary)', padding: '1rem', borderRadius: '6px', fontFamily: 'monospace', fontSize: '0.85rem', overflow: 'auto', whiteSpace: 'pre-wrap' }}>
+{`import { ComponentHandler } from '../types'
+
+export const YourComponentHandler: ComponentHandler = {
+  componentId: 'your-component',
+  actions: {
+    click: async (componentId, data, context) => {
+      // Handle click action
+      return { success: true, message: 'Clicked!' }
+    }
+  },
+  initialize: (componentId, initialData) => ({
+    // Initial state
+    createdAt: Date.now()
+  })
+}`}
+                </div>
+              </section>
+
+              <section style={{ marginBottom: '2rem' }}>
+                <h3 style={{ color: 'var(--accent-primary)', marginBottom: '1rem', fontSize: '1.2rem' }}>
+                  📝 Step 3: Register Components
+                </h3>
+                <p style={{ margin: '0 0 0.5rem 0', color: 'var(--text-secondary)' }}>
+                  Add your component to <code style={{ background: 'var(--bg-secondary)', padding: '2px 4px', borderRadius: '3px' }}>src/component-library/index.ts</code>:
+                </p>
+                <div style={{ background: 'var(--bg-secondary)', padding: '1rem', borderRadius: '6px', fontFamily: 'monospace', fontSize: '0.85rem', whiteSpace: 'pre-wrap' }}>
+{`import { YourComponent } from './basic/YourComponent'
+
+export const componentLibrary = [
+  // ... existing components
+  YourComponent
+]`}
+                </div>
+                <p style={{ margin: '1rem 0 0.5rem 0', color: 'var(--text-secondary)' }}>
+                  Add your handler to <code style={{ background: 'var(--bg-secondary)', padding: '2px 4px', borderRadius: '3px' }}>src/component-backend/index.ts</code>:
+                </p>
+                <div style={{ background: 'var(--bg-secondary)', padding: '1rem', borderRadius: '6px', fontFamily: 'monospace', fontSize: '0.85rem', whiteSpace: 'pre-wrap' }}>
+{`import { YourComponentHandler } from './handlers/YourComponentHandler'
+// Register in handlers array`}
+                </div>
+              </section>
+
+              <section style={{ marginBottom: '2rem' }}>
+                <h3 style={{ color: 'var(--accent-primary)', marginBottom: '1rem', fontSize: '1.2rem' }}>
+                  🎯 Key Concepts
+                </h3>
+                <ul style={{ margin: 0, paddingLeft: '1.5rem', color: 'var(--text-secondary)' }}>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>isPreview</strong>: Only attach event handlers when in Preview mode
+                  </li>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>onInteraction</strong>: Call this to trigger backend actions
+                  </li>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>data</strong>: Component configuration (text, colors, etc.)
+                  </li>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>size</strong>: Current component dimensions
+                  </li>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>context</strong>: Access to stateManager and eventBus
+                  </li>
+                </ul>
+              </section>
+
+              <section>
+                <h3 style={{ color: 'var(--accent-primary)', marginBottom: '1rem', fontSize: '1.2rem' }}>
+                  🚀 Testing Your Component
+                </h3>
+                <ol style={{ margin: 0, paddingLeft: '1.5rem', color: 'var(--text-secondary)' }}>
+                  <li style={{ marginBottom: '0.5rem' }}>Add component to canvas in Design mode</li>
+                  <li style={{ marginBottom: '0.5rem' }}>Switch to Preview mode</li>
+                  <li style={{ marginBottom: '0.5rem' }}>Interact with your component</li>
+                  <li style={{ marginBottom: '0.5rem' }}>Check browser console for backend logs</li>
+                </ol>
+              </section>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
