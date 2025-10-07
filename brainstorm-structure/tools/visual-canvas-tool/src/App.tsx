@@ -384,7 +384,7 @@ function App() {
 
       {/* Main Content Area - only show when project is selected */}
       {currentProject && (
-        <div className="app-content">
+        <div className={`app-content ${!isPanelsOpen ? 'sidebar-collapsed' : ''}`}>
           <VisualCanvas
             components={currentProject.canvasState.components}
             onComponentUpdate={handleComponentUpdate}
