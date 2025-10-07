@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import './VisualCanvas.css'
+import ResizeHandles from './ResizeHandles'
 
 interface CanvasComponent {
   id: string
@@ -33,18 +34,20 @@ interface VisualCanvasProps {
   onComponentDelete?: (componentId: string) => void
   onComponentSelect?: (componentId: string | null) => void
   selectedComponent?: string | null
+  onComponentResize?: (componentId: string, newPosition: { x: number; y: number }, newSize: { width: number; height: number }) => void
 }
 
 // Component renderer for different types
-function ComponentRenderer({ 
-  component, 
-  isVisible, 
-  isSelected, 
+function ComponentRenderer({
+  component,
+  isVisible,
+  isSelected,
   canvasMode,
   onMouseDown,
   onContextMenu,
-  onComponentInteraction
-}: { 
+  onComponentInteraction,
+  onComponentResize
+}: {
   component: CanvasComponent
   isVisible: boolean
   isSelected: boolean
@@ -52,6 +55,7 @@ function ComponentRenderer({
   onMouseDown: (e: React.MouseEvent, componentId: string) => void
   onContextMenu: (e: React.MouseEvent, componentId: string) => void
   onComponentInteraction: (componentId: string, action: string, data?: any) => void
+  onComponentResize?: (componentId: string, newPosition: { x: number; y: number }, newSize: { width: number; height: number }) => void
 }) {
   if (!isVisible) return null
 
@@ -194,19 +198,20 @@ function ComponentRenderer({
       style={{ position: 'relative' }}
     >
       {getComponentContent()}
-      {canvasMode === 'design' && isSelected && (
-        <div className="selection-handles">
-          <div className="selection-handle top-left" />
-          <div className="selection-handle top-right" />
-          <div className="selection-handle bottom-left" />
-          <div className="selection-handle bottom-right" />
-        </div>
+      {canvasMode === 'design' && isSelected && onComponentResize && (
+        <ResizeHandles
+          componentId={component.id}
+          position={component.position}
+          size={size}
+          onResize={onComponentResize}
+          isVisible={true}
+        />
       )}
     </div>
   )
 }
 
-export default function VisualCanvas({ components, onComponentUpdate, onComponentDelete, onComponentSelect, selectedComponent }: VisualCanvasProps) {
+export default function VisualCanvas({ components, onComponentUpdate, onComponentDelete, onComponentSelect, selectedComponent, onComponentResize }: VisualCanvasProps) {
   const canvasRef = useRef<HTMLDivElement>(null)
   const [viewport, setViewport] = useState<ViewportState>({ x: 0, y: 0, scale: 1 })
   const [canvasMode, setCanvasMode] = useState<CanvasMode>('design')
@@ -444,6 +449,7 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
               onMouseDown={handleComponentMouseDown}
               onContextMenu={handleComponentContextMenu}
               onComponentInteraction={handleComponentInteraction}
+              onComponentResize={onComponentResize}
             />
           ))}
         </div>

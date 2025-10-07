@@ -322,6 +322,30 @@ function App() {
     console.log(`🔄 Reordered component ${componentId} to position ${newIndex}`)
   }
 
+  const handleComponentResize = (componentId: string, newPosition: { x: number; y: number }, newSize: { width: number; height: number }) => {
+    if (!currentProject) return
+
+    const updatedProject = {
+      ...currentProject,
+      canvasState: {
+        components: currentProject.canvasState.components.map(c =>
+          c.id === componentId
+            ? { ...c, position: newPosition, size: newSize }
+            : c
+        )
+      },
+      lastModified: new Date()
+    }
+
+    // Update projects list and save
+    const updatedProjects = projects.map(p =>
+      p.id === updatedProject.id ? updatedProject : p
+    )
+    saveProjects(updatedProjects)
+    setCurrentProject(updatedProject)
+    console.log(`📏 Resized component ${componentId}:`, { position: newPosition, size: newSize })
+  }
+
   return (
     <div className="app">
       {/* Show Project Selector if no project is selected */}
@@ -391,6 +415,7 @@ function App() {
             onComponentDelete={handleComponentDelete}
             onComponentSelect={setSelectedComponent}
             selectedComponent={selectedComponent}
+            onComponentResize={handleComponentResize}
           />
         </div>
       )}

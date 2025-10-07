@@ -1,0 +1,184 @@
+.resize-handles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.resize-box {
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+
+.resize-handle {
+  position: absolute;
+  background: #000000;
+  pointer-events: all;
+  z-index: 20;
+  transition: opacity 0.2s ease;
+}
+
+.resize-handle:hover {
+  opacity: 0.8;
+}
+
+/* Corner handles - 8px diameter circles for diagonal resize */
+.corner-handle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.corner-handle.top-left {
+  top: -6px;
+  left: -6px;
+}
+
+.corner-handle.top-right {
+  top: -6px;
+  right: -6px;
+}
+
+.corner-handle.bottom-left {
+  bottom: -6px;
+  left: -6px;
+}
+
+.corner-handle.bottom-right {
+  bottom: -6px;
+  right: -6px;
+}
+
+/* Edge handles - rectangles for single-axis resize */
+.edge-handle {
+  border: 1px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Top and bottom edge handles - horizontal rectangles */
+.edge-handle.top {
+  width: 12px;
+  height: 6px;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.edge-handle.bottom {
+  width: 12px;
+  height: 6px;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Left and right edge handles - vertical rectangles */
+.edge-handle.left {
+  width: 6px;
+  height: 12px;
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.edge-handle.right {
+  width: 6px;
+  height: 12px;
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Visual feedback during resize */
+.resize-handle:active {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.corner-handle:active {
+  transform: scale(1.1);
+}
+
+.edge-handle.top:active,
+.edge-handle.bottom:active {
+  transform: translateX(-50%) scale(1.1);
+}
+
+.edge-handle.left:active,
+.edge-handle.right:active {
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Ensure handles are visible on different backgrounds */
+.resize-handle {
+  box-sizing: border-box;
+}
+
+/* Accessibility - focus states */
+.resize-handle:focus {
+  outline: 2px solid #7c9885;
+  outline-offset: 2px;
+}
+
+/* Prevent text selection during resize */
+.resize-handles-container * {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Animation for handle appearance */
+.resize-handle {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Ensure proper layering */
+.resize-handles-container {
+  isolation: isolate;
+}
+
+/* Handle positioning adjustments for pixel-perfect alignment */
+.corner-handle {
+  margin: -1px; /* Compensate for border */
+}
+
+.edge-handle {
+  margin: -1px; /* Compensate for border */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .corner-handle {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .edge-handle.top,
+  .edge-handle.bottom {
+    width: 14px;
+    height: 8px;
+  }
+  
+  .edge-handle.left,
+  .edge-handle.right {
+    width: 8px;
+    height: 14px;
+  }
+}
