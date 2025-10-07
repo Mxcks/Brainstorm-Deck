@@ -325,6 +325,9 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
           componentStartPosition: { x: component.position.x, y: component.position.y }
         })
       }
+    } else if (canvasMode === 'preview') {
+      // In preview mode, trigger component interaction instead of selection
+      handleComponentInteraction(componentId, 'click', { event: e })
     }
   }
 
@@ -382,16 +385,19 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
         </button>
         
         <div className="mode-toggle">
-          <button 
+          <button
             className={`mode-btn ${canvasMode === 'design' ? 'active' : ''}`}
             onClick={() => setCanvasMode('design')}
             title="Design Mode - Move and edit components"
           >
             ✏️ Design
           </button>
-          <button 
+          <button
             className={`mode-btn ${canvasMode === 'preview' ? 'active' : ''}`}
-            onClick={() => setCanvasMode('preview')}
+            onClick={() => {
+              setCanvasMode('preview')
+              onComponentSelect?.(null) // Clear selection when entering preview mode
+            }}
             title="Preview Mode - Interact with components"
           >
             ▶️ Preview
