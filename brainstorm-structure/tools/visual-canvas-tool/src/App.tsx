@@ -119,8 +119,7 @@ function SimpleSidebar({
   onCreateComponent: (type: string) => void
   isCollapsed: boolean
   onToggleCollapse: () => void
-})
-
+}) {
   return (
     <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
       <div className="sidebar-header">
