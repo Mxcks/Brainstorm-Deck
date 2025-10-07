@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import './VisualCanvas.css'
 import ResizeHandles from './ResizeHandles'
+import { backendEngine } from '../component-backend'
 
 interface CanvasComponent {
   id: string
@@ -55,6 +56,7 @@ function ComponentRenderer({
   onContextMenu: (e: React.MouseEvent, componentId: string) => void
   onComponentInteraction: (componentId: string, action: string, data?: any) => void
 }) {
+  const [isHovered, setIsHovered] = useState(false)
   if (!isVisible) return null
 
   const defaultSizes = {
@@ -72,7 +74,7 @@ function ComponentRenderer({
     top: component.position.y,
     width: size.width,
     height: size.height,
-    border: canvasMode === 'design' 
+    border: canvasMode === 'design'
       ? (isSelected ? '2px solid var(--accent-primary)' : '2px solid transparent')
       : 'none',
     borderRadius: '6px',
@@ -84,6 +86,7 @@ function ComponentRenderer({
     cursor: canvasMode === 'design' ? 'move' : 'default',
     userSelect: canvasMode === 'design' ? 'none' as const : 'auto' as const,
     transition: 'all 0.2s ease',
+    // Only show selection border in design mode
     boxShadow: canvasMode === 'design' && isSelected ? '0 0 0 2px rgba(124, 152, 133, 0.3)' : 'none'
   }
 
@@ -94,25 +97,45 @@ function ComponentRenderer({
       case 'button':
         if (canvasMode === 'preview') {
           return (
-            <button 
-              style={{ 
-                ...baseStyle, 
-                background: 'var(--accent-primary)', 
+            <button
+              style={{
+                position: 'absolute',
+                left: component.position.x,
+                top: component.position.y,
+                width: size.width,
+                height: size.height,
+                background: isHovered ? '#6a8470' : 'var(--accent-primary)', // Darker on hover
                 color: 'white',
                 border: 'none',
-                cursor: 'pointer'
+                borderRadius: '4px',
+                cursor: 'pointer',
+                fontSize: '14px',
+                fontWeight: '500',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'background-color 0.2s ease',
+                userSelect: 'none'
               }}
               onClick={() => onComponentInteraction(component.id, 'click', { text: component.data?.text || 'Button' })}
+              onMouseEnter={() => {
+                setIsHovered(true)
+                onComponentInteraction(component.id, 'hover', { state: 'enter' })
+              }}
+              onMouseLeave={() => {
+                setIsHovered(false)
+                onComponentInteraction(component.id, 'hover', { state: 'leave' })
+              }}
             >
               {component.data?.text || 'Button'}
             </button>
           )
         }
         return (
-          <div style={{ 
-            ...baseStyle, 
-            background: 'var(--accent-primary)', 
-            color: 'white' 
+          <div style={{
+            ...baseStyle,
+            background: 'var(--accent-primary)',
+            color: 'white'
           }}>
             {component.data?.text || 'Button'}
           </div>
@@ -347,9 +370,42 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
   }
 
   // Handle component interactions in preview mode
-  const handleComponentInteraction = (componentId: string, action: string, data?: any) => {
+  const handleComponentInteraction = async (componentId: string, action: string, data?: any) => {
     console.log(`🎯 Component ${componentId} ${action}:`, data)
+
+    // Find the component to get its type
+    const component = components.find(c => c.id === componentId)
+    if (!component) {
+      console.warn(`Component ${componentId} not found`)
+      return
+    }
+
+    try {
+      // Call the backend engine to handle the interaction
+      const result = await backendEngine.handleAction(componentId, component.type, action, data)
+      console.log(`✅ Backend result:`, result)
+
+      if (!result.success) {
+        console.warn(`⚠️ Backend action failed:`, result.error)
+      }
+    } catch (error) {
+      console.error(`❌ Backend interaction error:`, error)
+    }
   }
+
+  // Initialize components in backend when they're loaded
+  useEffect(() => {
+    components.forEach(component => {
+      backendEngine.initializeComponent(component.id, component.type, component.data || {})
+    })
+
+    // Cleanup function to clean up components when they're removed
+    return () => {
+      components.forEach(component => {
+        backendEngine.cleanupComponent(component.id, component.type)
+      })
+    }
+  }, [components])
 
   // Handle keyboard events
   useEffect(() => {
