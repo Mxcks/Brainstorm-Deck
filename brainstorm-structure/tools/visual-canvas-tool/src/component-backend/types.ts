@@ -46,6 +46,7 @@ export interface StateManager {
   setGlobal: (key: string, value: any) => void
   getGlobal: (key: string) => any
   reset: () => void
+  removeComponent: (componentId: string) => void
 }
 
 export interface DataStore {
