@@ -1,70 +1,334 @@
 import { useState, useEffect } from 'react'
-import ProjectManager from './components/projects/ProjectManager'
-import Canvas from './components/canvas/Canvas'
-import DataService from './services/dataService'
 import './App.css'
+import VisualCanvas from './components/VisualCanvas'
 
-export interface Project {
+// Simple types for now
+interface Project {
   id: string
   name: string
   createdAt: Date
   lastModified: Date
-  canvasState: any // Will define this more specifically later
+  canvasState: {
+    components: any[]
+  }
+}
+
+// Project Selection Component
+function ProjectSelector({
+  projects,
+  onSelectProject,
+  onCreateProject,
+  isLoading
+}: {
+  projects: Project[]
+  onSelectProject: (project: Project) => void
+  onCreateProject: () => void
+  isLoading: boolean
+}) {
+  const [showCreateForm, setShowCreateForm] = useState(false)
+  const [newProjectName, setNewProjectName] = useState('')
+
+  const handleCreateProject = () => {
+    if (newProjectName.trim()) {
+      onCreateProject()
+      setNewProjectName('')
+      setShowCreateForm(false)
+    }
+  }
+
+  const formatDate = (date: Date) => {
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    }).format(date)
+  }
+
+  return (
+    <div className="project-selector-overlay">
+      <div className="project-selector-modal">
+        <h2>Select a Project</h2>
+
+        {projects.length > 0 && (
+          <div className="existing-projects">
+            <h3>Recent Projects</h3>
+            <div className="project-list">
+              {projects.map(project => (
+                <div
+                  key={project.id}
+                  className="project-item"
+                  onClick={() => onSelectProject(project)}
+                >
+                  <div className="project-info">
+                    <div className="project-name">{project.name}</div>
+                    <div className="project-meta">
+                      {project.canvasState.components.length} components •
+                      Modified {formatDate(project.lastModified)}
+                    </div>
+                  </div>
+                  <div className="project-arrow">→</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="create-project-section">
+          {!showCreateForm ? (
+            <button
+              className="create-project-btn"
+              onClick={() => setShowCreateForm(true)}
+              disabled={isLoading}
+            >
+              + Create New Project
+            </button>
+          ) : (
+            <div className="create-form">
+              <input
+                type="text"
+                placeholder="Enter project name..."
+                value={newProjectName}
+                onChange={(e) => setNewProjectName(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleCreateProject()}
+                autoFocus
+              />
+              <div className="form-buttons">
+                <button onClick={handleCreateProject} disabled={!newProjectName.trim()}>
+                  Create
+                </button>
+                <button onClick={() => setShowCreateForm(false)}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Simple Sidebar Component
+function SimpleSidebar({ onCreateComponent }: { onCreateComponent: (type: string) => void }) {
+  const [isCollapsed, setIsCollapsed] = useState(false)
+
+  return (
+    <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+      <div className="sidebar-header">
+        <button 
+          className="collapse-btn"
+          onClick={() => setIsCollapsed(!isCollapsed)}
+        >
+          {isCollapsed ? '▶' : '◀'}
+        </button>
+        {!isCollapsed && <span>Tools</span>}
+      </div>
+      
+      {!isCollapsed && (
+        <div className="sidebar-content">
+          <div className="tool-section">
+            <h3>Create Components</h3>
+            <button onClick={() => onCreateComponent('button')}>🔘 Button</button>
+            <button onClick={() => onCreateComponent('input')}>📝 Input</button>
+            <button onClick={() => onCreateComponent('text')}>🔤 Text</button>
+            <button onClick={() => onCreateComponent('container')}>📦 Container</button>
+          </div>
+        </div>
+      )}
+    </div>
+  )
 }
 
 function App() {
   const [currentProject, setCurrentProject] = useState<Project | null>(null)
   const [projects, setProjects] = useState<Project[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
-  // Auto-select first project for testing (temporary)
+  // Load projects on mount
   useEffect(() => {
-    if (projects.length > 0 && !currentProject) {
-      setCurrentProject(projects[0])
-    }
-  }, [projects, currentProject])
+    loadProjects()
+  }, [])
 
-  // Handle project updates from canvas
-  const handleProjectUpdate = async (updatedProject: Project) => {
-    try {
-      const dataService = DataService.getInstance()
-      await dataService.updateProject(updatedProject)
-      setCurrentProject(updatedProject)
-
-      // Update the projects list
-      const updatedProjects = projects.map(p =>
-        p.id === updatedProject.id ? updatedProject : p
-      )
-      setProjects(updatedProjects)
-    } catch (error) {
-      console.error('Failed to update project:', error)
+  const loadProjects = () => {
+    // Load projects from localStorage
+    const savedProjects = localStorage.getItem('visual-canvas-projects')
+    if (savedProjects) {
+      try {
+        const parsed = JSON.parse(savedProjects).map((p: any) => ({
+          ...p,
+          createdAt: new Date(p.createdAt),
+          lastModified: new Date(p.lastModified)
+        }))
+        setProjects(parsed)
+      } catch (error) {
+        console.error('Failed to load projects:', error)
+      }
     }
+  }
+
+  const saveProjects = (updatedProjects: Project[]) => {
+    localStorage.setItem('visual-canvas-projects', JSON.stringify(updatedProjects))
+    setProjects(updatedProjects)
+  }
+
+  const handleCreateProject = () => {
+    // This will be called from the ProjectSelector with the name
+    const projectName = prompt('Enter project name:')
+    if (!projectName) return
+
+    const newProject: Project = {
+      id: Date.now().toString(),
+      name: projectName,
+      createdAt: new Date(),
+      lastModified: new Date(),
+      canvasState: {
+        components: []
+      }
+    }
+
+    const updatedProjects = [...projects, newProject]
+    saveProjects(updatedProjects)
+    setCurrentProject(newProject)
+    console.log('✅ Project created:', newProject)
+  }
+
+  const handleSelectProject = (project: Project) => {
+    setCurrentProject(project)
+    console.log('✅ Project selected:', project)
+  }
+
+  const handleCreateComponent = (type: string) => {
+    console.log('Creating component:', type)
+
+    if (!currentProject) {
+      alert('Please create a project first!')
+      return
+    }
+
+    const newComponent = {
+      id: Date.now().toString(),
+      type,
+      name: `${type}_${Date.now()}`,
+      position: { x: 200 + Math.random() * 100, y: 150 + Math.random() * 100 }
+    }
+
+    const updatedProject = {
+      ...currentProject,
+      canvasState: {
+        components: [...currentProject.canvasState.components, newComponent]
+      },
+      lastModified: new Date()
+    }
+
+    // Update projects list and save
+    const updatedProjects = projects.map(p =>
+      p.id === updatedProject.id ? updatedProject : p
+    )
+    saveProjects(updatedProjects)
+    setCurrentProject(updatedProject)
+    console.log(`✅ Created ${type} component:`, newComponent)
+  }
+
+  const handleComponentUpdate = (updatedComponent: any) => {
+    if (!currentProject) return
+
+    const updatedProject = {
+      ...currentProject,
+      canvasState: {
+        components: currentProject.canvasState.components.map(c =>
+          c.id === updatedComponent.id ? updatedComponent : c
+        )
+      },
+      lastModified: new Date()
+    }
+
+    // Update projects list and save
+    const updatedProjects = projects.map(p =>
+      p.id === updatedProject.id ? updatedProject : p
+    )
+    saveProjects(updatedProjects)
+    setCurrentProject(updatedProject)
+  }
+
+  const handleComponentDelete = (componentId: string) => {
+    if (!currentProject) return
+
+    const updatedProject = {
+      ...currentProject,
+      canvasState: {
+        components: currentProject.canvasState.components.filter(c => c.id !== componentId)
+      },
+      lastModified: new Date()
+    }
+
+    // Update projects list and save
+    const updatedProjects = projects.map(p =>
+      p.id === updatedProject.id ? updatedProject : p
+    )
+    saveProjects(updatedProjects)
+    setCurrentProject(updatedProject)
+    console.log(`🗑️ Deleted component: ${componentId}`)
   }
 
   return (
     <div className="app">
-      <div className="app-header">
-        <h1>Visual Canvas Tool</h1>
-        <ProjectManager
+      {/* Show Project Selector if no project is selected */}
+      {!currentProject && (
+        <ProjectSelector
           projects={projects}
-          setProjects={setProjects}
-          currentProject={currentProject}
-          setCurrentProject={setCurrentProject}
+          onSelectProject={handleSelectProject}
+          onCreateProject={handleCreateProject}
+          isLoading={isLoading}
         />
-      </div>
+      )}
 
-      <div className="app-content">
-        {currentProject ? (
-          <Canvas
-            project={currentProject}
-            onProjectUpdate={handleProjectUpdate}
-          />
-        ) : (
-          <div className="welcome-screen">
-            <h2>Welcome to Visual Canvas Tool</h2>
-            <p>Create a new project or select an existing one to get started.</p>
+      {/* Top Header - only show when project is selected */}
+      {currentProject && (
+        <div className="app-header">
+          <h1>Visual Canvas Tool</h1>
+          <div className="project-info">
+            <span>
+              {currentProject.name} ({currentProject.canvasState.components.length} components)
+            </span>
+            <button
+              className="change-project-btn"
+              onClick={() => setCurrentProject(null)}
+              style={{
+                marginLeft: '1rem',
+                padding: '4px 8px',
+                fontSize: '12px',
+                background: 'var(--bg-tertiary)',
+                border: '1px solid var(--border-primary)',
+                color: 'var(--text-secondary)',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}
+            >
+              Change Project
+            </button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
+
+      {/* Left Sidebar - only show when project is selected */}
+      {currentProject && (
+        <SimpleSidebar onCreateComponent={handleCreateComponent} />
+      )}
+
+      {/* Main Content Area - only show when project is selected */}
+      {currentProject && (
+        <div className="app-content">
+          <VisualCanvas
+            components={currentProject.canvasState.components}
+            onComponentUpdate={handleComponentUpdate}
+            onComponentDelete={handleComponentDelete}
+            onComponentSelect={(componentId) => {
+              console.log('Component selected:', componentId)
+            }}
+          />
+        </div>
+      )}
     </div>
   )
 }

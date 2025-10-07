@@ -1,0 +1,167 @@
+# Usage Analytics Report Template
+# Comprehensive usage patterns and engagement metrics
+
+report_metadata:
+  name: "Usage Analytics Report"
+  description: "Detailed analysis of system usage patterns, feature adoption, and user engagement"
+  version: "1.0.0"
+  category: "analytics"
+  frequency: "weekly"
+  priority: "medium"
+
+data_sources:
+  - "the-know-intelligence"
+  - "template-system"
+  - "peanut-butter-user"
+
+report_sections:
+  usage_overview:
+    title: "Usage Overview"
+    description: "High-level usage statistics and trends"
+    include:
+      - total_interactions
+      - active_systems
+      - feature_adoption_rates
+      - user_engagement_metrics
+    
+  template_analytics:
+    title: "Template System Analytics"
+    description: "Template usage patterns and effectiveness"
+    include:
+      - most_used_templates
+      - template_success_rates
+      - customization_patterns
+      - template_performance_metrics
+    
+  ai_enhancement_metrics:
+    title: "AI Enhancement Metrics"
+    description: "The Know intelligence system usage"
+    include:
+      - trigger_usage_frequency
+      - personality_adaptation_effectiveness
+      - cross_conversation_continuity_success
+      - core_values_adherence
+    
+  user_personalization:
+    title: "User Personalization Analytics"
+    description: "pB user system engagement and effectiveness"
+    include:
+      - personality_assessment_completion_rates
+      - folder_usage_patterns
+      - personalization_effectiveness
+      - user_satisfaction_indicators
+
+usage_metrics:
+  interaction_frequency:
+    metric: "interactions_per_day"
+    calculation: "total_interactions / days_in_period"
+    trend_analysis: true
+    
+  feature_adoption:
+    metric: "feature_usage_percentage"
+    calculation: "users_using_feature / total_users * 100"
+    benchmark: 75
+    
+  template_effectiveness:
+    metric: "successful_template_completions"
+    calculation: "completed_projects / started_projects * 100"
+    benchmark: 80
+    
+  user_retention:
+    metric: "returning_user_percentage"
+    calculation: "returning_users / total_users * 100"
+    benchmark: 60
+
+analytics_dimensions:
+  time_periods:
+    - "last_7_days"
+    - "last_30_days"
+    - "last_90_days"
+    - "year_to_date"
+    
+  user_segments:
+    - "new_users"
+    - "active_users"
+    - "power_users"
+    - "inactive_users"
+    
+  system_components:
+    - "trigger_system"
+    - "template_framework"
+    - "personality_assessment"
+    - "folder_organization"
+
+insights_generation:
+  trend_analysis:
+    enabled: true
+    lookback_period: "90_days"
+    trend_indicators:
+      - "growth_rate"
+      - "seasonal_patterns"
+      - "usage_spikes"
+      - "decline_periods"
+    
+  comparative_analysis:
+    enabled: true
+    comparisons:
+      - "period_over_period"
+      - "system_vs_system"
+      - "feature_vs_feature"
+      - "user_segment_vs_segment"
+    
+  predictive_insights:
+    enabled: true
+    predictions:
+      - "future_usage_trends"
+      - "feature_adoption_forecast"
+      - "user_churn_risk"
+      - "capacity_planning"
+
+output_formats:
+  default: "html"
+  supported: ["html", "markdown", "json", "csv"]
+  
+visualization:
+  charts_enabled: true
+  chart_types:
+    - "line_charts"
+    - "bar_charts"
+    - "pie_charts"
+    - "heatmaps"
+    
+  interactive_elements:
+    - "drill_down_capability"
+    - "date_range_selection"
+    - "filter_controls"
+    - "export_options"
+
+distribution:
+  dashboard:
+    enabled: true
+    refresh_interval: "1h"
+    
+  email:
+    enabled: true
+    recipients: ["analytics@theknow.com", "product@theknow.com"]
+    frequency: "weekly"
+    
+  api_endpoint:
+    enabled: true
+    endpoint: "/api/reports/usage-analytics"
+    authentication: "required"
+
+automation:
+  schedule: "0 9 * * 1"  # Weekly on Monday at 9 AM
+  triggers:
+    - "weekly_schedule"
+    - "significant_usage_change"
+    - "manual_request"
+    
+  alerts:
+    usage_drop:
+      condition: "usage_decrease > 20%"
+      action: "send_alert"
+      
+    adoption_milestone:
+      condition: "feature_adoption > 90%"
+      action: "celebrate_success"

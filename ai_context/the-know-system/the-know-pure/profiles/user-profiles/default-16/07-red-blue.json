@@ -1,0 +1,81 @@
+{
+  "profile_id": "red-blue",
+  "profile_name": "Red-Blue - Direct & Analytical",
+  "profile_type": "default_user_profile",
+  "profile_number": 7,
+  "personality_framework": "surrounded_by_idiots",
+  "primary_color": "red",
+  "secondary_color": "blue",
+  "status": "default",
+  "created_date": "2025-08-18T00:00:00Z",
+  "personality": {
+    "primary_type": "Red-Blue - Direct & Analytical",
+    "description": "Fast decision-maker with analytical backing. Combines urgency with precision. Values quick results supported by data.",
+    "key_traits": [
+      "Decisive",
+      "Analytical",
+      "Results-driven",
+      "Precise",
+      "Efficient",
+      "Data-focused"
+    ],
+    "communication_style": "Balanced red and blue approach",
+    "work_approach": "Combines red strengths with blue support",
+    "decision_making": "Red-driven with blue considerations",
+    "stress_response": "Relies on red instincts, supported by blue traits"
+  },
+  "preferences": {
+    "planning_approach": "red_focused_with_blue_support",
+    "explanation_level": "balanced_red_blue",
+    "task_management": "red_oriented_blue_supported",
+    "report_generation": "red_style_with_blue_elements",
+    "confirmation_required": "red_preference_blue_modified",
+    "communication_tone": "red_blue_balanced",
+    "feedback_style": "red_approach_with_blue_consideration"
+  },
+  "ai_interaction_settings": {
+    "report_preferences": {
+      "ui_changes": "major",
+      "system_changes": "major",
+      "bug_fixes": "critical",
+      "behavior_tracking": false
+    },
+    "cue_density": "low",
+    "confirmation_rates": {
+      "ui": 0.3,
+      "system": 0.5,
+      "bugs": 0.8
+    },
+    "response_speed": "fast",
+    "detail_level": "minimal"
+  },
+  "workflow_preferences": {
+    "always_plan_first": false,
+    "explain_implementation_approach": true,
+    "use_task_management_for_complex_work": false,
+    "generate_reports_for_all_work": true,
+    "ask_before_any_changes": false,
+    "prefer_balanced_approach": true,
+    "focus_on_combination_strengths": true
+  },
+  "ideal_for": [
+    "Strategic planning",
+    "Performance optimization",
+    "Technical leadership",
+    "Data-driven decisions",
+    "Competitive analysis"
+  ],
+  "ai_behavior_modifications": {
+    "balance_red_and_blue": true,
+    "emphasize_red_strengths": true,
+    "support_with_blue_traits": true,
+    "adapt_to_combination_needs": true,
+    "provide_balanced_approach": true
+  },
+  "communication_preferences": {
+    "meeting_style": "red_focused_blue_supported",
+    "documentation": "red_style_with_blue_elements",
+    "feedback_frequency": "red_preference_blue_modified",
+    "collaboration_style": "balanced_red_blue"
+  }
+}

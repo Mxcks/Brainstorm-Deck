@@ -1,0 +1,377 @@
+structure:
+  plan_id: "{AI_FILLS: unique_plan_id_using_naming_convention}"
+  plan_name: "{AI_FILLS: descriptive_name_for_this_specific_plan}"
+  plan_purpose: "{AI_FILLS: what_this_specific_plan_accomplishes}"
+  version: "{AI_FILLS: plan_version_number}"
+  author: "{AI_FILLS: plan_author_name}"
+  description: "{AI_FILLS: description_of_this_specific_execution_plan}"
+  created_date: "{AI_INSTRUCTION: Run generateTimestamp.js to get current timestamp}"
+  naming_conventions:
+    plan_id_format: PLAN-{YYYY}{MM}{DD}-{sequence:04d}
+    plan_filename_pattern: "{idea_category}_{plan_id}_{user_name}"
+  template_sources:
+    user_templates_dir: ./templates/user_templates
+    system_templates_dir: ./templates/system_templates
+    shared_templates_dir: ./templates/shared_templates
+    imported_templates_dir: ./templates/imported_templates
+    restructured_templates_dir: ./templates/restructured_templates
+  plan_creation_rules:
+    require_user_approval: true
+    suggest_existing_templates: true
+    track_template_usage: true
+    save_plan_to_database: true
+  template_selection_priority:
+    primary_source: restructured_templates
+    fallback_sources:
+      - imported_templates
+      - system_templates
+      - shared_templates
+    template_matching_strategy: best_fit_from_restructured_first
+  template_categories:
+    # Dynamic template categories with skill-based transfer capabilities
+    category_detection_strategy: "ai_determines_from_project_context_with_skill_transfer"
+
+    # === REALITY-BASED PROJECTS ===
+    reality_projects:
+      project_types:
+        - business_planning
+        - content_creation
+        - marketing_campaigns
+        - research_projects
+        - educational_programs
+        - event_planning
+        - process_improvement
+        - team_management
+        - strategic_planning
+        - creative_projects
+
+      domains:
+        - business_strategy
+        - marketing_operations
+        - human_resources
+        - financial_planning
+        - operations_management
+        - creative_production
+        - research_methodology
+        - education_design
+        - communication_strategy
+        - project_management
+
+      methodologies:
+        - design_thinking
+        - lean_startup
+        - agile_business
+        - strategic_planning
+        - creative_process
+        - research_methodology
+        - change_management
+        - stakeholder_engagement
+
+      skill_transfer_from_code:
+        # Code methodologies that apply to reality projects
+        - test_driven_planning # TDD → Hypothesis-driven planning
+        - iterative_development # Sprints → Iterative business cycles
+        - code_review_process # Code review → Peer review systems
+        - continuous_integration # CI/CD → Continuous improvement
+        - version_control # Git → Document/process versioning
+        - debugging_methodology # Debug → Problem-solving frameworks
+        - api_design_thinking # APIs → Interface design for processes
+        - modular_architecture # Modules → Modular business processes
+
+    # === CODE-BASED PROJECTS ===
+    code_projects:
+      project_types:
+        - web_development
+        - mobile_development
+        - desktop_applications
+        - api_development
+        - database_systems
+        - automation_tools
+        - data_pipelines
+        - machine_learning
+        - system_integration
+        - infrastructure_setup
+
+      domains:
+        - frontend_development
+        - backend_development
+        - database_design
+        - devops_infrastructure
+        - ai_ml_engineering
+        - security_implementation
+        - performance_optimization
+        - testing_frameworks
+        - deployment_systems
+        - monitoring_tools
+
+      methodologies:
+        - agile_development
+        - test_driven_development
+        - continuous_integration
+        - microservices_architecture
+        - api_first_design
+        - infrastructure_as_code
+        - gitflow_workflow
+        - code_review_process
+
+      skill_transfer_to_reality:
+        # How code methodologies transfer to reality projects
+        - business_process_automation # Automation → Process improvement
+        - stakeholder_api_design # API design → Stakeholder interfaces
+        - organizational_architecture # System architecture → Org design
+        - performance_metrics # Code metrics → Business KPIs
+        - error_handling_strategies # Exception handling → Risk management
+        - scalability_planning # Code scaling → Business scaling
+        - documentation_systems # Code docs → Process documentation
+        - testing_strategies # Unit tests → Business validation
+
+    # === HYBRID PROJECTS ===
+    hybrid_projects:
+      project_types:
+        - digital_transformation
+        - product_development
+        - system_analysis
+        - technical_documentation
+        - data_analysis_reporting
+        - automation_consulting
+        - tech_strategy_planning
+        - process_digitization
+
+      domains:
+        - business_technology
+        - data_strategy
+        - digital_operations
+        - technical_communication
+        - system_architecture
+        - process_automation
+        - digital_product_management
+        - technology_consulting
+
+      methodologies:
+        - systems_thinking
+        - business_analysis
+        - technical_writing
+        - data_driven_decisions
+        - cross_functional_collaboration
+        - digital_transformation_methodology
+        - product_management_frameworks
+        - technology_adoption_strategies
+
+    # === UNIVERSAL FRAMEWORKS ===
+    universal_frameworks:
+      # Frameworks that apply to both reality and code projects
+      thinking_frameworks:
+        - big_five_frameworks
+        - optimization_frameworks
+        - learning_frameworks
+        - problem_solving_frameworks
+        - decision_making_frameworks
+
+      meta_categories:
+        - meta_templates
+        - template_generators
+        - workflow_templates
+        - integration_templates
+        - skill_transfer_templates
+
+    # === SKILL TRANSFER RULES ===
+    skill_transfer_rules:
+      - "Every code methodology can be adapted to reality projects with proper abstraction"
+      - "Reality project frameworks can inform code project approaches (user-centered design → user-centered development)"
+      - "Look for underlying principles that transcend the specific domain"
+      - "Consider skill transfer when primary categories don't fully address the need"
+      - "Hybrid projects should actively use skill transfer from both domains"
+      - "Meta templates can facilitate skill transfer between domains"
+
+    selection_rules:
+      - "AI analyzes project requirements and selects 2-4 most relevant categories"
+      - "Prioritize project_types and domains from the appropriate project category (reality/code/hybrid)"
+      - "Include skill_transfer options when they add value to the primary approach"
+      - "Consider universal_frameworks for foundational thinking approaches"
+      - "Always evaluate if skill transfer from the opposite domain could enhance the solution"
+      - "Use hybrid_projects for projects that bridge business and technology"
+      - "Fallback to system_templates if no specific category matches"
+  restructured_template_workflow:
+    step_1: Select appropriate template from restructured_templates/ directory
+    step_2: Extract content blocks from template body section
+    step_3: Integrate template content into execution plan sections
+    step_4: Replace template placeholders with project-specific data
+    step_5: Customize template methodology for project scope
+  plan_validation:
+    required_sections:
+      - leading_instruction
+      - plan_summary
+      - project_structure
+      - execution_steps
+      - tasks
+      - trailing_instruction
+    must_include_section_verification: true
+    must_specify_deliverables: true
+body:
+  leading_instruction:
+    section_id: leading_instruction
+    section_verification:
+      verified: false
+      approved: null
+      modifications_requested: []
+      notes: ""
+    content: |
+      {AI_INSTRUCTION: Replace this entire content block with specific details}
+      PROCESS BEFORE EXECUTION:
+      The Idea: {AI_FILLS: clear description of the user's idea}
+      Goal: {AI_FILLS: what the user wants to achieve}
+      Context: {AI_FILLS: relevant background, constraints, requirements}
+      Approach: {AI_FILLS: AI's recommended approach and methodology}
+      Prerequisites: {AI_FILLS: what needs to be in place before starting}
+      Success Criteria: {AI_FILLS: how to know when this is complete}
+  plan_summary:
+    section_id: plan_summary
+    section_verification:
+      verified: false
+      approved: null
+      modifications_requested: []
+      notes: ""
+    content:
+      the_idea_title: "[AI FILLS: Brief title for the user's idea]"
+      the_idea_description: "[AI FILLS: One sentence description]"
+      estimated_timeline: "[AI FILLS: Overall time estimate]"
+      key_deliverables:
+        - "[AI FILLS: Main thing that will be created]"
+        - "[AI FILLS: Secondary deliverable]"
+        - "[AI FILLS: Additional outputs]"
+      templates_to_use:
+        - "[AI FILLS: Primary template name from dynamic categories]"
+        - "[AI FILLS: Secondary template name from dynamic categories]"
+      complexity_level: "[AI FILLS: Simple/Medium/Complex]"
+      selected_categories:
+        - "[AI FILLS: Relevant category from available_categories]"
+        - "[AI FILLS: Additional relevant category]"
+      template_selection_reasoning: "[AI FILLS: Why these specific templates and categories were chosen]"
+  project_structure:
+    section_id: project_structure
+    section_verification:
+      verified: false
+      approved: null
+      modifications_requested: []
+      notes: ""
+    content:
+      note: This is where templates get selected, filled, then used for the process
+      selected_templates:
+        - template_name: "{AI_FILLS: specific_template_name_from_dynamic_categories}"
+          template_source: "{AI_FILLS: user_templates|system_templates|shared_templates|restructured_templates}"
+          template_category: "{AI_FILLS: category_from_available_categories}"
+          purpose: "{AI_FILLS: what_this_template_accomplishes}"
+          filled_data: "{AI_FILLS: data_that_populates_template}"
+          output_location: "{AI_FILLS: where_filled_template_is_used}"
+        - template_name: "{AI_FILLS: additional_template_if_needed}"
+          template_source: "{AI_FILLS: template_source}"
+          template_category: "{AI_FILLS: relevant_category}"
+          purpose: "{AI_FILLS: template_purpose}"
+          filled_data: "{AI_FILLS: template_data}"
+          output_location: "{AI_FILLS: output_location}"
+      project_files:
+        - file_name: "{AI_FILLS: generated_filename}"
+          file_type: "{AI_FILLS: file_type}"
+          location: "{AI_FILLS: file_path}"
+          template_source: "{AI_FILLS: which_template_generated_this}"
+      directory_structure:
+        - "{AI_FILLS: folder_structure_from_templates}"
+  execution_steps:
+    section_id: execution_steps
+    section_verification:
+      verified: false
+      approved: null
+      modifications_requested: []
+      notes: ""
+    content:
+      - step: 1
+        name: "{AI_FILLS: descriptive_step_name}"
+        description: "{AI_FILLS: what_this_step_accomplishes}"
+        template_used: "{AI_FILLS: template_from_project_structure}"
+        deliverable: "{AI_FILLS: what_gets_created_or_completed}"
+        estimated_time: "{AI_FILLS: realistic_time_estimate}"
+        dependencies: []
+      - step: 2
+        name: "{AI_FILLS: next_step_name}"
+        description: "{AI_FILLS: step_description}"
+        template_used: "{AI_FILLS: template_name}"
+        deliverable: "{AI_FILLS: step_deliverable}"
+        estimated_time: "{AI_FILLS: time_estimate}"
+        dependencies:
+          - 1
+  tasks:
+    section_id: tasks
+    section_verification:
+      verified: false
+      approved: null
+      modifications_requested: []
+      notes: ""
+    content:
+      note: Specific, chronological actions derived from execution steps for direct user implementation
+      tasks:
+        - task: 1
+          action: "{AI_FILLS: specific_action_to_take}"
+          description: "{AI_FILLS: brief_description_of_what_to_do}"
+          estimated_time: "{AI_FILLS: realistic_time_for_this_task}"
+          resources_needed:
+            - "{AI_FILLS: specific_items_or_tools_needed}"
+          blockers:
+            - "{AI_FILLS: obstacles_or_dependencies_that_could_prevent_completion}"
+          completion_criteria: "{AI_FILLS: how_to_know_task_is_done}"
+          related_step: 1
+        - task: 2
+          action: "{AI_FILLS: next_specific_action}"
+          description: "{AI_FILLS: what_this_task_accomplishes}"
+          estimated_time: "{AI_FILLS: time_estimate}"
+          resources_needed:
+            - "{AI_FILLS: needed_resources}"
+          blockers:
+            - "{AI_FILLS: potential_obstacles_or_dependencies}"
+          completion_criteria: "{AI_FILLS: completion_definition}"
+          related_step: 1
+        - task: 3
+          action: "{AI_FILLS: third_action}"
+          description: "{AI_FILLS: task_description}"
+          estimated_time: "{AI_FILLS: time_needed}"
+          resources_needed:
+            - "{AI_FILLS: required_resources}"
+          blockers:
+            - "{AI_FILLS: things_that_could_block_this_task}"
+          completion_criteria: "{AI_FILLS: done_criteria}"
+          related_step: 2
+  trailing_instruction:
+    section_id: trailing_instruction
+    section_verification:
+      verified: false
+      approved: null
+      modifications_requested: []
+      notes: ""
+    content: |
+      {AI_INSTRUCTION: Customize these execution notes for the specific plan}
+      POST-EXECUTION PROCESS:
+      AI EXECUTION NOTES:
+      - Wait for user approval of ALL sections before starting execution
+      - Track progress in database: planned -> approved -> in_progress -> completed
+      - Update step status as work progresses
+      - Document any deviations from original plan
+      - Save all deliverables to agreed locations
+      - Update template library if new reusable patterns emerge
+      - Log completion and lessons learned for future similar ideas
+      - RUN updateLastModified.js script whenever making changes to update last_updated timestamp
+
+      TEMPLATE FEEDBACK LOOP:
+      - Evaluate effectiveness of selected templates
+      - Note any missing template categories that would have been helpful
+      - Update template usage statistics
+      - Consider creating new templates if novel patterns emerged
+
+      PROJECT-SPECIFIC NOTES:
+      {AI_FILLS: Add any specific notes relevant to this execution plan}
+  overall_status:
+    total_sections: 6
+    sections_approved: 0
+    sections_pending: 6
+    sections_rejected: 0
+    all_sections_approved: false
+    ready_for_execution: false
+    last_updated: "2025-09-07 11:30:00"

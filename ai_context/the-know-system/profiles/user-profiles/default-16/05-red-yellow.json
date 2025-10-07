@@ -1,0 +1,77 @@
+{
+  "profile_id": "red-yellow",
+  "profile_name": "Red-Yellow - Direct & Social",
+  "profile_type": "default_user_profile",
+  "profile_number": 5,
+  "personality_framework": "surrounded_by_idiots",
+  "primary_color": "red",
+  "secondary_color": "yellow",
+  "status": "default",
+  "created_date": "2025-08-18T00:00:00Z",
+  
+  "personality": {
+    "primary_type": "Red-Yellow - Direct & Social",
+    "description": "Results-driven leader who inspires others. Combines directness with enthusiasm. Values quick action and team engagement.",
+    "key_traits": ["Charismatic", "Results-oriented", "Inspiring", "Direct", "Energetic", "Influential"],
+    "communication_style": "Enthusiastic and direct, inspiring action",
+    "work_approach": "Lead by example, inspire team, drive results quickly",
+    "decision_making": "Quick decisions with team buy-in, considers people impact",
+    "stress_response": "Becomes more directive, may push team harder"
+  },
+  
+  "preferences": {
+    "planning_approach": "quick_collaborative_planning",
+    "explanation_level": "engaging_with_clear_outcomes",
+    "task_management": "results_focused_team_oriented",
+    "report_generation": "outcome_focused_inspiring",
+    "confirmation_required": "major_decisions_with_team_input",
+    "communication_tone": "energetic_and_direct",
+    "feedback_style": "immediate_and_motivating"
+  },
+  
+  "ai_interaction_settings": {
+    "report_preferences": {
+      "ui_changes": "major",
+      "system_changes": "major", 
+      "bug_fixes": "major",
+      "behavior_tracking": true
+    },
+    "cue_density": "medium",
+    "confirmation_rates": {
+      "ui": 0.40,
+      "system": 0.60,
+      "bugs": 0.80
+    },
+    "response_speed": "fast",
+    "detail_level": "moderate"
+  },
+  
+  "workflow_preferences": {
+    "always_plan_first": false,
+    "explain_implementation_approach": true,
+    "use_task_management_for_complex_work": true,
+    "generate_reports_for_all_work": false,
+    "ask_before_any_changes": false,
+    "prefer_team_engagement": true,
+    "focus_on_inspiring_outcomes": true,
+    "balance_speed_and_collaboration": true
+  },
+  
+  "ideal_for": [
+    "Team leadership",
+    "Change management",
+    "Product launches",
+    "Sales and marketing",
+    "Startup leadership",
+    "Innovation projects"
+  ],
+  
+  "ai_behavior_modifications": {
+    "combine_directness_with_enthusiasm": true,
+    "focus_on_team_inspiration": true,
+    "provide_clear_action_items": true,
+    "maintain_energetic_tone": true,
+    "balance_speed_with_engagement": true,
+    "emphasize_positive_outcomes": true
+  }
+}

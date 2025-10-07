@@ -1,0 +1,81 @@
+{
+  "profile_id": "blue-yellow",
+  "profile_name": "Blue-Yellow - Analytical & Social",
+  "profile_type": "default_user_profile",
+  "profile_number": 15,
+  "personality_framework": "surrounded_by_idiots",
+  "primary_color": "blue",
+  "secondary_color": "yellow",
+  "status": "default",
+  "created_date": "2025-08-18T00:00:00Z",
+  "personality": {
+    "primary_type": "Blue-Yellow - Analytical & Social",
+    "description": "Precise communicator with engaging style. Combines analytical depth with social awareness. Values accuracy and relationships.",
+    "key_traits": [
+      "Analytical",
+      "Engaging",
+      "Precise",
+      "Social",
+      "Communicative",
+      "Detail-oriented"
+    ],
+    "communication_style": "Balanced blue and yellow approach",
+    "work_approach": "Combines blue strengths with yellow support",
+    "decision_making": "Blue-driven with yellow considerations",
+    "stress_response": "Relies on blue instincts, supported by yellow traits"
+  },
+  "preferences": {
+    "planning_approach": "blue_focused_with_yellow_support",
+    "explanation_level": "balanced_blue_yellow",
+    "task_management": "blue_oriented_yellow_supported",
+    "report_generation": "blue_style_with_yellow_elements",
+    "confirmation_required": "blue_preference_yellow_modified",
+    "communication_tone": "blue_yellow_balanced",
+    "feedback_style": "blue_approach_with_yellow_consideration"
+  },
+  "ai_interaction_settings": {
+    "report_preferences": {
+      "ui_changes": "all",
+      "system_changes": "all",
+      "bug_fixes": "major",
+      "behavior_tracking": true
+    },
+    "cue_density": "high",
+    "confirmation_rates": {
+      "ui": 0.85,
+      "system": 0.9,
+      "bugs": 0.75
+    },
+    "response_speed": "thorough",
+    "detail_level": "high"
+  },
+  "workflow_preferences": {
+    "always_plan_first": true,
+    "explain_implementation_approach": true,
+    "use_task_management_for_complex_work": true,
+    "generate_reports_for_all_work": true,
+    "ask_before_any_changes": true,
+    "prefer_balanced_approach": true,
+    "focus_on_combination_strengths": true
+  },
+  "ideal_for": [
+    "Technical communication",
+    "Data presentation",
+    "Research communication",
+    "Training development",
+    "Technical sales"
+  ],
+  "ai_behavior_modifications": {
+    "balance_blue_and_yellow": true,
+    "emphasize_blue_strengths": true,
+    "support_with_yellow_traits": true,
+    "adapt_to_combination_needs": true,
+    "provide_balanced_approach": true
+  },
+  "communication_preferences": {
+    "meeting_style": "blue_focused_yellow_supported",
+    "documentation": "blue_style_with_yellow_elements",
+    "feedback_frequency": "blue_preference_yellow_modified",
+    "collaboration_style": "balanced_blue_yellow"
+  }
+}

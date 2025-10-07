@@ -1,0 +1,44 @@
+{
+  "assessment_status": "not_completed",
+  "last_updated": "2025-08-04T23:00:00Z",
+
+  "onboarding_results": {
+    "completed": false,
+    "answers": [],
+    "percentages": {
+      "red": 0,
+      "yellow": 0,
+      "green": 0,
+      "blue": 0
+    },
+    "primary_type": null,
+    "secondary_type": null,
+    "type_description": "",
+    "ai_adaptation_message": ""
+  },
+
+  "communication_style": {
+    "response_length": "adaptive",
+    "tone": "balanced",
+    "pacing": "user_led",
+    "detail_level": "moderate"
+  },
+
+  "user_preferences": {
+    "likes_detailed_explanations": null,
+    "prefers_quick_responses": null,
+    "enjoys_creative_approaches": null,
+    "values_accuracy": null
+  },
+  
+  "interaction_history": {
+    "total_conversations": 0,
+    "helpful_interactions": 0,
+    "last_interaction": null
+  },
+
+  "system_notes": {
+    "version": "1.0",
+    "last_updated": "2025-08-04T23:00:00Z"
+  }
+}

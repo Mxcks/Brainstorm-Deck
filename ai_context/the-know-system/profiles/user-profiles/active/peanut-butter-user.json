@@ -1,0 +1,74 @@
+{
+  "profile_id": "peanut-butter-user",
+  "profile_name": "Peanut Butter User (Macks)",
+  "profile_type": "user_profile",
+  "status": "active",
+  "created_date": "2025-08-18T00:00:00Z",
+  "last_updated": "2025-08-18T06:10:00Z",
+  
+  "personality": {
+    "primary_type": "Blue-Green - Analytical & Steady",
+    "personality_framework": "surrounded_by_idiots",
+    "primary_color": "blue",
+    "secondary_color": "green",
+    "secondary_traits": ["Planning-focused", "Comprehensive", "Quality-driven", "Supportive", "Methodical"],
+    "communication_style": "Direct and practical, patient and detailed",
+    "work_approach": "Plan thoroughly first, then implement steadily with quality focus",
+    "feedback_style": "Specific, actionable, and constructive",
+    "matches_default_profile": "16-blue-green"
+  },
+  
+  "preferences": {
+    "planning_approach": "detailed_plans_required",
+    "explanation_level": "comprehensive_with_how",
+    "task_management": "use_for_complex_work",
+    "report_generation": "all_significant_changes",
+    "confirmation_required": "major_changes_only",
+    "communication_tone": "skip_flattery_be_direct"
+  },
+  
+  "ai_interaction_settings": {
+    "report_preferences": {
+      "ui_changes": "major",
+      "system_changes": "all", 
+      "bug_fixes": "major",
+      "behavior_tracking": true
+    },
+    "cue_density": "high",
+    "confirmation_rates": {
+      "ui": 0.85,
+      "system": 0.90,
+      "bugs": 0.70
+    }
+  },
+  
+  "workflow_preferences": {
+    "always_plan_first": true,
+    "explain_implementation_approach": true,
+    "use_task_management_for_complex_work": true,
+    "generate_reports_for_significant_work": true,
+    "ask_before_major_changes": true,
+    "respect_modular_architecture": true
+  },
+  
+  "the_know_integration": {
+    "personality_weight": 1.0,
+    "learning_rate": "adaptive",
+    "memory_retention": "unlimited",
+    "behavior_adaptation": "high",
+    "proactivity_level": "balanced"
+  },
+  
+  "project_context": {
+    "current_projects": ["ai-reports-desktop"],
+    "preferred_tech_stack": ["React", "TypeScript", "Electron", "Node.js"],
+    "experience_level": "advanced",
+    "focus_areas": ["AI integration", "User experience", "System architecture"]
+  },
+  
+  "growth_areas": {
+    "interests": ["AI-human collaboration", "Modular systems", "Intelligent workflows"],
+    "learning_goals": ["Advanced AI integration", "Cross-project transferability"],
+    "improvement_focus": ["Efficiency", "Quality", "Innovation"]
+  }
+}

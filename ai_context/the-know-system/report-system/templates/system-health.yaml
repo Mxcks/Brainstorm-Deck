@@ -1,0 +1,115 @@
+# System Health Report Template
+# Comprehensive health monitoring across all systems
+
+report_metadata:
+  name: "System Health Report"
+  description: "Comprehensive health monitoring and status report for all systems in The Know ecosystem"
+  version: "1.0.0"
+  category: "system-monitoring"
+  frequency: "daily"
+  priority: "high"
+
+data_sources:
+  - "the-know-intelligence"
+  - "template-system"
+  - "database-core"
+  - "peanut-butter-user"
+  - "report-system"
+
+report_sections:
+  executive_summary:
+    title: "Executive Summary"
+    description: "High-level overview of system health and critical issues"
+    include:
+      - overall_health_percentage
+      - critical_issues_count
+      - systems_operational_count
+      - last_24h_activity_summary
+    
+  system_status:
+    title: "Individual System Status"
+    description: "Detailed status for each system"
+    include:
+      - database_connectivity
+      - recent_activity_indicators
+      - error_rates
+      - performance_metrics
+      - resource_utilization
+    
+  performance_metrics:
+    title: "Performance Metrics"
+    description: "Key performance indicators across systems"
+    include:
+      - response_times
+      - throughput_metrics
+      - resource_consumption
+      - growth_trends
+    
+  alerts_and_warnings:
+    title: "Alerts and Warnings"
+    description: "Current issues requiring attention"
+    include:
+      - critical_alerts
+      - warning_conditions
+      - maintenance_recommendations
+      - upcoming_deadlines
+
+health_indicators:
+  database_connectivity:
+    metric: "connection_status"
+    threshold_healthy: "connected"
+    threshold_warning: "intermittent"
+    threshold_critical: "disconnected"
+    
+  recent_activity:
+    metric: "last_activity_hours"
+    threshold_healthy: 24
+    threshold_warning: 72
+    threshold_critical: 168
+    
+  error_rate:
+    metric: "errors_per_hour"
+    threshold_healthy: 0
+    threshold_warning: 5
+    threshold_critical: 20
+    
+  data_integrity:
+    metric: "data_consistency_percentage"
+    threshold_healthy: 99
+    threshold_warning: 95
+    threshold_critical: 90
+
+output_formats:
+  default: "markdown"
+  supported: ["markdown", "html", "json", "csv"]
+  
+distribution:
+  email:
+    enabled: true
+    recipients: ["admin@theknow.com", "dev-team@theknow.com"]
+    frequency: "daily"
+    
+  dashboard:
+    enabled: true
+    refresh_interval: "5m"
+    
+  file_export:
+    enabled: true
+    location: "./reports/system-health/"
+    retention_days: 30
+
+automation:
+  schedule: "0 6 * * *"  # Daily at 6 AM
+  triggers:
+    - "system_error_detected"
+    - "performance_degradation"
+    - "manual_request"
+    
+  actions:
+    critical_alert:
+      condition: "health_percentage < 80"
+      action: "send_immediate_notification"
+      
+    warning_alert:
+      condition: "health_percentage < 95"
+      action: "include_in_daily_report"

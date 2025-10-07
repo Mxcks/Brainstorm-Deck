@@ -1,0 +1,309 @@
+# Systems Thinking Template - Systematic Approach to Complex Problems
+# Template Type: Thinking Framework  
+# Purpose: Approach any problem with systems thinking methodology
+
+template_metadata:
+  template_id: "systems-thinking-001"
+  template_name: "Systems Thinking Framework"
+  template_type: "thinking_framework"
+  version: "1.0.0"
+  created_by: "ai-assistant"
+  created_date: "2025-08-26"
+  description: "Systematic approach to understanding and optimizing complex systems"
+  tags: ["systems", "thinking", "complexity", "optimization", "holistic"]
+
+template_configuration:
+  customizable: true
+  user_modifications_allowed: true
+  required_components: ["define_boundaries", "map_components", "analyze_relationships", "identify_feedback_loops", "find_leverage_points", "design_interventions"]
+  optional_components: ["emergence_analysis", "system_archetypes", "scenario_planning", "system_optimization"]
+  integration_points: ["value_equation", "feynman_learning", "project_completion", "closer_framework"]
+
+systems_philosophy:
+  core_principle: "The whole is greater than the sum of its parts"
+  methodology: "Understand relationships, patterns, and leverage points"
+  outcome: "Effective interventions that create lasting positive change"
+  mindset: "See connections, not just components"
+
+systems_analysis_process:
+  step_1_define_boundaries:
+    step_name: "DEFINE SYSTEM BOUNDARIES"
+    purpose: "Determine what's inside and outside the system"
+    time_allocation: "15-20%"
+    
+    boundary_questions:
+      - "What is the system we're examining?"
+      - "What's included in this system?"
+      - "What's outside the system but influences it?"
+      - "Where do we draw the boundaries?"
+    
+    ai_guidance:
+      - "Help identify appropriate system scope"
+      - "Suggest relevant boundary considerations"
+      - "Identify key external influences"
+      - "Balance scope with manageability"
+    
+    boundary_criteria:
+      - "Purpose-driven boundaries"
+      - "Influence and control considerations"
+      - "Resource and time constraints"
+      - "Stakeholder perspectives"
+    
+    output_requirements:
+      - "Clear system definition"
+      - "Boundary rationale documented"
+      - "External influences identified"
+      - "Scope limitations acknowledged"
+
+  step_2_map_components:
+    step_name: "MAP SYSTEM COMPONENTS"
+    purpose: "Identify key elements within the system"
+    time_allocation: "20-25%"
+    
+    component_categories:
+      - "People and stakeholders"
+      - "Processes and workflows"
+      - "Resources and assets"
+      - "Information and data flows"
+      - "Rules and constraints"
+      - "Goals and purposes"
+    
+    mapping_techniques:
+      - "Stakeholder analysis"
+      - "Process mapping"
+      - "Resource inventory"
+      - "Information flow diagrams"
+      - "Constraint identification"
+    
+    ai_assistance:
+      - "Suggest component categories to explore"
+      - "Help identify hidden or overlooked elements"
+      - "Organize components into logical groups"
+      - "Prioritize components by importance"
+    
+    component_documentation:
+      - "Component name and description"
+      - "Role and function in system"
+      - "Relationships to other components"
+      - "Importance and influence level"
+
+  step_3_analyze_relationships:
+    step_name: "ANALYZE RELATIONSHIPS"
+    purpose: "Understand how components interact and influence each other"
+    time_allocation: "25-30%"
+    
+    relationship_types:
+      - "Causal relationships (A causes B)"
+      - "Correlational relationships (A relates to B)"
+      - "Dependency relationships (A depends on B)"
+      - "Hierarchical relationships (A controls B)"
+      - "Network relationships (A connects to B)"
+    
+    analysis_methods:
+      - "Cause and effect mapping"
+      - "Influence diagrams"
+      - "Network analysis"
+      - "Dependency mapping"
+      - "Flow analysis"
+    
+    ai_support:
+      - "Identify potential relationships"
+      - "Suggest relationship types to explore"
+      - "Help visualize complex interactions"
+      - "Prioritize most important relationships"
+    
+    relationship_documentation:
+      - "Relationship type and strength"
+      - "Direction of influence"
+      - "Time delays and lags"
+      - "Conditions that affect relationship"
+
+  step_4_identify_feedback_loops:
+    step_name: "IDENTIFY FEEDBACK LOOPS"
+    purpose: "Find reinforcing and balancing loops in the system"
+    time_allocation: "15-20%"
+    
+    feedback_loop_types:
+      reinforcing_loops:
+        - "Virtuous cycles (positive reinforcement)"
+        - "Vicious cycles (negative reinforcement)"
+        - "Growth and decline patterns"
+      
+      balancing_loops:
+        - "Self-correcting mechanisms"
+        - "Homeostatic processes"
+        - "Constraint and limitation systems"
+    
+    loop_identification:
+      - "Trace circular causal chains"
+      - "Look for self-reinforcing patterns"
+      - "Identify stabilizing mechanisms"
+      - "Find delay and accumulation points"
+    
+    ai_assistance:
+      - "Help trace causal chains"
+      - "Identify potential loop patterns"
+      - "Suggest areas to look for feedback"
+      - "Analyze loop strength and impact"
+    
+    loop_documentation:
+      - "Loop type and polarity"
+      - "Key variables in the loop"
+      - "Delays and accumulations"
+      - "Loop strength and dominance"
+
+  step_5_find_leverage_points:
+    step_name: "FIND LEVERAGE POINTS"
+    purpose: "Identify where small changes can create big impacts"
+    time_allocation: "15-20%"
+    
+    leverage_point_hierarchy:
+      highest_leverage:
+        - "Paradigms and mindsets"
+        - "Goals and purposes"
+        - "System structure and rules"
+      
+      medium_leverage:
+        - "Information flows"
+        - "Feedback loops"
+        - "Resource allocation"
+      
+      lower_leverage:
+        - "Parameters and numbers"
+        - "Material elements"
+        - "Individual behaviors"
+    
+    identification_methods:
+      - "Look for bottlenecks and constraints"
+      - "Find information gaps"
+      - "Identify rule and structure issues"
+      - "Examine goal alignment problems"
+    
+    ai_guidance:
+      - "Suggest potential leverage points"
+      - "Help prioritize intervention opportunities"
+      - "Analyze intervention feasibility"
+      - "Predict intervention impacts"
+    
+    leverage_assessment:
+      - "Potential impact magnitude"
+      - "Intervention difficulty"
+      - "Resource requirements"
+      - "Risk and side effects"
+
+  step_6_design_interventions:
+    step_name: "DESIGN INTERVENTIONS"
+    purpose: "Create strategies to improve system performance"
+    time_allocation: "10-15%"
+    
+    intervention_strategies:
+      - "Strengthen positive feedback loops"
+      - "Weaken negative feedback loops"
+      - "Remove or bypass constraints"
+      - "Improve information flows"
+      - "Align goals and incentives"
+      - "Change rules and structures"
+    
+    design_principles:
+      - "Work with system forces, not against them"
+      - "Address root causes, not symptoms"
+      - "Consider unintended consequences"
+      - "Start with small experiments"
+      - "Build in feedback and learning"
+    
+    ai_support:
+      - "Suggest intervention strategies"
+      - "Help anticipate consequences"
+      - "Design pilot experiments"
+      - "Create implementation plans"
+    
+    intervention_documentation:
+      - "Intervention description and rationale"
+      - "Expected outcomes and metrics"
+      - "Implementation steps and timeline"
+      - "Risk mitigation strategies"
+
+advanced_systems_concepts:
+  emergence_analysis:
+    purpose: "Understand properties that emerge from system interactions"
+    focus_areas:
+      - "Emergent behaviors and patterns"
+      - "Unintended consequences"
+      - "System-level properties"
+      - "Collective intelligence"
+  
+  system_archetypes:
+    purpose: "Recognize common system patterns"
+    common_archetypes:
+      - "Limits to growth"
+      - "Shifting the burden"
+      - "Tragedy of the commons"
+      - "Success to the successful"
+  
+  scenario_planning:
+    purpose: "Explore possible system futures"
+    methods:
+      - "Multiple scenario development"
+      - "Stress testing interventions"
+      - "Adaptive strategy design"
+      - "Early warning indicators"
+
+integration_patterns:
+  with_value_equation:
+    - "Optimize system-level value creation"
+    - "Identify value multiplication points"
+    - "Design value-enhancing interventions"
+  
+  with_feynman_learning:
+    - "Learn system patterns and principles"
+    - "Teach systems thinking to others"
+    - "Simplify complex system explanations"
+  
+  with_project_completion:
+    - "Apply systems view to project success"
+    - "Design systemic project improvements"
+    - "Create sustainable project outcomes"
+
+template_usage:
+  activation_triggers:
+    - "When facing complex, multi-faceted problems"
+    - "When simple solutions haven't worked"
+    - "When unintended consequences keep occurring"
+    - "When designing organizational or process changes"
+  
+  success_metrics:
+    - "Improved problem understanding"
+    - "More effective interventions"
+    - "Reduced unintended consequences"
+    - "Sustainable positive changes"
+    - "Enhanced system performance"
+
+customization_options:
+  domain_adaptations:
+    business:
+      - "Organizational systems focus"
+      - "Market and competitive dynamics"
+      - "Process and workflow optimization"
+    
+    personal:
+      - "Life systems and habits"
+      - "Relationship dynamics"
+      - "Personal development systems"
+    
+    technical:
+      - "Software and system architecture"
+      - "Process and workflow systems"
+      - "Performance and optimization systems"
+  
+  complexity_levels:
+    - "Simple systems (few components)"
+    - "Complicated systems (many components)"
+    - "Complex systems (emergent behaviors)"
+    - "Chaotic systems (unpredictable dynamics)"
+
+template_storage:
+  location: "templates/thinking-frameworks/"
+  backup_location: "templates/backups/thinking-frameworks/"
+  version_control: true
+  system_analysis_results_stored: true
+  intervention_effectiveness_tracked: true

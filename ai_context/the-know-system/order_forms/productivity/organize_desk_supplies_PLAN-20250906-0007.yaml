@@ -1,0 +1,370 @@
+structure:
+  plan_id: organize_desk_supplies_PLAN-20250906-0007
+  plan_name: Desk Supply Organization System
+  plan_purpose: Create an efficient organization system for desk supplies to improve accessibility and productivity
+  version: 1.0.0
+  author: AI Assistant
+  description: Execution plan for organizing desk supplies with optimal accessibility and efficiency
+  created_date: '2025-09-06 15:11:54'
+  naming_conventions:
+    plan_id_format: PLAN-{YYYY}{MM}{DD}-{sequence:04d}
+    plan_filename_pattern: '{idea_category}_{plan_id}_{user_name}'
+  template_sources:
+    user_templates_dir: ./templates/user_templates
+    system_templates_dir: ./templates/system_templates
+    shared_templates_dir: ./templates/shared_templates
+    imported_templates_dir: ./templates/imported_templates
+  plan_creation_rules:
+    require_user_approval: true
+    suggest_existing_templates: true
+    track_template_usage: true
+    save_plan_to_database: true
+  template_categories:
+    - thinking_frameworks
+    - optimization_frameworks
+    - learning_frameworks
+    - interaction_frameworks
+    - meta_templates
+  plan_validation:
+    required_sections:
+      - plan_summary
+      - leading_instruction
+      - project_structure
+      - execution_steps
+      - tasks
+      - trailing_instruction
+    must_include_section_verification: true
+    must_specify_deliverables: true
+body:
+  plan_summary:
+    section_id: plan_summary
+    section_verification:
+      verified: false
+      approved: null
+      modifications_requested: []
+      notes: ''
+    content:
+      the_idea_title: Desk Supply Organization System
+      the_idea_description: Organize desk supplies for maximum accessibility, efficiency, and workspace productivity
+      estimated_timeline: 1.5-2 hours
+      key_deliverables:
+        - Categorized supply storage system
+        - Accessible supply placement
+        - Organized desk drawers and containers
+        - Optimized workspace layout
+      templates_to_use:
+        - Value Equation Template
+      complexity_level: Simple
+      prerequisites: Desk organizers, containers, labels, existing desk supplies
+  leading_instruction:
+    section_id: leading_instruction
+    section_verification:
+      verified: false
+      approved: null
+      modifications_requested: []
+      notes: ''
+    content: |
+      The Idea: Organize desk supplies to create an efficient, accessible workspace
+      Goal: Maximize productivity by ensuring all supplies are easily accessible and logically organized
+      Context: Current desk supplies are scattered, hard to find, and inefficiently placed, reducing work efficiency
+      Approach: Use value optimization principles to organize supplies based on frequency of use and accessibility
+  project_structure:
+    section_id: project_structure
+    section_verification:
+      verified: false
+      approved: null
+      modifications_requested: []
+      notes: ''
+    content:
+      note: This is where templates get selected, filled, then used for the process
+      selected_templates:
+        - template_name: Value Equation Template
+          template_source: imported_templates
+          template_file: ./templates/imported_templates/optimization-frameworks/value-equation-template.yaml
+          purpose: Optimize value creation through systematic analysis and improvement
+          why_selected: Desk organization should maximize value (productivity) while minimizing effort and time waste
+          template_type: optimization_framework
+          applicable_concepts:
+            - value_analysis
+            - optimization_strategies
+            - efficiency_improvements
+      value_optimization_applied:
+        value_components:
+          desired_outcomes:
+            - quick supply access
+            - reduced search time
+            - improved productivity
+            - clean workspace
+          current_inefficiencies:
+            - scattered supplies
+            - hard to find items
+            - cluttered drawers
+            - wasted time searching
+          value_drivers:
+            - accessibility
+            - organization
+            - frequency-based placement
+            - visual clarity
+        optimization_approach:
+          high_frequency_items: Place most-used supplies within arm's reach
+          medium_frequency_items: Store in easily accessible drawers or containers
+          low_frequency_items: Store in less accessible but organized locations
+          elimination_targets: Remove unused or duplicate supplies
+        efficiency_measures:
+          time_savings: Reduce supply search time from minutes to seconds
+          space_optimization: Maximize desk surface area for actual work
+          accessibility_improvement: Everything has a designated, logical place
+          maintenance_ease: Simple system to maintain organization
+  execution_steps:
+    section_id: execution_steps
+    section_verification:
+      verified: false
+      approved: null
+      modifications_requested: []
+      notes: ''
+    content:
+      - step: 1
+        name: Inventory and Categorize Supplies
+        description: Collect all desk supplies and group by type and frequency of use
+        template_used: Value Equation Template
+        template_concept: Value Analysis
+        deliverable: Categorized inventory of all desk supplies
+        estimated_time: 30 minutes
+        dependencies: []
+        specific_tasks:
+          - gather all supplies
+          - group by type
+          - assess usage frequency
+      - step: 2
+        name: Eliminate and Declutter
+        description: Remove broken, duplicate, or unused supplies to optimize space
+        template_used: Value Equation Template
+        template_concept: Optimization Strategy
+        deliverable: Streamlined collection of essential supplies only
+        estimated_time: 20 minutes
+        dependencies:
+          - 1
+        specific_tasks:
+          - discard broken items
+          - remove duplicates
+          - relocate rarely used items
+      - step: 3
+        name: Design Optimal Layout
+        description: Plan supply placement based on frequency of use and accessibility
+        template_used: Value Equation Template
+        template_concept: Efficiency Improvements
+        deliverable: Layout plan for optimal supply placement
+        estimated_time: 15 minutes
+        dependencies:
+          - 2
+        specific_tasks:
+          - map high-frequency zones
+          - plan container placement
+          - design drawer organization
+      - step: 4
+        name: Implement Organization System
+        description: Place supplies according to optimal layout plan using containers and organizers
+        template_used: Value Equation Template
+        template_concept: Optimization Strategy
+        deliverable: Fully organized desk supply system
+        estimated_time: 45 minutes
+        dependencies:
+          - 3
+        specific_tasks:
+          - arrange containers
+          - place supplies by frequency
+          - label storage areas
+      - step: 5
+        name: Test and Optimize
+        description: Test the organization system and make adjustments for maximum efficiency
+        template_used: Value Equation Template
+        template_concept: Efficiency Improvements
+        deliverable: Optimized desk supply organization with documented system
+        estimated_time: 10 minutes
+        dependencies:
+          - 4
+        specific_tasks:
+          - test supply access
+          - time retrieval process
+          - adjust placement if needed
+  tasks:
+    section_id: tasks
+    section_verification:
+      verified: false
+      approved: null
+      modifications_requested: []
+      notes: ''
+    content:
+      note: Specific, chronological actions derived from execution steps for direct user implementation
+      tasks:
+        - task: 1
+          action: Gather all desk supplies from drawers, containers, and surfaces
+          description: Collect every supply item to get complete inventory
+          estimated_time: 15 minutes
+          resources_needed:
+            - empty box or tray for collecting
+            - desk area access
+          blockers:
+            - supplies scattered in multiple locations
+            - some items buried or hidden
+            - desk too cluttered to access
+          completion_criteria: All supplies collected in one central location for sorting
+          related_step: 1
+        - task: 2
+          action: Sort supplies into categories (pens, paper, tech, office tools, etc.)
+          description: Group similar items together to understand what you have
+          estimated_time: 20 minutes
+          resources_needed:
+            - flat surface for sorting
+            - small containers for grouping
+          blockers:
+            - unclear how to categorize some items
+            - too many different types
+            - limited sorting space
+          completion_criteria: Supplies organized into 5-7 clear categories with similar items grouped
+          related_step: 1
+        - task: 3
+          action: Assess usage frequency for each category and item
+          description: Determine which supplies are used daily, weekly, monthly, or rarely
+          estimated_time: 10 minutes
+          resources_needed:
+            - notebook or app for recording
+            - knowledge of work habits
+          blockers:
+            - uncertain about actual usage patterns
+            - seasonal variation in usage
+            - difficulty prioritizing
+          completion_criteria: Each category labeled as high, medium, or low frequency use
+          related_step: 1
+        - task: 4
+          action: Remove broken, dried out, or duplicate supplies
+          description: Eliminate items that don't add value to optimize space
+          estimated_time: 15 minutes
+          resources_needed:
+            - trash bin
+            - donation box for good duplicates
+          blockers:
+            - attachment to items 'just in case'
+            - uncertainty about item condition
+            - difficulty deciding on duplicates
+          completion_criteria: Only functional, needed supplies remain with minimal duplicates
+          related_step: 2
+        - task: 5
+          action: Measure desk drawers and available storage spaces
+          description: Understand storage constraints for optimal layout planning
+          estimated_time: 10 minutes
+          resources_needed:
+            - measuring tape or ruler
+            - notebook for dimensions
+          blockers:
+            - no measuring tools available
+            - irregular shaped spaces
+            - existing items blocking access
+          completion_criteria: Written dimensions of all available storage spaces
+          related_step: 3
+        - task: 6
+          action: Design placement plan with high-frequency items in prime locations
+          description: Plan where each category will be stored based on accessibility needs
+          estimated_time: 15 minutes
+          resources_needed:
+            - paper for sketching layout
+            - list of categorized supplies
+            - space dimensions
+          blockers:
+            - too many high-frequency items for prime space
+            - conflicting space needs
+            - unclear optimal layout
+          completion_criteria: Written plan showing where each supply category will be placed
+          related_step: 3
+        - task: 7
+          action: Purchase or gather needed organizers and containers
+          description: Acquire storage solutions for the planned layout
+          estimated_time: 30 minutes (shopping) or 10 minutes (gathering existing)
+          resources_needed:
+            - budget for organizers
+            - transportation
+            - list of needed containers
+          blockers:
+            - budget constraints
+            - unclear what size containers needed
+            - stores don't have right organizers
+          completion_criteria: Have all needed organizers, dividers, and containers ready for use
+          related_step: 4
+        - task: 8
+          action: Place organizers in designated locations
+          description: Set up the storage infrastructure according to the plan
+          estimated_time: 15 minutes
+          resources_needed:
+            - purchased organizers
+            - cleaning supplies for drawers
+          blockers:
+            - organizers don't fit as expected
+            - drawers need cleaning first
+            - plan needs adjustment
+          completion_criteria: All organizers positioned and ready to receive supplies
+          related_step: 4
+        - task: 9
+          action: Place supplies in designated containers by frequency of use
+          description: Implement the organization system with supplies in optimal locations
+          estimated_time: 20 minutes
+          resources_needed:
+            - organized supplies
+            - placed containers
+            - labels if needed
+          blockers:
+            - supplies don't fit as planned
+            - second-guessing placement decisions
+            - containers too small
+          completion_criteria: All supplies placed in designated locations according to frequency plan
+          related_step: 4
+        - task: 10
+          action: Test supply retrieval for common work tasks
+          description: Verify the organization system works efficiently for actual use
+          estimated_time: 10 minutes
+          resources_needed:
+            - organized desk setup
+            - typical work scenarios to test
+          blockers:
+            - system feels awkward initially
+            - some items hard to reach
+            - workflow disruption
+          completion_criteria: Can retrieve any needed supply within 10 seconds without disrupting other items
+          related_step: 5
+        - task: 11
+          action: Time supply retrieval and document any needed adjustments
+          description: Measure efficiency gains and identify optimization opportunities
+          estimated_time: 10 minutes
+          resources_needed:
+            - timer
+            - notebook for recording
+            - list of common supplies
+          blockers:
+            - timing feels artificial
+            - unclear what constitutes good time
+            - too many adjustments needed
+          completion_criteria: Documented retrieval times and list of any placement adjustments made
+          related_step: 5
+  trailing_instruction:
+    section_id: trailing_instruction
+    section_verification:
+      verified: false
+      approved: null
+      modifications_requested: []
+      notes: ''
+    content: |
+      AI EXECUTION NOTES:
+      - Wait for user approval of ALL sections before starting execution
+      - Use Value Equation Template to maximize organization efficiency
+      - Track progress in database: planned -> approved -> in_progress -> completed
+      - RUN updateLastModified.js script whenever making changes to update last_updated timestamp
+      - Focus on accessibility and frequency-based organization
+      - Measure time savings achieved through organization
+      - Document final organization system for maintenance
+  overall_status:
+    total_sections: 6
+    sections_approved: 0
+    sections_pending: 6
+    sections_rejected: 0
+    all_sections_approved: false
+    ready_for_execution: false
+    last_updated: '2025-09-06 17:30:47'

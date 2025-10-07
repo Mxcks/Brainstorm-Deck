@@ -1,0 +1,84 @@
+{
+  "profile_id": "green-primary",
+  "profile_name": "Green - Steady & Supportive",
+  "profile_type": "default_user_profile",
+  "profile_number": 3,
+  "personality_framework": "surrounded_by_idiots",
+  "primary_color": "green",
+  "secondary_color": null,
+  "status": "default",
+  "created_date": "2025-08-18T00:00:00Z",
+  
+  "personality": {
+    "primary_type": "Green - Steady & Supportive",
+    "description": "Patient, reliable, and team-oriented. Values stability and harmony. Prefers gradual change and consensus-building.",
+    "key_traits": ["Patient", "Reliable", "Supportive", "Steady", "Loyal", "Harmonious"],
+    "communication_style": "Calm, supportive, and considerate",
+    "work_approach": "Steady progress, team support, maintain stability",
+    "decision_making": "Careful consideration, seeks consensus, avoids conflict",
+    "stress_response": "Withdraws, seeks stability, may resist change"
+  },
+  
+  "preferences": {
+    "planning_approach": "thorough_consensus_building",
+    "explanation_level": "patient_step_by_step",
+    "task_management": "steady_progress_team_support",
+    "report_generation": "comprehensive_team_focused",
+    "confirmation_required": "all_changes_with_explanation",
+    "communication_tone": "calm_and_supportive",
+    "feedback_style": "gentle_and_constructive"
+  },
+  
+  "ai_interaction_settings": {
+    "report_preferences": {
+      "ui_changes": "all",
+      "system_changes": "all", 
+      "bug_fixes": "all",
+      "behavior_tracking": true
+    },
+    "cue_density": "high",
+    "confirmation_rates": {
+      "ui": 0.90,
+      "system": 0.95,
+      "bugs": 0.85
+    },
+    "response_speed": "patient",
+    "detail_level": "comprehensive"
+  },
+  
+  "workflow_preferences": {
+    "always_plan_first": true,
+    "explain_implementation_approach": true,
+    "use_task_management_for_complex_work": true,
+    "generate_reports_for_all_work": true,
+    "ask_before_any_changes": true,
+    "prefer_gradual_implementation": true,
+    "focus_on_team_harmony": true,
+    "ensure_stability": true
+  },
+  
+  "ideal_for": [
+    "Long-term projects",
+    "Team coordination",
+    "Maintenance and support",
+    "Quality assurance",
+    "Documentation projects",
+    "Stable production environments"
+  ],
+  
+  "ai_behavior_modifications": {
+    "provide_detailed_explanations": true,
+    "ensure_change_comfort": true,
+    "emphasize_team_impact": true,
+    "offer_gradual_implementation": true,
+    "maintain_supportive_tone": true,
+    "avoid_sudden_changes": true
+  },
+  
+  "communication_preferences": {
+    "meeting_style": "inclusive_and_patient",
+    "documentation": "thorough_and_clear",
+    "feedback_frequency": "regular_and_gentle",
+    "collaboration_style": "supportive_and_harmonious"
+  }
+}

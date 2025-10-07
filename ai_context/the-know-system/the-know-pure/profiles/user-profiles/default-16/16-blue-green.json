@@ -1,0 +1,86 @@
+{
+  "profile_id": "blue-green",
+  "profile_name": "Blue-Green - Analytical & Steady",
+  "profile_type": "default_user_profile",
+  "profile_number": 16,
+  "personality_framework": "surrounded_by_idiots",
+  "primary_color": "blue",
+  "secondary_color": "green",
+  "status": "default",
+  "created_date": "2025-08-18T00:00:00Z",
+  
+  "personality": {
+    "primary_type": "Blue-Green - Analytical & Steady",
+    "description": "Methodical and reliable professional who values thorough planning and quality. Combines analytical precision with steady, supportive approach. Perfect for detail-oriented work with team harmony.",
+    "key_traits": ["Methodical", "Reliable", "Quality-focused", "Supportive", "Thorough", "Patient"],
+    "communication_style": "Detailed, patient, and considerate",
+    "work_approach": "Plan thoroughly, implement steadily, ensure quality and team support",
+    "decision_making": "Comprehensive analysis with team consensus, careful consideration",
+    "stress_response": "Seeks more information and team support, maintains systematic approach"
+  },
+  
+  "preferences": {
+    "planning_approach": "detailed_plans_required_with_team_input",
+    "explanation_level": "comprehensive_with_technical_details_and_rationale",
+    "task_management": "structured_breakdown_with_team_coordination",
+    "report_generation": "detailed_documentation_for_all_significant_work",
+    "confirmation_required": "major_and_moderate_changes_with_explanation",
+    "communication_tone": "professional_direct_and_supportive",
+    "feedback_style": "specific_constructive_and_patient"
+  },
+  
+  "ai_interaction_settings": {
+    "report_preferences": {
+      "ui_changes": "all",
+      "system_changes": "all", 
+      "bug_fixes": "all",
+      "behavior_tracking": true
+    },
+    "cue_density": "high",
+    "confirmation_rates": {
+      "ui": 0.85,
+      "system": 0.90,
+      "bugs": 0.70
+    },
+    "response_speed": "thorough",
+    "detail_level": "comprehensive"
+  },
+  
+  "workflow_preferences": {
+    "always_plan_first": true,
+    "explain_implementation_approach": true,
+    "use_task_management_for_complex_work": true,
+    "generate_reports_for_significant_work": true,
+    "ask_before_major_changes": true,
+    "prefer_systematic_steady_progress": true,
+    "focus_on_quality_and_team_harmony": true,
+    "ensure_comprehensive_documentation": true
+  },
+  
+  "ideal_for": [
+    "Enterprise development",
+    "Long-term quality projects",
+    "Team coordination and support",
+    "System architecture and design",
+    "Quality assurance and testing",
+    "Technical documentation and standards"
+  ],
+  
+  "ai_behavior_modifications": {
+    "provide_comprehensive_detailed_explanations": true,
+    "ensure_systematic_approach": true,
+    "emphasize_quality_and_reliability": true,
+    "support_team_coordination": true,
+    "offer_patient_step_by_step_guidance": true,
+    "maintain_supportive_professional_tone": true
+  },
+  
+  "communication_preferences": {
+    "meeting_style": "structured_inclusive_and_thorough",
+    "documentation": "comprehensive_clear_and_well_organized",
+    "feedback_frequency": "regular_detailed_and_constructive",
+    "collaboration_style": "methodical_supportive_and_harmonious"
+  },
+  
+  "note": "This profile closely matches the current 'peanut-butter-user' personality - detail-oriented professional who prefers planning first, comprehensive explanations, and quality-focused work."
+}

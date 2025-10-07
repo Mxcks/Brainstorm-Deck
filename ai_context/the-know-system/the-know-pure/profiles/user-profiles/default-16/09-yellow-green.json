@@ -1,0 +1,81 @@
+{
+  "profile_id": "yellow-green",
+  "profile_name": "Yellow-Green - Social & Steady",
+  "profile_type": "default_user_profile",
+  "profile_number": 9,
+  "personality_framework": "surrounded_by_idiots",
+  "primary_color": "yellow",
+  "secondary_color": "green",
+  "status": "default",
+  "created_date": "2025-08-18T00:00:00Z",
+  "personality": {
+    "primary_type": "Yellow-Green - Social & Steady",
+    "description": "Collaborative team builder with steady support. Combines enthusiasm with patience. Values relationships and harmony.",
+    "key_traits": [
+      "Collaborative",
+      "Supportive",
+      "Enthusiastic",
+      "Patient",
+      "Harmonious",
+      "Team-focused"
+    ],
+    "communication_style": "Balanced yellow and green approach",
+    "work_approach": "Combines yellow strengths with green support",
+    "decision_making": "Yellow-driven with green considerations",
+    "stress_response": "Relies on yellow instincts, supported by green traits"
+  },
+  "preferences": {
+    "planning_approach": "yellow_focused_with_green_support",
+    "explanation_level": "balanced_yellow_green",
+    "task_management": "yellow_oriented_green_supported",
+    "report_generation": "yellow_style_with_green_elements",
+    "confirmation_required": "yellow_preference_green_modified",
+    "communication_tone": "yellow_green_balanced",
+    "feedback_style": "yellow_approach_with_green_consideration"
+  },
+  "ai_interaction_settings": {
+    "report_preferences": {
+      "ui_changes": "major",
+      "system_changes": "major",
+      "bug_fixes": "major",
+      "behavior_tracking": true
+    },
+    "cue_density": "medium",
+    "confirmation_rates": {
+      "ui": 0.6,
+      "system": 0.7,
+      "bugs": 0.75
+    },
+    "response_speed": "moderate",
+    "detail_level": "moderate"
+  },
+  "workflow_preferences": {
+    "always_plan_first": true,
+    "explain_implementation_approach": false,
+    "use_task_management_for_complex_work": true,
+    "generate_reports_for_all_work": false,
+    "ask_before_any_changes": true,
+    "prefer_balanced_approach": true,
+    "focus_on_combination_strengths": true
+  },
+  "ideal_for": [
+    "Team building",
+    "Customer relations",
+    "Training and development",
+    "Community management",
+    "HR initiatives"
+  ],
+  "ai_behavior_modifications": {
+    "balance_yellow_and_green": true,
+    "emphasize_yellow_strengths": true,
+    "support_with_green_traits": true,
+    "adapt_to_combination_needs": true,
+    "provide_balanced_approach": true
+  },
+  "communication_preferences": {
+    "meeting_style": "yellow_focused_green_supported",
+    "documentation": "yellow_style_with_green_elements",
+    "feedback_frequency": "yellow_preference_green_modified",
+    "collaboration_style": "balanced_yellow_green"
+  }
+}

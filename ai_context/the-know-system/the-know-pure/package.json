@@ -1,0 +1,50 @@
+﻿{
+  "name": "the-know-system",
+  "version": "1.0.0",
+  "description": "Sacred intelligence enhancement system that grants AI access to transformative knowledge and capabilities",
+  "main": "core/index.js",
+  "keywords": [
+    "ai",
+    "intelligence",
+    "enhancement",
+    "knowledge",
+    "framework",
+    "personality",
+    "templates",
+    "universal-project-framework",
+    "big-5-elements"
+  ],
+  "author": "Macks",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/the-know-system.git"
+  },
+  "scripts": {
+    "start": "node core/index.js",
+    "setup": "node scripts/setup.js",
+    "test": "node scripts/test.js",
+    "validate": "node scripts/validate-system.js"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "fs-extra": "^11.1.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "core/",
+    "frameworks/",
+    "profiles/",
+    "templates/",
+    "docs/",
+    "examples/",
+    "scripts/"
+  ]
+}

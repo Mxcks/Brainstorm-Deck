@@ -1,0 +1,81 @@
+{
+  "profile_id": "yellow-red",
+  "profile_name": "Yellow-Red - Social & Direct",
+  "profile_type": "default_user_profile",
+  "profile_number": 8,
+  "personality_framework": "surrounded_by_idiots",
+  "primary_color": "yellow",
+  "secondary_color": "red",
+  "status": "default",
+  "created_date": "2025-08-18T00:00:00Z",
+  "personality": {
+    "primary_type": "Yellow-Red - Social & Direct",
+    "description": "Enthusiastic leader who drives action. Combines social energy with results focus. Values team engagement and quick wins.",
+    "key_traits": [
+      "Enthusiastic",
+      "Driving",
+      "Social",
+      "Action-oriented",
+      "Motivating",
+      "Dynamic"
+    ],
+    "communication_style": "Balanced yellow and red approach",
+    "work_approach": "Combines yellow strengths with red support",
+    "decision_making": "Yellow-driven with red considerations",
+    "stress_response": "Relies on yellow instincts, supported by red traits"
+  },
+  "preferences": {
+    "planning_approach": "yellow_focused_with_red_support",
+    "explanation_level": "balanced_yellow_red",
+    "task_management": "yellow_oriented_red_supported",
+    "report_generation": "yellow_style_with_red_elements",
+    "confirmation_required": "yellow_preference_red_modified",
+    "communication_tone": "yellow_red_balanced",
+    "feedback_style": "yellow_approach_with_red_consideration"
+  },
+  "ai_interaction_settings": {
+    "report_preferences": {
+      "ui_changes": "major",
+      "system_changes": "major",
+      "bug_fixes": "major",
+      "behavior_tracking": true
+    },
+    "cue_density": "medium",
+    "confirmation_rates": {
+      "ui": 0.6,
+      "system": 0.7,
+      "bugs": 0.75
+    },
+    "response_speed": "moderate",
+    "detail_level": "moderate"
+  },
+  "workflow_preferences": {
+    "always_plan_first": true,
+    "explain_implementation_approach": false,
+    "use_task_management_for_complex_work": true,
+    "generate_reports_for_all_work": false,
+    "ask_before_any_changes": true,
+    "prefer_balanced_approach": true,
+    "focus_on_combination_strengths": true
+  },
+  "ideal_for": [
+    "Sales leadership",
+    "Team motivation",
+    "Change initiatives",
+    "Marketing campaigns",
+    "Startup environments"
+  ],
+  "ai_behavior_modifications": {
+    "balance_yellow_and_red": true,
+    "emphasize_yellow_strengths": true,
+    "support_with_red_traits": true,
+    "adapt_to_combination_needs": true,
+    "provide_balanced_approach": true
+  },
+  "communication_preferences": {
+    "meeting_style": "yellow_focused_red_supported",
+    "documentation": "yellow_style_with_red_elements",
+    "feedback_frequency": "yellow_preference_red_modified",
+    "collaboration_style": "balanced_yellow_red"
+  }
+}

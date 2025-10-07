@@ -1,0 +1,270 @@
+# Workflow Configuration for The Know Project
+# Defines optimal tool usage patterns and decision trees
+
+workflow_metadata:
+  version: "1.0.0"
+  description: "Tool selection and workflow optimization for The Know project"
+  last_updated: "2025-09-01"
+
+# Core workflow patterns
+core_workflows:
+  
+  project_initialization:
+    name: "Project Initialization"
+    description: "Set up new project or major restructuring"
+    trigger_conditions:
+      - "new project setup"
+      - "major system changes"
+      - "database recreation needed"
+    required_tools:
+      - name: "project-analyzer"
+        order: 1
+        purpose: "Create initial database structure"
+        success_criteria: "All 6 databases created successfully"
+      - name: "database-query"
+        order: 2
+        purpose: "Verify database setup"
+        success_criteria: "All systems show healthy status"
+    optional_tools:
+      - name: "similarity-analyzer"
+        purpose: "Identify initial cleanup opportunities"
+        when: "after database creation"
+    estimated_duration: "5-10 minutes"
+    frequency: "once per major change"
+
+  regular_maintenance:
+    name: "Regular Maintenance"
+    description: "Weekly project health check and optimization"
+    trigger_conditions:
+      - "weekly schedule"
+      - "significant file changes"
+      - "performance degradation"
+    required_tools:
+      - name: "project-analyzer"
+        order: 1
+        purpose: "Update all databases with latest changes"
+      - name: "similarity-analyzer"
+        order: 2
+        purpose: "Find new duplicates and similar files"
+    optional_tools:
+      - name: "duplicate-cleanup"
+        purpose: "Remove identified duplicates"
+        when: "duplicates found"
+      - name: "enhanced-metrics"
+        purpose: "Track complexity trends"
+        when: "monthly deep analysis"
+    estimated_duration: "10-15 minutes"
+    frequency: "weekly"
+
+  deep_analysis:
+    name: "Deep Analysis"
+    description: "Comprehensive project analysis and optimization"
+    trigger_conditions:
+      - "monthly review"
+      - "major refactoring planned"
+      - "performance issues"
+    required_tools:
+      - name: "project-analyzer"
+        order: 1
+        purpose: "Full project scan"
+      - name: "similarity-analyzer"
+        order: 2
+        purpose: "Complete duplicate analysis"
+      - name: "enhanced-metrics"
+        order: 3
+        purpose: "Complexity and relationship analysis"
+      - name: "report-generator"
+        order: 4
+        purpose: "Generate comprehensive reports"
+    optional_tools:
+      - name: "duplicate-cleanup"
+        purpose: "Clean up identified issues"
+        when: "issues found"
+    estimated_duration: "20-30 minutes"
+    frequency: "monthly"
+
+  quick_status:
+    name: "Quick Status Check"
+    description: "Fast overview of current project state"
+    trigger_conditions:
+      - "daily standup"
+      - "status request"
+      - "before making changes"
+    required_tools:
+      - name: "database-query"
+        order: 1
+        purpose: "Get current system status"
+    optional_tools:
+      - name: "similarity-summary"
+        purpose: "Quick duplicate overview"
+        when: "cleanup needed"
+    estimated_duration: "2-5 minutes"
+    frequency: "daily"
+
+# Tool selection decision tree
+tool_selection_rules:
+  
+  by_task_intent:
+    analysis:
+      primary_tool: "project-analyzer"
+      supporting_tools: ["database-query", "enhanced-metrics"]
+      when_to_use: "Need comprehensive project understanding"
+      
+    optimization:
+      primary_tool: "similarity-analyzer"
+      supporting_tools: ["duplicate-cleanup", "enhanced-metrics"]
+      when_to_use: "Want to improve project structure"
+      
+    exploration:
+      primary_tool: "database-query"
+      supporting_tools: ["similarity-summary"]
+      when_to_use: "Need to understand current state"
+      
+    reporting:
+      primary_tool: "report-generator"
+      supporting_tools: ["enhanced-metrics", "similarity-analyzer"]
+      when_to_use: "Need formal reports or documentation"
+      
+    maintenance:
+      primary_tool: "duplicate-cleanup"
+      supporting_tools: ["similarity-analyzer"]
+      when_to_use: "Ready to make structural changes"
+
+  by_project_state:
+    new_project:
+      recommended_workflow: "project_initialization"
+      critical_tools: ["project-analyzer"]
+      
+    active_development:
+      recommended_workflow: "regular_maintenance"
+      critical_tools: ["project-analyzer", "similarity-analyzer"]
+      
+    mature_project:
+      recommended_workflow: "deep_analysis"
+      critical_tools: ["enhanced-metrics", "report-generator"]
+      
+    maintenance_mode:
+      recommended_workflow: "quick_status"
+      critical_tools: ["database-query"]
+
+  by_urgency:
+    immediate:
+      max_duration: "5 minutes"
+      recommended_tools: ["database-query", "similarity-summary"]
+      
+    normal:
+      max_duration: "15 minutes"
+      recommended_tools: ["project-analyzer", "similarity-analyzer"]
+      
+    comprehensive:
+      max_duration: "30 minutes"
+      recommended_tools: ["all tools as needed"]
+
+# Tool effectiveness tracking
+effectiveness_metrics:
+  
+  success_indicators:
+    project_analyzer:
+      - "All databases created without errors"
+      - "File count matches expected range"
+      - "All systems show as healthy"
+      
+    similarity_analyzer:
+      - "Duplicate detection completes successfully"
+      - "Reasonable number of duplicates found"
+      - "Reports generated without errors"
+      
+    duplicate_cleanup:
+      - "User successfully removes duplicates"
+      - "No critical files accidentally deleted"
+      - "Project remains functional after cleanup"
+      
+    enhanced_metrics:
+      - "Complexity analysis completes"
+      - "Meaningful insights generated"
+      - "Trends identified successfully"
+
+  performance_thresholds:
+    project_analyzer:
+      max_duration_minutes: 10
+      min_files_processed: 50
+      
+    similarity_analyzer:
+      max_duration_minutes: 15
+      min_comparisons: 100
+      
+    database_query:
+      max_duration_seconds: 30
+      min_records_returned: 1
+
+# Continuous improvement rules
+improvement_strategies:
+  
+  tool_evolution:
+    usage_tracking:
+      - "Track execution frequency per tool"
+      - "Monitor success/failure rates"
+      - "Measure user satisfaction"
+      
+    gap_identification:
+      - "Identify tasks not covered by existing tools"
+      - "Find workflow bottlenecks"
+      - "Discover user pain points"
+      
+    tool_retirement:
+      - "Remove tools with <10% usage after 3 months"
+      - "Consolidate overlapping functionality"
+      - "Deprecate tools with <70% success rate"
+
+  workflow_optimization:
+    automation_opportunities:
+      - "Automate tool sequences that are always run together"
+      - "Create shortcuts for common workflows"
+      - "Implement smart defaults based on context"
+      
+    personalization:
+      - "Learn user preferences for tool selection"
+      - "Adapt workflows based on project characteristics"
+      - "Customize based on user expertise level"
+
+# Integration with core database flow
+database_integration:
+  
+  core_flow_principles:
+    - "Always ensure database consistency before analysis"
+    - "Validate tool prerequisites before execution"
+    - "Maintain audit trail of all tool executions"
+    - "Preserve data integrity across tool operations"
+    
+  dependency_management:
+    - "project-analyzer creates foundation for all other tools"
+    - "similarity-analyzer depends on populated databases"
+    - "cleanup tools require analysis completion"
+    - "reporting tools need stable data sources"
+    
+  data_flow_validation:
+    - "Verify database schemas before tool execution"
+    - "Check data freshness and relevance"
+    - "Ensure cross-system consistency"
+    - "Validate tool output quality"
+
+# Future evolution framework
+evolution_framework:
+  
+  new_tool_criteria:
+    - "Addresses identified gap in current toolkit"
+    - "Integrates well with existing database structure"
+    - "Provides measurable value to users"
+    - "Maintains consistency with core principles"
+    
+  tool_improvement_triggers:
+    - "User feedback indicates pain points"
+    - "Performance metrics below thresholds"
+    - "New project requirements emerge"
+    - "Technology advances enable better solutions"
+    
+  retirement_criteria:
+    - "Functionality superseded by better tools"
+    - "Usage drops below sustainability threshold"
+    - "Maintenance cost exceeds value provided"
+    - "No longer aligns with project direction"

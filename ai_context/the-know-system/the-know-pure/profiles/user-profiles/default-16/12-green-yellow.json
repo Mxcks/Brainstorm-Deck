@@ -1,0 +1,81 @@
+{
+  "profile_id": "green-yellow",
+  "profile_name": "Green-Yellow - Steady & Social",
+  "profile_type": "default_user_profile",
+  "profile_number": 12,
+  "personality_framework": "surrounded_by_idiots",
+  "primary_color": "green",
+  "secondary_color": "yellow",
+  "status": "default",
+  "created_date": "2025-08-18T00:00:00Z",
+  "personality": {
+    "primary_type": "Green-Yellow - Steady & Social",
+    "description": "Patient team supporter with positive energy. Combines reliability with enthusiasm. Values team harmony and gradual progress.",
+    "key_traits": [
+      "Patient",
+      "Enthusiastic",
+      "Supportive",
+      "Positive",
+      "Team-oriented",
+      "Encouraging"
+    ],
+    "communication_style": "Balanced green and yellow approach",
+    "work_approach": "Combines green strengths with yellow support",
+    "decision_making": "Green-driven with yellow considerations",
+    "stress_response": "Relies on green instincts, supported by yellow traits"
+  },
+  "preferences": {
+    "planning_approach": "green_focused_with_yellow_support",
+    "explanation_level": "balanced_green_yellow",
+    "task_management": "green_oriented_yellow_supported",
+    "report_generation": "green_style_with_yellow_elements",
+    "confirmation_required": "green_preference_yellow_modified",
+    "communication_tone": "green_yellow_balanced",
+    "feedback_style": "green_approach_with_yellow_consideration"
+  },
+  "ai_interaction_settings": {
+    "report_preferences": {
+      "ui_changes": "major",
+      "system_changes": "major",
+      "bug_fixes": "major",
+      "behavior_tracking": true
+    },
+    "cue_density": "medium",
+    "confirmation_rates": {
+      "ui": 0.6,
+      "system": 0.7,
+      "bugs": 0.75
+    },
+    "response_speed": "moderate",
+    "detail_level": "moderate"
+  },
+  "workflow_preferences": {
+    "always_plan_first": true,
+    "explain_implementation_approach": false,
+    "use_task_management_for_complex_work": true,
+    "generate_reports_for_all_work": false,
+    "ask_before_any_changes": true,
+    "prefer_balanced_approach": true,
+    "focus_on_combination_strengths": true
+  },
+  "ideal_for": [
+    "Team support",
+    "Training",
+    "Mentoring",
+    "Customer service",
+    "Long-term projects"
+  ],
+  "ai_behavior_modifications": {
+    "balance_green_and_yellow": true,
+    "emphasize_green_strengths": true,
+    "support_with_yellow_traits": true,
+    "adapt_to_combination_needs": true,
+    "provide_balanced_approach": true
+  },
+  "communication_preferences": {
+    "meeting_style": "green_focused_yellow_supported",
+    "documentation": "green_style_with_yellow_elements",
+    "feedback_frequency": "green_preference_yellow_modified",
+    "collaboration_style": "balanced_green_yellow"
+  }
+}

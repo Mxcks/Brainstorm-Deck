@@ -1,0 +1,40 @@
+{
+  "profile_id": "demo-custom-user",
+  "profile_name": "Demo Custom User",
+  "personality": {
+    "primary_type": "Custom Demo Type",
+    "description": "A demonstration custom user profile",
+    "key_traits": [
+      "Demo",
+      "Custom",
+      "Example"
+    ],
+    "communication_style": "Demo style",
+    "work_approach": "Demo approach"
+  },
+  "preferences": {
+    "planning_approach": "demo_planning",
+    "explanation_level": "demo_level",
+    "task_management": "demo_management",
+    "report_generation": "demo_reports",
+    "confirmation_required": "demo_confirmation",
+    "communication_tone": "demo_tone"
+  },
+  "ai_interaction_settings": {
+    "report_preferences": {
+      "ui_changes": "major",
+      "system_changes": "all",
+      "bug_fixes": "major",
+      "behavior_tracking": true
+    },
+    "cue_density": "medium",
+    "confirmation_rates": {
+      "ui": 0.75,
+      "system": 0.8,
+      "bugs": 0.7
+    }
+  },
+  "created_date": "2025-08-18T11:14:28.824Z",
+  "last_updated": "2025-08-18T11:14:28.824Z",
+  "profile_type": "user_created"
+}

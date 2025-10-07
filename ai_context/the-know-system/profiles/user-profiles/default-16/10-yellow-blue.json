@@ -1,0 +1,81 @@
+{
+  "profile_id": "yellow-blue",
+  "profile_name": "Yellow-Blue - Social & Analytical",
+  "profile_type": "default_user_profile",
+  "profile_number": 10,
+  "personality_framework": "surrounded_by_idiots",
+  "primary_color": "yellow",
+  "secondary_color": "blue",
+  "status": "default",
+  "created_date": "2025-08-18T00:00:00Z",
+  "personality": {
+    "primary_type": "Yellow-Blue - Social & Analytical",
+    "description": "Creative problem-solver with analytical depth. Combines innovation with precision. Values both people and data.",
+    "key_traits": [
+      "Creative",
+      "Analytical",
+      "Innovative",
+      "Precise",
+      "People-focused",
+      "Detail-oriented"
+    ],
+    "communication_style": "Balanced yellow and blue approach",
+    "work_approach": "Combines yellow strengths with blue support",
+    "decision_making": "Yellow-driven with blue considerations",
+    "stress_response": "Relies on yellow instincts, supported by blue traits"
+  },
+  "preferences": {
+    "planning_approach": "yellow_focused_with_blue_support",
+    "explanation_level": "balanced_yellow_blue",
+    "task_management": "yellow_oriented_blue_supported",
+    "report_generation": "yellow_style_with_blue_elements",
+    "confirmation_required": "yellow_preference_blue_modified",
+    "communication_tone": "yellow_blue_balanced",
+    "feedback_style": "yellow_approach_with_blue_consideration"
+  },
+  "ai_interaction_settings": {
+    "report_preferences": {
+      "ui_changes": "major",
+      "system_changes": "major",
+      "bug_fixes": "major",
+      "behavior_tracking": true
+    },
+    "cue_density": "medium",
+    "confirmation_rates": {
+      "ui": 0.6,
+      "system": 0.7,
+      "bugs": 0.75
+    },
+    "response_speed": "moderate",
+    "detail_level": "moderate"
+  },
+  "workflow_preferences": {
+    "always_plan_first": true,
+    "explain_implementation_approach": true,
+    "use_task_management_for_complex_work": true,
+    "generate_reports_for_all_work": true,
+    "ask_before_any_changes": true,
+    "prefer_balanced_approach": true,
+    "focus_on_combination_strengths": true
+  },
+  "ideal_for": [
+    "UX research",
+    "Product design",
+    "Creative analytics",
+    "Innovation labs",
+    "User experience"
+  ],
+  "ai_behavior_modifications": {
+    "balance_yellow_and_blue": true,
+    "emphasize_yellow_strengths": true,
+    "support_with_blue_traits": true,
+    "adapt_to_combination_needs": true,
+    "provide_balanced_approach": true
+  },
+  "communication_preferences": {
+    "meeting_style": "yellow_focused_blue_supported",
+    "documentation": "yellow_style_with_blue_elements",
+    "feedback_frequency": "yellow_preference_blue_modified",
+    "collaboration_style": "balanced_yellow_blue"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "reportName": "The Know Ecosystem Overview",
+    "generatedAt": "2025-09-01T08:27:27.294Z",
+    "timeframe": "all-time",
+    "systems": [
+      "the-know-intelligence",
+      "template-system",
+      "peanut-butter-user"
+    ]
+  },
+  "summary": {
+    "totalSystems": 3,
+    "totalProjects": 9,
+    "totalTemplates": 6,
+    "totalFiles": 27,
+    "totalReports": 6,
+    "healthySystems": 2,
+    "systemHealthPercentage": 67
+  },
+  "details": {
+    "the-know-intelligence": {
+      "projectCount": 3,
+      "templateCount": 3,
+      "fileCount": 21,
+      "reportCount": 2,
+      "lastActivity": "2025-09-01 08:27:09",
+      "healthStatus": "healthy"
+    },
+    "template-system": {
+      "projectCount": 3,
+      "templateCount": 0,
+      "fileCount": 0,
+      "reportCount": 2,
+      "lastActivity": "2025-09-01 08:27:09",
+      "healthStatus": "warning"
+    },
+    "peanut-butter-user": {
+      "projectCount": 3,
+      "templateCount": 3,
+      "fileCount": 6,
+      "reportCount": 2,
+      "lastActivity": "2025-09-01 08:27:09",
+      "healthStatus": "healthy"
+    }
+  },
+  "insights": [
+    {
+      "type": "warning",
+      "title": "System Health Alert",
+      "description": "1 systems need attention"
+    },
+    {
+      "type": "success",
+      "title": "Active Development",
+      "description": "2 systems showing healthy activity"
+    },
+    {
+      "type": "info",
+      "title": "Template Ecosystem",
+      "description": "6 templates available across systems"
+    }
+  ]
+}

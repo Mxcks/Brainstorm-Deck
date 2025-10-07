@@ -1,0 +1,342 @@
+# YAML Structure System Standards
+# Comprehensive standards document defining all specifications for the YAML structure system
+# Created: 2025-09-06 16:57:04
+
+standards_document:
+  document_id: "yaml_structure_standards_001"
+  document_name: "YAML Structure System Standards"
+  document_purpose: "Define comprehensive standards for YAML structure, sections, templates, and tasks"
+  version: "1.0.0"
+  author: "AI Assistant"
+  created_date: "2025-09-06 16:57:04"
+  last_updated: null
+
+# === YAML STRUCTURE STANDARDS ===
+yaml_structure_standards:
+  
+  # Two-Layer Architecture Standard
+  architecture_standard:
+    layer_1_structure:
+      purpose: "Define HOW execution plans are created and managed"
+      required_fields:
+        - plan_id: "Unique identifier following naming convention"
+        - plan_name: "Human-readable descriptive name"
+        - plan_purpose: "Clear statement of what plan accomplishes"
+        - version: "Version number for plan tracking"
+        - author: "Plan creator identification"
+        - description: "Detailed description of execution plan"
+        - created_date: "Timestamp from generateTimestamp.js"
+        - naming_conventions: "ID format and filename patterns"
+        - template_sources: "Directory paths for template libraries"
+        - plan_creation_rules: "Rules governing plan creation and approval"
+        - template_categories: "Available template categories"
+        - plan_validation: "Required sections and validation rules"
+    
+    layer_2_body:
+      purpose: "Define WHAT the specific execution plan contains"
+      required_sections:
+        - plan_summary: "Overview and deliverables"
+        - leading_instruction: "Context and approach"
+        - project_structure: "Templates and organization"
+        - execution_steps: "High-level methodology"
+        - tasks: "Specific chronological actions"
+        - trailing_instruction: "AI execution notes"
+      
+  # Naming Convention Standards
+  naming_standards:
+    plan_id_format: "PLAN-{YYYY}{MM}{DD}-{sequence:04d}"
+    filename_pattern: "{idea_category}_{plan_id}_{user_name}.yaml"
+    section_id_format: "{section_name}" # matches section key name
+    template_id_format: "{template_name}_{type}_{version:03d}"
+    
+  # File Organization Standards
+  file_organization:
+    order_forms_directory: "./order_forms/"
+    category_subdirectories:
+      - "home_organization"
+      - "productivity" 
+      - "web_development"
+      - "personal_development"
+      - "example_projects"
+    templates_directory: "./templates/"
+    template_subdirectories:
+      - "imported_templates"
+      - "restructured_templates"
+      - "system_templates"
+      - "user_templates"
+
+# === SECTION STANDARDS ===
+section_standards:
+  
+  # Universal Section Structure
+  section_structure_standard:
+    required_fields:
+      section_id: "Unique identifier matching section name"
+      section_verification:
+        verified: "Boolean - can be toggled in UI"
+        approved: "Boolean or null - final approval after verification"
+        modifications_requested: "Array of specific change requests"
+        notes: "String for general comments and feedback"
+      content: "Section-specific content structure"
+    
+    verification_workflow:
+      states:
+        unverified: "verified: false, approved: null"
+        verified_pending: "verified: true, approved: null"
+        approved: "verified: true, approved: true"
+        rejected: "verified: true, approved: false"
+      
+  # Individual Section Specifications
+  section_specifications:
+    
+    plan_summary:
+      section_id: "plan_summary"
+      purpose: "Provide overview, timeline, deliverables, and template selection"
+      required_content_fields:
+        - the_idea_title: "Clear, descriptive project title"
+        - the_idea_description: "Comprehensive project description"
+        - estimated_timeline: "Realistic time estimate for completion"
+        - key_deliverables: "Array of specific outcomes"
+        - templates_to_use: "Array of template names"
+        - complexity_level: "Simple/Medium/Complex"
+        - prerequisites: "Required resources or conditions"
+      content_guidelines:
+        title_length: "3-8 words, descriptive and specific"
+        description_length: "1-2 sentences, comprehensive but concise"
+        deliverables_count: "3-6 specific, measurable outcomes"
+        timeline_format: "Include both planning and execution time"
+    
+    leading_instruction:
+      section_id: "leading_instruction"
+      purpose: "Provide detailed context, goals, and approach"
+      required_content_structure:
+        format: "Multi-line string with structured information"
+        required_elements:
+          - "The Idea: [clear statement of what user wants]"
+          - "Goal: [specific objective to achieve]" 
+          - "Context: [current situation and constraints]"
+          - "Approach: [methodology and strategy]"
+      content_guidelines:
+        total_length: "4-8 lines maximum"
+        idea_statement: "One clear sentence"
+        goal_specificity: "Measurable and achievable"
+        context_relevance: "Current state and important constraints"
+        approach_clarity: "High-level strategy without implementation details"
+    
+    project_structure:
+      section_id: "project_structure"
+      purpose: "Define template selection, filled content, and project organization"
+      required_content_fields:
+        - note: "Explanation of template usage"
+        - selected_templates: "Array of template selections with metadata"
+        - template_filled_content: "Content blocks from templates filled with project data"
+      template_selection_structure:
+        - template_name: "Human-readable template name"
+        - template_source: "Source directory (imported/restructured/system/user)"
+        - template_file: "Full file path to template"
+        - template_id: "Unique template identifier"
+        - purpose: "What the template provides"
+        - why_selected: "Reasoning for template choice"
+        - template_type: "Category classification"
+        - applicable_elements: "Which template components are used"
+    
+    execution_steps:
+      section_id: "execution_steps"
+      purpose: "Define high-level methodology and strategic approach"
+      required_content_structure:
+        step_format:
+          - step: "Sequential number"
+          - name: "Descriptive step name"
+          - description: "What this step accomplishes"
+          - template_used: "Which template provides methodology"
+          - template_step: "Reference to specific template component"
+          - deliverable: "What is produced in this step"
+          - estimated_time: "Time allocation for step"
+          - dependencies: "Array of prerequisite step numbers"
+          - specific_tasks: "Array of high-level tasks (not detailed actions)"
+      content_guidelines:
+        step_count: "4-6 steps for most projects"
+        time_allocation: "Should sum to total project timeline"
+        dependency_clarity: "Clear prerequisite relationships"
+        deliverable_specificity: "Concrete outcomes for each step"
+    
+    tasks:
+      section_id: "tasks"
+      purpose: "Provide specific, chronological actions for direct user execution"
+      required_content_structure:
+        note: "Explanation of task derivation from execution steps"
+        task_array:
+          - task: "Sequential number"
+          - action: "Specific action to take (verb-based)"
+          - description: "What this task accomplishes"
+          - estimated_time: "Realistic time for this specific task"
+          - resources_needed: "Array of specific items/tools needed"
+          - blockers: "Array of potential obstacles or dependencies"
+          - completion_criteria: "How to know task is done"
+          - related_step: "Which execution step this supports"
+      content_guidelines:
+        task_count: "8-15 tasks for most projects"
+        action_specificity: "Clear, actionable verbs with specific objects"
+        time_granularity: "5 minutes to 2 hours per task typically"
+        blocker_anticipation: "3-5 realistic obstacles per task"
+        completion_measurability: "Objective criteria for task completion"
+    
+    trailing_instruction:
+      section_id: "trailing_instruction"
+      purpose: "Provide AI execution notes and guidance"
+      required_content_structure:
+        format: "Multi-line string with AI-specific instructions"
+        required_elements:
+          - "Wait for user approval of ALL sections before starting execution"
+          - "Template usage guidance"
+          - "Progress tracking instructions"
+          - "updateLastModified.js script execution reminder"
+          - "Project-specific execution notes"
+      content_guidelines:
+        instruction_count: "6-8 bullet points"
+        template_reference: "Mention specific templates used"
+        tracking_emphasis: "Database progress tracking"
+        script_reminder: "Always include updateLastModified.js instruction"
+
+# === TEMPLATE STANDARDS ===
+template_standards:
+  
+  # Restructured Template Structure
+  restructured_template_standard:
+    required_structure:
+      structure_layer:
+        - template_id: "Unique identifier"
+        - template_name: "Human-readable name"
+        - template_purpose: "How it enhances execution plans"
+        - version: "Version number"
+        - author: "Template creator"
+        - description: "Template functionality description"
+        - created_date: "Creation timestamp"
+        - original_source: "Path to original template if restructured"
+        - template_type: "Category classification"
+        - integration_method: "How template integrates with YAML"
+        - target_sections: "Which YAML sections template enhances"
+        - usage_instructions: "When and how to use template"
+        - template_categories: "Array of applicable categories"
+      
+      body_layer:
+        - project_structure_content: "Content blocks for project_structure section"
+        - execution_steps_content: "Content blocks for execution_steps section"
+        - integration_guidance: "Instructions for template usage and customization"
+    
+    content_block_standards:
+      placeholder_format: "{PROJECT_SPECIFIC: description_of_what_to_fill}"
+      fill_instructions: "Clear guidance on how to customize template content"
+      example_applications: "Concrete examples of template usage"
+      content_structure: "Organized fields for systematic data filling"
+    
+  # Template Integration Standards
+  integration_standards:
+    selection_criteria: "When to choose this template"
+    customization_process: "How to adapt template to specific projects"
+    success_indicators: "How to measure effective template usage"
+    quality_guidelines: "Standards for template content and structure"
+
+# === TASK STANDARDS ===
+task_standards:
+  
+  # Task Structure Specification
+  task_structure_standard:
+    required_fields:
+      task: "Sequential number (integer)"
+      action: "Specific action to take (string, 3-8 words)"
+      description: "What this task accomplishes (string, 1-2 sentences)"
+      estimated_time: "Realistic time estimate (string with units)"
+      resources_needed: "Array of specific items/tools required"
+      blockers: "Array of potential obstacles (3-5 items)"
+      completion_criteria: "How to know task is done (string, measurable)"
+      related_step: "Which execution step this supports (integer)"
+    
+    field_specifications:
+      task_numbering:
+        format: "Sequential integers starting from 1"
+        ordering: "Chronological order of execution"
+        gaps: "No gaps in numbering sequence"
+      
+      action_format:
+        structure: "Verb + Object + Context"
+        examples: ["Research and select exercises", "Purchase exercise mat", "Block calendar time"]
+        length: "3-8 words maximum"
+        clarity: "Unambiguous, specific action"
+      
+      description_format:
+        length: "1-2 sentences maximum"
+        purpose: "Explain what task accomplishes, not how to do it"
+        context: "Connect to larger project goals"
+      
+      time_estimation:
+        format: "Number + unit (minutes/hours/days)"
+        examples: ["15 minutes", "2 hours", "3 days"]
+        granularity: "5-minute increments for short tasks"
+        realism: "Account for learning curves and setup time"
+      
+      resources_specification:
+        format: "Array of specific items"
+        examples: ["exercise mat", "label maker", "calendar app"]
+        specificity: "Exact items needed, not categories"
+        completeness: "Include all required resources"
+      
+      blockers_identification:
+        count: "3-5 blockers per task typically"
+        types: ["resource", "knowledge", "environmental", "motivation", "technical"]
+        specificity: "Concrete obstacles, not vague concerns"
+        anticipation: "Realistic problems users might encounter"
+      
+      completion_criteria:
+        measurability: "Objective, verifiable outcomes"
+        examples: ["Have written list of 5-7 exercises", "Can find any document in 1 minute"]
+        clarity: "Unambiguous success definition"
+        achievability: "Realistic and attainable criteria"
+      
+      step_relationship:
+        format: "Integer referencing execution step number"
+        purpose: "Link tasks back to strategic methodology"
+        distribution: "Multiple tasks typically support each step"
+  
+  # Task Collection Standards
+  task_collection_standards:
+    total_count:
+      typical_range: "8-15 tasks for most projects"
+      simple_projects: "6-10 tasks"
+      complex_projects: "12-20 tasks"
+      maximum_recommended: "25 tasks"
+    
+    chronological_organization:
+      setup_phase: "Research, planning, resource gathering"
+      implementation_phase: "Core execution activities"
+      completion_phase: "Testing, optimization, documentation"
+      
+    time_distribution:
+      setup_percentage: "15-25% of total project time"
+      implementation_percentage: "60-75% of total project time"
+      completion_percentage: "10-15% of total project time"
+
+# === VALIDATION STANDARDS ===
+validation_standards:
+  
+  # File Validation Rules
+  file_validation:
+    required_sections_count: 6
+    required_sections_list: ["plan_summary", "leading_instruction", "project_structure", "execution_steps", "tasks", "trailing_instruction"]
+    section_verification_required: true
+    deliverables_specification_required: true
+    
+  # Content Validation Rules
+  content_validation:
+    plan_id_format_validation: "Must match PLAN-{YYYY}{MM}{DD}-{sequence:04d}"
+    timestamp_validation: "Must use generateTimestamp.js format"
+    template_reference_validation: "Must reference existing template files"
+    task_sequence_validation: "Must be sequential integers without gaps"
+    
+  # Quality Standards
+  quality_standards:
+    clarity: "All content must be clear and unambiguous"
+    completeness: "All required fields must be filled"
+    consistency: "Formatting and structure must be consistent"
+    actionability: "Tasks must be specific and executable"
+    measurability: "Completion criteria must be objective"

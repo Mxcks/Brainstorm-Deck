@@ -1,11 +1,78 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
+  /* ============================================================================
+     VISUAL CANVAS TOOL THEME - DARK WITH SAGE GREEN ACCENTS
+     ============================================================================ */
+
+  /* Primary Colors */
+  --bg-primary: #0d1117;        /* Main background */
+  --bg-secondary: #161b22;      /* Secondary background */
+  --bg-tertiary: #21262d;       /* Tertiary background */
+
+  /* Accent Colors */
+  --accent-primary: #7c9885;    /* Sage green primary */
+  --accent-secondary: #6a8273;  /* Sage green darker */
+  --accent-tertiary: #8fa896;   /* Sage green lighter */
+
+  /* Text Colors */
+  --text-primary: #e6edf3;      /* Primary text */
+  --text-secondary: #8b949e;    /* Secondary text */
+  --text-tertiary: #656d76;     /* Tertiary text */
+  --text-inverse: #ffffff;      /* White text */
+
+  /* Border Colors */
+  --border-primary: #30363d;    /* Primary borders */
+  --border-secondary: #21262d;  /* Secondary borders */
+  --border-hover: #484f58;      /* Hover borders */
+
+  /* Status Colors */
+  --success: #238636;           /* Success green */
+  --warning: #d29922;           /* Warning yellow */
+  --error: #da3633;             /* Error red */
+  --info: #0969da;              /* Info blue */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Typography */
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 24px;
+
+  /* Z-Index Scale */
+  --z-dropdown: 50;
+  --z-sticky: 60;
+  --z-fixed: 70;
+  --z-modal-backdrop: 80;
+  --z-modal: 90;
+  --z-popover: 100;
+  --z-tooltip: 110;
+
   color-scheme: dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #1a1a1a;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -23,8 +90,8 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: #1a1a1a;
-  color: white;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 #root {
@@ -34,11 +101,11 @@ body {
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--accent-primary);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--accent-secondary);
 }
 
 h1 {
@@ -48,24 +115,34 @@ h1 {
 }
 
 button {
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #3a3a3a;
-  color: inherit;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 button:hover {
-  background-color: #4a4a4a;
+  background-color: var(--border-hover);
 }
 
 button:focus,
 button:focus-visible {
-  outline: 2px solid #646cff;
+  outline: 2px solid var(--accent-primary);
   outline-offset: 2px;
+}
+
+/* Primary button variant */
+button.primary {
+  background-color: var(--accent-primary);
+  color: var(--text-inverse);
+}
+
+button.primary:hover {
+  background-color: var(--accent-secondary);
 }

@@ -1,0 +1,496 @@
+/* ============================================================================
+   VISUAL CANVAS STYLES
+   ============================================================================ */
+
+.visual-canvas-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.canvas-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-primary);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  z-index: 10;
+}
+
+.canvas-controls button {
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.canvas-controls button:hover {
+  background: var(--border-hover);
+  border-color: var(--accent-primary);
+}
+
+.zoom-indicator {
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+  min-width: 60px;
+  text-align: center;
+}
+
+.component-count {
+  color: var(--text-tertiary);
+  font-size: 0.8rem;
+  margin-left: auto;
+}
+
+.visual-canvas {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-primary);
+  user-select: none;
+}
+
+.canvas-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.1s ease-out;
+}
+
+/* Grid Background */
+.canvas-grid {
+  position: absolute;
+  top: -5000px;
+  left: -5000px;
+  width: 10000px;
+  height: 10000px;
+  opacity: 0.3;
+  background-image: 
+    linear-gradient(var(--border-primary) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-primary) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+}
+
+/* Component Styles */
+.canvas-component {
+  position: absolute;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.canvas-component:hover {
+  border-color: var(--accent-tertiary);
+  box-shadow: 0 0 0 2px rgba(124, 152, 133, 0.2);
+}
+
+.canvas-component.selected {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(124, 152, 133, 0.4);
+}
+
+/* Component Type Specific Styles */
+.component-button {
+  background: var(--accent-primary);
+  color: var(--text-inverse);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+}
+
+.component-input {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-primary);
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  border-radius: var(--radius-md);
+}
+
+.component-text {
+  background: transparent;
+  color: var(--text-primary);
+  border: 2px dashed var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+}
+
+.component-container {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-primary);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+}
+
+/* Performance Optimizations */
+.canvas-content * {
+  will-change: transform;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .canvas-controls {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .canvas-controls button {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+  
+  .component-count {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+}
+
+/* Animation for component creation */
+@keyframes componentAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.canvas-component.new {
+  animation: componentAppear 0.3s ease-out;
+}
+
+/* Viewport indicators */
+.viewport-indicator {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-family: monospace;
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* Loading state */
+.canvas-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+/* Empty state */
+.canvas-empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--text-tertiary);
+}
+
+.canvas-empty h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-secondary);
+}
+
+.canvas-empty p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Minimap (for future implementation) */
+.canvas-minimap {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  width: 200px;
+  height: 150px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* Performance monitoring */
+.performance-stats {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--text-primary);
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-family: monospace;
+  pointer-events: none;
+  z-index: 20;
+  display: none; /* Hidden by default, can be toggled for debugging */
+}
+
+.performance-stats.visible {
+  display: block;
+}
+
+/* ============================================================================
+   COMPONENT SELECTION AND INTERACTION
+   ============================================================================ */
+
+.selection-handles {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  pointer-events: none;
+}
+
+.selection-handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-primary);
+  border: 2px solid white;
+  border-radius: 50%;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.selection-handle.top-left {
+  top: -4px;
+  left: -4px;
+  cursor: nw-resize;
+}
+
+.selection-handle.top-right {
+  top: -4px;
+  right: -4px;
+  cursor: ne-resize;
+}
+
+.selection-handle.bottom-left {
+  bottom: -4px;
+  left: -4px;
+  cursor: sw-resize;
+}
+
+.selection-handle.bottom-right {
+  bottom: -4px;
+  right: -4px;
+  cursor: se-resize;
+}
+
+/* Context Menu */
+.context-menu {
+  min-width: 150px;
+  box-shadow: var(--shadow-lg);
+}
+
+.context-menu-item {
+  transition: background-color 0.2s ease;
+}
+
+.context-menu-item:hover {
+  background: var(--border-hover) !important;
+}
+
+/* Selection Info */
+.selection-info {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  background: rgba(0, 0, 0, 0.8);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  z-index: 20;
+}
+
+/* Component Hover States */
+.canvas-component:hover {
+  border-color: var(--accent-tertiary) !important;
+}
+
+.canvas-component.selected {
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 2px rgba(124, 152, 133, 0.3) !important;
+}
+
+/* Dragging States */
+.canvas-component.dragging {
+  opacity: 0.8;
+  z-index: 100;
+}
+
+.visual-canvas.dragging-component {
+  cursor: move !important;
+}
+
+/* Animation for selection */
+@keyframes selectionPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 2px rgba(124, 152, 133, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(124, 152, 133, 0.5);
+  }
+}
+
+.canvas-component.selected {
+  animation: selectionPulse 2s ease-in-out infinite;
+}
+
+/* ============================================================================
+   MODE TOGGLE AND INDICATORS
+   ============================================================================ */
+
+.mode-toggle {
+  display: flex;
+  gap: 0.25rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  padding: 0.25rem;
+}
+
+.mode-btn {
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.mode-btn:hover {
+  background: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.mode-btn.active {
+  background: var(--accent-primary);
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.mode-info {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  z-index: 20;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+.mode-indicator {
+  font-weight: 600;
+}
+
+.mode-indicator.design {
+  color: var(--accent-primary);
+}
+
+.mode-indicator.preview {
+  color: #4ade80; /* Green for preview mode */
+}
+
+/* Preview Mode Specific Styles */
+.visual-canvas.preview-mode .canvas-component {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.visual-canvas.preview-mode .canvas-component:hover {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Interactive component styles in preview mode */
+.visual-canvas.preview-mode button {
+  transition: all 0.2s ease;
+}
+
+.visual-canvas.preview-mode button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(124, 152, 133, 0.3);
+}
+
+.visual-canvas.preview-mode button:active {
+  transform: translateY(0);
+}
+
+.visual-canvas.preview-mode input {
+  transition: all 0.2s ease;
+}
+
+.visual-canvas.preview-mode input:focus {
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 2px rgba(124, 152, 133, 0.2);
+}
+
+/* Responsive adjustments for mode toggle */
+@media (max-width: 768px) {
+  .mode-toggle {
+    order: -1;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .mode-info {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin-top: 0.5rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-primary);
+  }
+}

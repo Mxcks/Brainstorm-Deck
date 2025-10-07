@@ -1,0 +1,84 @@
+{
+  "profile_id": "yellow-primary",
+  "profile_name": "Yellow - Social & Optimistic",
+  "profile_type": "default_user_profile",
+  "profile_number": 2,
+  "personality_framework": "surrounded_by_idiots",
+  "primary_color": "yellow",
+  "secondary_color": null,
+  "status": "default",
+  "created_date": "2025-08-18T00:00:00Z",
+  
+  "personality": {
+    "primary_type": "Yellow - Social & Optimistic",
+    "description": "Enthusiastic, creative, and people-focused. Loves collaboration and innovative solutions. Values relationships and positive energy.",
+    "key_traits": ["Enthusiastic", "Creative", "Social", "Optimistic", "Inspiring", "Collaborative"],
+    "communication_style": "Engaging, enthusiastic, and relationship-focused",
+    "work_approach": "Collaborate, brainstorm, inspire others, focus on possibilities",
+    "decision_making": "Involves others, considers impact on people, seeks creative solutions",
+    "stress_response": "Seeks support from others, may become scattered or overwhelmed"
+  },
+  
+  "preferences": {
+    "planning_approach": "collaborative_brainstorming_sessions",
+    "explanation_level": "engaging_with_examples_and_stories",
+    "task_management": "flexible_people_centered",
+    "report_generation": "collaborative_and_inspiring",
+    "confirmation_required": "team_consensus_preferred",
+    "communication_tone": "positive_and_encouraging",
+    "feedback_style": "constructive_and_motivating"
+  },
+  
+  "ai_interaction_settings": {
+    "report_preferences": {
+      "ui_changes": "all",
+      "system_changes": "all", 
+      "bug_fixes": "major",
+      "behavior_tracking": true
+    },
+    "cue_density": "medium",
+    "confirmation_rates": {
+      "ui": 0.60,
+      "system": 0.70,
+      "bugs": 0.75
+    },
+    "response_speed": "moderate",
+    "detail_level": "engaging"
+  },
+  
+  "workflow_preferences": {
+    "always_plan_first": true,
+    "explain_implementation_approach": true,
+    "use_task_management_for_complex_work": true,
+    "generate_reports_for_all_work": true,
+    "ask_before_any_changes": true,
+    "prefer_collaborative_approach": true,
+    "focus_on_people_impact": true,
+    "encourage_creative_solutions": true
+  },
+  
+  "ideal_for": [
+    "Creative projects",
+    "Team collaboration",
+    "User experience design",
+    "Innovation initiatives",
+    "Community building",
+    "Marketing and communication"
+  ],
+  
+  "ai_behavior_modifications": {
+    "use_encouraging_language": true,
+    "provide_creative_alternatives": true,
+    "emphasize_collaboration": true,
+    "include_people_impact": true,
+    "offer_inspiring_examples": true,
+    "maintain_positive_tone": true
+  },
+  
+  "communication_preferences": {
+    "meeting_style": "interactive_and_engaging",
+    "documentation": "visual_and_story_driven",
+    "feedback_frequency": "regular_and_encouraging",
+    "collaboration_style": "inclusive_and_inspiring"
+  }
+}

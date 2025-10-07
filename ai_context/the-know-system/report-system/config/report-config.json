@@ -1,0 +1,182 @@
+{
+  "system": {
+    "name": "Report System",
+    "version": "1.0.0",
+    "description": "Universal reporting framework for The Know ecosystem",
+    "initialized": true
+  },
+  "database": {
+    "path": "./analysis-databases/report-system",
+    "auto_backup": true,
+    "backup_frequency": "daily",
+    "retention_days": 90
+  },
+  "report_generation": {
+    "default_format": "markdown",
+    "supported_formats": ["markdown", "html", "json", "csv", "pdf"],
+    "max_concurrent_reports": 5,
+    "timeout_minutes": 30,
+    "cache_enabled": true,
+    "cache_duration_hours": 24
+  },
+  "data_sources": {
+    "the-know-intelligence": {
+      "enabled": true,
+      "priority": "high",
+      "connection_timeout": 30,
+      "retry_attempts": 3
+    },
+    "template-system": {
+      "enabled": true,
+      "priority": "medium",
+      "connection_timeout": 30,
+      "retry_attempts": 3
+    },
+    "database-core": {
+      "enabled": true,
+      "priority": "high",
+      "connection_timeout": 30,
+      "retry_attempts": 3
+    },
+    "peanut-butter-user": {
+      "enabled": true,
+      "priority": "medium",
+      "connection_timeout": 30,
+      "retry_attempts": 3
+    },
+    "report-system": {
+      "enabled": true,
+      "priority": "low",
+      "connection_timeout": 30,
+      "retry_attempts": 3
+    }
+  },
+  "output": {
+    "base_directory": "./reports",
+    "subdirectories": {
+      "system-health": "./reports/system-health",
+      "usage-analytics": "./reports/usage-analytics",
+      "project-progress": "./reports/project-progress",
+      "executive-summary": "./reports/executive-summary"
+    },
+    "file_naming": {
+      "pattern": "{template-name}-{timestamp}.{extension}",
+      "timestamp_format": "YYYY-MM-DD-HH-mm-ss",
+      "include_version": false
+    },
+    "retention": {
+      "enabled": true,
+      "default_days": 90,
+      "archive_after_days": 30,
+      "compress_archives": true
+    }
+  },
+  "scheduling": {
+    "enabled": true,
+    "timezone": "UTC",
+    "max_scheduled_reports": 50,
+    "default_schedules": {
+      "system-health": "0 6 * * *",
+      "usage-analytics": "0 9 * * 1",
+      "project-progress": "0 18 * * 5",
+      "executive-summary": "0 8 1 * *"
+    }
+  },
+  "distribution": {
+    "email": {
+      "enabled": false,
+      "smtp_server": "",
+      "smtp_port": 587,
+      "username": "",
+      "password": "",
+      "from_address": "reports@theknow.com",
+      "default_recipients": []
+    },
+    "webhook": {
+      "enabled": false,
+      "endpoints": [],
+      "authentication": "bearer_token",
+      "retry_attempts": 3
+    },
+    "api": {
+      "enabled": true,
+      "base_url": "/api/reports",
+      "authentication_required": false,
+      "rate_limiting": {
+        "enabled": true,
+        "requests_per_minute": 60
+      }
+    }
+  },
+  "security": {
+    "data_encryption": {
+      "enabled": false,
+      "algorithm": "AES-256-GCM"
+    },
+    "access_control": {
+      "enabled": false,
+      "default_permissions": "read",
+      "admin_users": [],
+      "read_only_users": []
+    },
+    "audit_logging": {
+      "enabled": true,
+      "log_file": "./logs/report-system-audit.log",
+      "log_level": "info",
+      "include_data_access": true
+    }
+  },
+  "performance": {
+    "monitoring": {
+      "enabled": true,
+      "metrics_collection": true,
+      "performance_thresholds": {
+        "report_generation_max_seconds": 300,
+        "data_collection_max_seconds": 60,
+        "memory_usage_max_mb": 512
+      }
+    },
+    "optimization": {
+      "parallel_processing": true,
+      "max_worker_threads": 4,
+      "data_streaming": true,
+      "compression_enabled": true
+    }
+  },
+  "templates": {
+    "directory": "./report-system/templates",
+    "auto_reload": true,
+    "validation": {
+      "enabled": true,
+      "strict_mode": false,
+      "required_fields": ["report_metadata", "data_sources"]
+    },
+    "custom_templates": {
+      "enabled": true,
+      "user_directory": "./custom-templates",
+      "inheritance_allowed": true
+    }
+  },
+  "logging": {
+    "level": "info",
+    "file": "./logs/report-system.log",
+    "max_file_size_mb": 100,
+    "max_files": 10,
+    "console_output": true,
+    "structured_logging": true
+  },
+  "health_checks": {
+    "enabled": true,
+    "interval_minutes": 5,
+    "endpoints": [
+      "/health",
+      "/health/detailed"
+    ],
+    "checks": {
+      "database_connectivity": true,
+      "template_availability": true,
+      "disk_space": true,
+      "memory_usage": true
+    }
+  }
+}

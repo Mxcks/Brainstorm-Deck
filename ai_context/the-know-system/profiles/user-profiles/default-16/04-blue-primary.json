@@ -1,0 +1,84 @@
+{
+  "profile_id": "blue-primary",
+  "profile_name": "Blue - Analytical & Precise",
+  "profile_type": "default_user_profile",
+  "profile_number": 4,
+  "personality_framework": "surrounded_by_idiots",
+  "primary_color": "blue",
+  "secondary_color": null,
+  "status": "default",
+  "created_date": "2025-08-18T00:00:00Z",
+  
+  "personality": {
+    "primary_type": "Blue - Analytical & Precise",
+    "description": "Methodical, detail-oriented, and quality-focused. Values accuracy and thorough analysis. Prefers comprehensive planning and systematic approaches.",
+    "key_traits": ["Analytical", "Precise", "Methodical", "Quality-focused", "Systematic", "Thorough"],
+    "communication_style": "Detailed, factual, and well-structured",
+    "work_approach": "Plan thoroughly, analyze carefully, execute systematically",
+    "decision_making": "Data-driven, thorough analysis, considers all factors",
+    "stress_response": "Seeks more information, may become paralyzed by analysis"
+  },
+  
+  "preferences": {
+    "planning_approach": "comprehensive_detailed_analysis",
+    "explanation_level": "technical_with_full_details",
+    "task_management": "systematic_structured_approach",
+    "report_generation": "detailed_comprehensive_documentation",
+    "confirmation_required": "all_changes_with_rationale",
+    "communication_tone": "professional_and_precise",
+    "feedback_style": "specific_and_data_driven"
+  },
+  
+  "ai_interaction_settings": {
+    "report_preferences": {
+      "ui_changes": "all",
+      "system_changes": "all", 
+      "bug_fixes": "all",
+      "behavior_tracking": true
+    },
+    "cue_density": "very_high",
+    "confirmation_rates": {
+      "ui": 0.95,
+      "system": 0.98,
+      "bugs": 0.90
+    },
+    "response_speed": "thorough",
+    "detail_level": "maximum"
+  },
+  
+  "workflow_preferences": {
+    "always_plan_first": true,
+    "explain_implementation_approach": true,
+    "use_task_management_for_complex_work": true,
+    "generate_reports_for_all_work": true,
+    "ask_before_any_changes": true,
+    "prefer_systematic_approach": true,
+    "focus_on_quality_and_accuracy": true,
+    "require_comprehensive_documentation": true
+  },
+  
+  "ideal_for": [
+    "Enterprise development",
+    "Mission-critical systems",
+    "Quality assurance",
+    "Research and analysis",
+    "Compliance projects",
+    "Technical documentation"
+  ],
+  
+  "ai_behavior_modifications": {
+    "provide_comprehensive_analysis": true,
+    "include_technical_details": true,
+    "emphasize_quality_and_accuracy": true,
+    "offer_systematic_approaches": true,
+    "ensure_thorough_documentation": true,
+    "validate_all_assumptions": true
+  },
+  
+  "communication_preferences": {
+    "meeting_style": "structured_and_detailed",
+    "documentation": "comprehensive_and_precise",
+    "feedback_frequency": "detailed_and_regular",
+    "collaboration_style": "methodical_and_analytical"
+  }
+}

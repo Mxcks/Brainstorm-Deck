@@ -1,0 +1,32 @@
+{
+  "name": "brainstorm-deck-database",
+  "version": "1.0.0",
+  "description": "Database core system for Brainstorm Deck - adapted from The Know Universal Database System",
+  "main": "core/brainstorm-database-manager.js",
+  "scripts": {
+    "start": "node demo.js",
+    "test": "node test/test-database.js",
+    "demo": "node examples/demo.js",
+    "backup": "node tools/backup.js",
+    "health": "node tools/health-check.js"
+  },
+  "keywords": [
+    "database",
+    "sqlite",
+    "brainstorm",
+    "project-management",
+    "visual-canvas"
+  ],
+  "author": "Brainstorm Deck System",
+  "license": "MIT",
+  "dependencies": {
+    "sqlite3": "^5.1.6",
+    "fs-extra": "^11.1.1"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

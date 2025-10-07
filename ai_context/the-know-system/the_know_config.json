@@ -1,0 +1,206 @@
+{
+  "system": {
+    "name": "The Know",
+    "version": "1.0.0",
+    "last_updated": "2025-08-04T23:00:22.240Z",
+    "auto_update": true
+  },
+  "user_profile": {
+    "name": "",
+    "role": "developer",
+    "experience_level": "advanced",
+    "primary_languages": [],
+    "preferred_tools": [],
+    "coding_preferences": {
+      "style": "clean_code",
+      "architecture_patterns": [
+        "mvc",
+        "repository",
+        "dependency_injection"
+      ],
+      "testing_approach": "tdd",
+      "documentation_style": "inline_and_external",
+      "error_handling": "explicit_with_logging"
+    },
+    "communication_style": {
+      "feedback_preference": "detailed",
+      "explanation_level": "comprehensive",
+      "warning_sensitivity": "balanced"
+    }
+  },
+  "ai_personality": {
+    "traits": {
+      "proactive_issue_detection": true,
+      "context_awareness": true,
+      "adaptive_learning": true,
+      "collaborative_approach": true
+    },
+    "behaviors": {
+      "auto_code_analysis": true,
+      "pattern_recognition": true,
+      "predictive_warnings": true,
+      "contextual_suggestions": true
+    },
+    "decision_framework": {
+      "risk_assessment": "comprehensive",
+      "alternative_analysis": true,
+      "dependency_tracking": true,
+      "quality_gates": true
+    }
+  },
+  "available_systems": {
+    "reporting": {
+      "enabled": true,
+      "auto_generate": false,
+      "formats": [
+        "markdown",
+        "json",
+        "html"
+      ]
+    },
+    "triggers": {
+      "Add Report": {
+        "action": "generate_report",
+        "parameters": {
+          "type": "comprehensive",
+          "include_risks": true,
+          "include_recommendations": true
+        }
+      },
+      "Status Check": {
+        "action": "project_status",
+        "parameters": {
+          "include_tests": true,
+          "include_dependencies": true
+        }
+      },
+      "Issue Alert": {
+        "action": "flag_issues",
+        "parameters": {
+          "severity_threshold": "medium",
+          "include_suggestions": true
+        }
+      },
+      "Code Review": {
+        "action": "analyze_code",
+        "parameters": {
+          "scope": "recent_changes",
+          "depth": "comprehensive"
+        }
+      },
+      "list core values": {
+        "action": "show_core_values",
+        "parameters": {
+          "format": "numbered_list",
+          "include_descriptions": true
+        }
+      },
+      "add core value": {
+        "action": "capture_core_value",
+        "parameters": {
+          "start_conversation": true,
+          "auto_number": true
+        }
+      },
+      "HEY YOU JUST MESSED UP": {
+        "action": "error_learning_mode",
+        "parameters": {
+          "pause_interaction": true,
+          "log_mistake": true,
+          "request_explanation": true
+        }
+      },
+      "add that to the know": {
+        "action": "capture_knowledge",
+        "parameters": {
+          "type": "methodology_or_preference",
+          "start_conversation": true
+        }
+      },
+      "add that to my likes": {
+        "action": "capture_preference",
+        "parameters": {
+          "type": "specific_likes",
+          "context_aware": true
+        }
+      }
+    },
+    "integrations": {
+      "external_programs": [],
+      "apis": [],
+      "databases": [],
+      "file_systems": []
+    }
+  },
+  "learning": {
+    "mechanisms": {
+      "interaction_history": true,
+      "error_patterns": true,
+      "user_feedback": true,
+      "code_evolution": true
+    },
+    "update_frequency": "real_time",
+    "retention_period": "unlimited",
+    "learning_rate": "adaptive"
+  },
+  "project_context": {
+    "current_project": {
+      "name": "The Know",
+      "description": "AI Enhancement System",
+      "goals": [
+        "Create dynamic AI knowledge base",
+        "Implement proactive AI behavior",
+        "Build reporting and trigger systems"
+      ],
+      "tech_stack": [
+        "markdown",
+        "json",
+        "javascript"
+      ],
+      "architecture": {
+        "components": [
+          "knowledge_base",
+          "reporting_system",
+          "trigger_processor",
+          "learning_engine"
+        ]
+      }
+    },
+    "recent_changes": [],
+    "outstanding_items": []
+  },
+  "configuration": {
+    "verbosity_level": "detailed",
+    "auto_reporting": false,
+    "proactive_warnings": true,
+    "learning_enabled": true,
+    "backup_frequency": "daily"
+  },
+  "templates": {
+    "report": {
+      "sections": [
+        "changes_made",
+        "issues_identified",
+        "recommendations",
+        "risk_assessment"
+      ],
+      "format": "markdown"
+    },
+    "issue_alert": {
+      "fields": [
+        "severity",
+        "description",
+        "impact_analysis",
+        "suggested_actions",
+        "related_files"
+      ],
+      "format": "markdown"
+    }
+  },
+  "metadata": {
+    "creation_date": "2025-08-04T00:00:00Z",
+    "total_interactions": 18,
+    "successful_predictions": 0,
+    "learning_iterations": 4
+  }
+}

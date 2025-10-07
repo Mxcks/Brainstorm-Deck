@@ -1,0 +1,81 @@
+{
+  "profile_id": "red-green",
+  "profile_name": "Red-Green - Direct & Steady",
+  "profile_type": "default_user_profile",
+  "profile_number": 6,
+  "personality_framework": "surrounded_by_idiots",
+  "primary_color": "red",
+  "secondary_color": "green",
+  "status": "default",
+  "created_date": "2025-08-18T00:00:00Z",
+  "personality": {
+    "primary_type": "Red-Green - Direct & Steady",
+    "description": "Results-focused with steady execution. Combines directness with reliability. Values quick decisions but ensures stable implementation.",
+    "key_traits": [
+      "Direct",
+      "Reliable",
+      "Results-oriented",
+      "Steady",
+      "Practical",
+      "Consistent"
+    ],
+    "communication_style": "Balanced red and green approach",
+    "work_approach": "Combines red strengths with green support",
+    "decision_making": "Red-driven with green considerations",
+    "stress_response": "Relies on red instincts, supported by green traits"
+  },
+  "preferences": {
+    "planning_approach": "red_focused_with_green_support",
+    "explanation_level": "balanced_red_green",
+    "task_management": "red_oriented_green_supported",
+    "report_generation": "red_style_with_green_elements",
+    "confirmation_required": "red_preference_green_modified",
+    "communication_tone": "red_green_balanced",
+    "feedback_style": "red_approach_with_green_consideration"
+  },
+  "ai_interaction_settings": {
+    "report_preferences": {
+      "ui_changes": "major",
+      "system_changes": "major",
+      "bug_fixes": "critical",
+      "behavior_tracking": false
+    },
+    "cue_density": "low",
+    "confirmation_rates": {
+      "ui": 0.3,
+      "system": 0.5,
+      "bugs": 0.8
+    },
+    "response_speed": "fast",
+    "detail_level": "minimal"
+  },
+  "workflow_preferences": {
+    "always_plan_first": false,
+    "explain_implementation_approach": false,
+    "use_task_management_for_complex_work": true,
+    "generate_reports_for_all_work": false,
+    "ask_before_any_changes": false,
+    "prefer_balanced_approach": true,
+    "focus_on_combination_strengths": true
+  },
+  "ideal_for": [
+    "Operations management",
+    "Project delivery",
+    "Crisis resolution",
+    "Team leadership",
+    "Process improvement"
+  ],
+  "ai_behavior_modifications": {
+    "balance_red_and_green": true,
+    "emphasize_red_strengths": true,
+    "support_with_green_traits": true,
+    "adapt_to_combination_needs": true,
+    "provide_balanced_approach": true
+  },
+  "communication_preferences": {
+    "meeting_style": "red_focused_green_supported",
+    "documentation": "red_style_with_green_elements",
+    "feedback_frequency": "red_preference_green_modified",
+    "collaboration_style": "balanced_red_green"
+  }
+}

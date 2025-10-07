@@ -1,0 +1,264 @@
+{
+  "metadata": {
+    "generated_at": "2025-09-01T09:24:14.167Z",
+    "total_tools": 7,
+    "total_workflows": 4
+  },
+  "tool_registry": [
+    {
+      "name": "project-analyzer",
+      "command": "npm run analyze",
+      "purpose": "Analyze entire project and create specialized databases",
+      "category": "analysis",
+      "dependencies": [
+        "database-core-system"
+      ],
+      "outputs": [
+        "analysis-databases/",
+        "analysis reports"
+      ],
+      "frequency": "on-demand",
+      "priority": "high",
+      "prerequisites": [
+        "project files exist"
+      ],
+      "effectiveness": 0.95
+    },
+    {
+      "name": "database-query",
+      "command": "npm run query-db",
+      "purpose": "Query and explore database contents across all systems",
+      "category": "exploration",
+      "dependencies": [
+        "analysis-databases/"
+      ],
+      "outputs": [
+        "database insights",
+        "system statistics"
+      ],
+      "frequency": "frequent",
+      "priority": "high",
+      "prerequisites": [
+        "databases exist"
+      ],
+      "effectiveness": 0.9
+    },
+    {
+      "name": "similarity-analyzer",
+      "command": "npm run analyze-similarity",
+      "purpose": "Find duplicate and similar files across project",
+      "category": "optimization",
+      "dependencies": [
+        "analysis-databases/"
+      ],
+      "outputs": [
+        "similarity reports",
+        "duplicate lists"
+      ],
+      "frequency": "periodic",
+      "priority": "medium",
+      "prerequisites": [
+        "databases populated"
+      ],
+      "effectiveness": 0.85
+    },
+    {
+      "name": "duplicate-cleanup",
+      "command": "npm run cleanup-duplicates",
+      "purpose": "Interactive removal of duplicate files",
+      "category": "maintenance",
+      "dependencies": [
+        "similarity reports"
+      ],
+      "outputs": [
+        "cleaned project",
+        "cleanup logs"
+      ],
+      "frequency": "as-needed",
+      "priority": "medium",
+      "prerequisites": [
+        "similarity analysis complete"
+      ],
+      "effectiveness": 0.8
+    },
+    {
+      "name": "enhanced-metrics",
+      "command": "npm run enhanced-metrics",
+      "purpose": "Deep analysis of code complexity and system relationships",
+      "category": "analysis",
+      "dependencies": [
+        "analysis-databases/"
+      ],
+      "outputs": [
+        "complexity reports",
+        "relationship maps"
+      ],
+      "frequency": "periodic",
+      "priority": "medium",
+      "prerequisites": [
+        "databases populated"
+      ],
+      "effectiveness": 0.75
+    },
+    {
+      "name": "report-generator",
+      "command": "npm run demo-reports",
+      "purpose": "Generate system health and usage reports",
+      "category": "reporting",
+      "dependencies": [
+        "analysis-databases/"
+      ],
+      "outputs": [
+        "system reports",
+        "health dashboards"
+      ],
+      "frequency": "scheduled",
+      "priority": "medium",
+      "prerequisites": [
+        "databases populated"
+      ],
+      "effectiveness": 0.7
+    },
+    {
+      "name": "briefing-updater",
+      "command": "npm run update-briefing",
+      "purpose": "Update AI briefing with latest project state",
+      "category": "ai-enhancement",
+      "dependencies": [
+        "project analysis"
+      ],
+      "outputs": [
+        "updated briefing"
+      ],
+      "frequency": "after-changes",
+      "priority": "low",
+      "prerequisites": [
+        "project analyzed"
+      ],
+      "effectiveness": 0.65
+    }
+  ],
+  "workflows": [
+    {
+      "name": "initial-project-setup",
+      "description": "Set up project analysis and databases for the first time",
+      "steps": [
+        {
+          "tool": "project-analyzer",
+          "required": true
+        },
+        {
+          "tool": "database-query",
+          "required": false,
+          "purpose": "verify setup"
+        },
+        {
+          "tool": "similarity-analyzer",
+          "required": false,
+          "purpose": "identify cleanup opportunities"
+        }
+      ],
+      "triggers": [
+        "new project",
+        "major changes"
+      ],
+      "frequency": "once"
+    },
+    {
+      "name": "regular-maintenance",
+      "description": "Regular project maintenance and optimization",
+      "steps": [
+        {
+          "tool": "project-analyzer",
+          "required": true,
+          "purpose": "update databases"
+        },
+        {
+          "tool": "similarity-analyzer",
+          "required": true,
+          "purpose": "find new duplicates"
+        },
+        {
+          "tool": "duplicate-cleanup",
+          "required": false,
+          "purpose": "clean up duplicates"
+        },
+        {
+          "tool": "enhanced-metrics",
+          "required": false,
+          "purpose": "track complexity"
+        }
+      ],
+      "triggers": [
+        "weekly schedule",
+        "significant changes"
+      ],
+      "frequency": "weekly"
+    },
+    {
+      "name": "deep-analysis",
+      "description": "Comprehensive project analysis and optimization",
+      "steps": [
+        {
+          "tool": "project-analyzer",
+          "required": true
+        },
+        {
+          "tool": "similarity-analyzer",
+          "required": true
+        },
+        {
+          "tool": "enhanced-metrics",
+          "required": true
+        },
+        {
+          "tool": "report-generator",
+          "required": true
+        },
+        {
+          "tool": "duplicate-cleanup",
+          "required": false
+        }
+      ],
+      "triggers": [
+        "monthly review",
+        "major refactoring"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "name": "quick-status-check",
+      "description": "Quick overview of project status",
+      "steps": [
+        {
+          "tool": "database-query",
+          "required": true
+        },
+        {
+          "tool": "similarity-summary",
+          "required": false
+        }
+      ],
+      "triggers": [
+        "status request",
+        "daily standup"
+      ],
+      "frequency": "daily"
+    }
+  ],
+  "usage_statistics": {},
+  "effectiveness_analysis": {
+    "mostUsed": null,
+    "leastUsed": null,
+    "mostEffective": null,
+    "needsImprovement": [],
+    "recommendations": []
+  },
+  "recommendations": [
+    "Regularly update tool effectiveness scores based on user feedback",
+    "Add new tools when gaps are identified in workflows",
+    "Remove or improve tools with consistently low success rates",
+    "Create specialized workflows for common task patterns",
+    "Implement automated tool selection based on context analysis"
+  ]
+}

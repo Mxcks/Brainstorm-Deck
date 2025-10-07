@@ -1,0 +1,49 @@
+﻿{
+  "name": "universal-database-core-system",
+  "version": "1.0.0",
+  "description": "Portable, project-agnostic database management system with SQLite backend",
+  "main": "core/universal-database-manager.js",
+  "keywords": [
+    "database",
+    "sqlite",
+    "universal",
+    "portable",
+    "project-management",
+    "crud",
+    "schema-management",
+    "backup",
+    "migration"
+  ],
+  "author": "Macks",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/universal-database-core-system.git"
+  },
+  "scripts": {
+    "start": "node core/universal-database-manager.js",
+    "demo": "node examples/demo.js",
+    "test": "node tests/test-suite.js",
+    "backup": "node tools/backup.js",
+    "migrate": "node tools/migrate.js"
+  },
+  "dependencies": {
+    "sqlite3": "^5.1.6",
+    "fs-extra": "^11.1.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "core/",
+    "tools/",
+    "examples/",
+    "schemas/",
+    "docs/"
+  ]
+}

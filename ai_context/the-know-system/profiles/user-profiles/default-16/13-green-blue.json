@@ -1,0 +1,81 @@
+{
+  "profile_id": "green-blue",
+  "profile_name": "Green-Blue - Steady & Analytical",
+  "profile_type": "default_user_profile",
+  "profile_number": 13,
+  "personality_framework": "surrounded_by_idiots",
+  "primary_color": "green",
+  "secondary_color": "blue",
+  "status": "default",
+  "created_date": "2025-08-18T00:00:00Z",
+  "personality": {
+    "primary_type": "Green-Blue - Steady & Analytical",
+    "description": "Methodical and thorough with patient execution. Combines reliability with precision. Values quality and systematic approaches.",
+    "key_traits": [
+      "Methodical",
+      "Thorough",
+      "Patient",
+      "Precise",
+      "Quality-focused",
+      "Systematic"
+    ],
+    "communication_style": "Balanced green and blue approach",
+    "work_approach": "Combines green strengths with blue support",
+    "decision_making": "Green-driven with blue considerations",
+    "stress_response": "Relies on green instincts, supported by blue traits"
+  },
+  "preferences": {
+    "planning_approach": "green_focused_with_blue_support",
+    "explanation_level": "balanced_green_blue",
+    "task_management": "green_oriented_blue_supported",
+    "report_generation": "green_style_with_blue_elements",
+    "confirmation_required": "green_preference_blue_modified",
+    "communication_tone": "green_blue_balanced",
+    "feedback_style": "green_approach_with_blue_consideration"
+  },
+  "ai_interaction_settings": {
+    "report_preferences": {
+      "ui_changes": "major",
+      "system_changes": "major",
+      "bug_fixes": "major",
+      "behavior_tracking": true
+    },
+    "cue_density": "medium",
+    "confirmation_rates": {
+      "ui": 0.6,
+      "system": 0.7,
+      "bugs": 0.75
+    },
+    "response_speed": "moderate",
+    "detail_level": "moderate"
+  },
+  "workflow_preferences": {
+    "always_plan_first": true,
+    "explain_implementation_approach": true,
+    "use_task_management_for_complex_work": true,
+    "generate_reports_for_all_work": true,
+    "ask_before_any_changes": true,
+    "prefer_balanced_approach": true,
+    "focus_on_combination_strengths": true
+  },
+  "ideal_for": [
+    "Quality assurance",
+    "Documentation",
+    "Research",
+    "Compliance",
+    "Technical writing"
+  ],
+  "ai_behavior_modifications": {
+    "balance_green_and_blue": true,
+    "emphasize_green_strengths": true,
+    "support_with_blue_traits": true,
+    "adapt_to_combination_needs": true,
+    "provide_balanced_approach": true
+  },
+  "communication_preferences": {
+    "meeting_style": "green_focused_blue_supported",
+    "documentation": "green_style_with_blue_elements",
+    "feedback_frequency": "green_preference_blue_modified",
+    "collaboration_style": "balanced_green_blue"
+  }
+}

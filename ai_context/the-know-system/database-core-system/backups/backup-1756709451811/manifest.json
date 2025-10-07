@@ -1,0 +1,69 @@
+{
+  "timestamp": "2025-09-01T06:50:51.834Z",
+  "version": "1.0.0",
+  "backupPath": "backups\\backup-1756709451811",
+  "statistics": {
+    "categories": 7,
+    "connections": 7,
+    "databases": {
+      "projects": {
+        "records": 0,
+        "status": "active"
+      },
+      "templates": {
+        "records": 0,
+        "status": "active"
+      },
+      "reports": {
+        "records": 0,
+        "status": "active"
+      },
+      "tasks": {
+        "records": 0,
+        "status": "active"
+      },
+      "users": {
+        "records": 0,
+        "status": "active"
+      },
+      "files": {
+        "records": 0,
+        "status": "active"
+      },
+      "metadata": {
+        "records": 0,
+        "status": "active"
+      }
+    }
+  },
+  "files": {
+    "files.db": {
+      "size": 24576,
+      "modified": "2025-09-01T06:50:51.789Z"
+    },
+    "metadata.db": {
+      "size": 24576,
+      "modified": "2025-09-01T06:50:51.808Z"
+    },
+    "projects.db": {
+      "size": 24576,
+      "modified": "2025-09-01T06:50:51.697Z"
+    },
+    "reports.db": {
+      "size": 24576,
+      "modified": "2025-09-01T06:50:51.731Z"
+    },
+    "tasks.db": {
+      "size": 24576,
+      "modified": "2025-09-01T06:50:51.749Z"
+    },
+    "templates.db": {
+      "size": 24576,
+      "modified": "2025-09-01T06:50:51.714Z"
+    },
+    "users.db": {
+      "size": 24576,
+      "modified": "2025-09-01T06:50:51.770Z"
+    }
+  }
+}

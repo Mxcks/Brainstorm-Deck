@@ -1,0 +1,254 @@
+# EXAMPLE: AI-Generated Execution Plan for User's Idea
+# User said: "I want to create a simple online store where customers can browse products, add them to cart, and checkout"
+
+# ============================================================================
+# LAYER 1: YAML STRUCTURE (Configuration Layer)
+# ============================================================================
+# This layer describes the template's behavior, rules, and processing logic.
+# It gets stored in the database and can be reused across multiple instances.
+# Think of this as the "blueprint" or "schema" for how things should work.
+
+structure:
+  # === EXECUTION PLAN TEMPLATE IDENTITY ===
+  template_id: "execution_plan_master_v1.0"
+  template_name: "Idea Execution Plan Template"
+  template_purpose: "Framework for AI to create execution plans when user has an idea"
+  version: "1.0.0"
+  author: "System"
+  description: "Master template for creating YAML execution plans from user ideas"
+
+  # === EXECUTION PLAN NAMING ===
+  naming_conventions:
+    plan_id_format: "PLAN-{YYYY}{MM}{DD}-{sequence:04d}"
+    plan_filename_pattern: "{idea_category}_{plan_id}_{user_name}"
+
+  # === TEMPLATE LIBRARY LOCATIONS ===
+  template_sources:
+    user_templates_dir: "./user_templates"
+    system_templates_dir: "./system_templates"
+    shared_templates_dir: "./shared_templates"
+
+  # === PLAN CREATION RULES ===
+  plan_creation_rules:
+    require_user_approval: true
+    suggest_existing_templates: true
+    track_template_usage: true
+    save_plan_to_database: true
+
+  # === AVAILABLE TEMPLATE CATEGORIES ===
+  # AI will suggest from these when creating execution plans
+  template_categories:
+    - "web_development"
+    - "data_processing"
+    - "automation_workflow"
+    - "business_process"
+    - "api_integration"
+    - "database_operations"
+    - "user_interface"
+    - "reporting_analytics"
+
+  # === EXECUTION PLAN VALIDATION ===
+  plan_validation:
+    required_sections:
+      [
+        "plan_summary",
+        "leading_instruction",
+        "project_structure",
+        "execution_steps",
+        "trailing_instruction",
+      ]
+    must_include_user_agreement: true
+    must_specify_deliverables: true
+
+# ============================================================================
+# LAYER 2: YAML BODY (Execution Plan Template)
+# ============================================================================
+# This is the template structure that AI fills when user presents an idea.
+# AI creates a new YAML file using this body structure for each user idea.
+
+body:
+  # === EXECUTION PLAN SUMMARY ===
+  # Quick overview for user to understand the plan at a glance
+  plan_summary:
+    section_id: "plan_summary"
+    section_verification:
+      approved: null # true/false/null
+      approved_by: null
+      approved_date: null
+      modifications_requested: []
+      notes: ""
+    content:
+      the_idea_title: "Simple Online Store"
+      the_idea_description: "Create an e-commerce website where customers can browse products, add to cart, and checkout"
+      estimated_timeline: "2-3 weeks"
+      key_deliverables:
+        - "Product catalog website with shopping cart"
+        - "Customer checkout and payment system"
+        - "Admin panel for managing products"
+      templates_to_use:
+        - "E-commerce Website Template"
+        - "Shopping Cart Component Template"
+        - "Payment Integration Template"
+      complexity_level: "Medium"
+      prerequisites: "Basic understanding of web development, payment processor account"
+
+  # === LEADING INSTRUCTION ===
+  # AI fills this with context about the user's specific idea
+  leading_instruction:
+    section_id: "leading_instruction"
+    section_verification:
+      approved: null # true/false/null
+      approved_by: null
+      approved_date: null
+      modifications_requested: []
+      notes: ""
+    content: |
+      The Idea: Create a simple online store for selling products with basic e-commerce functionality
+      Goal: Enable customers to browse products, add items to shopping cart, and complete purchases online
+      Context: User wants a straightforward e-commerce solution without complex features like inventory management or advanced analytics
+      Approach: Build using modern web technologies with pre-built e-commerce templates, integrate with a payment processor, and create a simple admin interface for product management
+
+  # === PROJECT STRUCTURE ===
+  # Templates are selected, filled, and used for the process here
+  project_structure:
+    section_id: "project_structure"
+    section_verification:
+      approved: null # true/false/null
+      approved_by: null
+      approved_date: null
+      modifications_requested: []
+      notes: ""
+    content:
+      note: "This is where templates get selected, filled, then used for the process"
+      selected_templates:
+        - template_name: "React E-commerce Starter"
+          template_source: "system_templates"
+          purpose: "Provides the main website structure with product catalog and shopping cart"
+          filled_data: "Product data, store branding, payment configuration"
+          output_location: "./src/components/"
+          
+        - template_name: "Stripe Payment Integration"
+          template_source: "shared_templates"
+          purpose: "Handles secure payment processing and checkout flow"
+          filled_data: "Stripe API keys, product pricing, tax configuration"
+          output_location: "./src/services/payment/"
+          
+        - template_name: "Admin Dashboard Template"
+          template_source: "user_templates"
+          purpose: "Simple interface for adding/editing products"
+          filled_data: "Product management forms, authentication setup"
+          output_location: "./src/admin/"
+      
+      project_files:
+        - file_name: "ProductCatalog.jsx"
+          file_type: "React Component"
+          location: "./src/components/"
+        - file_name: "ShoppingCart.jsx"
+          file_type: "React Component"
+          location: "./src/components/"
+        - file_name: "CheckoutForm.jsx"
+          file_type: "React Component"
+          location: "./src/components/"
+        - file_name: "PaymentService.js"
+          file_type: "Service Module"
+          location: "./src/services/"
+        - file_name: "AdminPanel.jsx"
+          file_type: "React Component"
+          location: "./src/admin/"
+          
+      directory_structure:
+        - "./src/components/ (main website components)"
+        - "./src/services/ (payment and API services)"
+        - "./src/admin/ (admin dashboard)"
+        - "./public/ (static assets and images)"
+        - "./config/ (environment and API configurations)"
+
+  # === EXECUTION STEPS ===
+  # AI creates specific step-by-step plan for this idea
+  execution_steps:
+    section_id: "execution_steps"
+    section_verification:
+      approved: null # true/false/null
+      approved_by: null
+      approved_date: null
+      modifications_requested: []
+      notes: ""
+    content:
+      - step: 1
+        name: "Setup Project Foundation"
+        description: "Initialize React project and install dependencies"
+        template_used: "React E-commerce Starter"
+        deliverable: "Working React app with basic structure"
+        estimated_time: "2 hours"
+        dependencies: []
+        
+      - step: 2
+        name: "Build Product Catalog"
+        description: "Create product display components and sample data"
+        template_used: "React E-commerce Starter"
+        deliverable: "Product listing and detail pages"
+        estimated_time: "6 hours"
+        dependencies: [1]
+        
+      - step: 3
+        name: "Implement Shopping Cart"
+        description: "Add cart functionality with add/remove items"
+        template_used: "React E-commerce Starter"
+        deliverable: "Working shopping cart with state management"
+        estimated_time: "4 hours"
+        dependencies: [2]
+        
+      - step: 4
+        name: "Integrate Payment System"
+        description: "Setup Stripe payment processing and checkout flow"
+        template_used: "Stripe Payment Integration"
+        deliverable: "Secure checkout with payment processing"
+        estimated_time: "8 hours"
+        dependencies: [3]
+        
+      - step: 5
+        name: "Create Admin Panel"
+        description: "Build simple interface for managing products"
+        template_used: "Admin Dashboard Template"
+        deliverable: "Admin interface for product CRUD operations"
+        estimated_time: "6 hours"
+        dependencies: [1]
+        
+      - step: 6
+        name: "Testing and Deployment"
+        description: "Test all functionality and deploy to hosting platform"
+        template_used: "Deployment Template"
+        deliverable: "Live online store ready for customers"
+        estimated_time: "4 hours"
+        dependencies: [2, 3, 4, 5]
+
+  # === TRAILING INSTRUCTION ===
+  # AI navigation for execution and tracking
+  trailing_instruction:
+    section_id: "trailing_instruction"
+    section_verification:
+      approved: null # true/false/null
+      approved_by: null
+      approved_date: null
+      modifications_requested: []
+      notes: ""
+    content: |
+      AI EXECUTION NOTES:
+      - Wait for user approval of ALL sections before starting execution
+      - Track progress in database: planned -> approved -> in_progress -> completed
+      - Update step status as work progresses
+      - Document any deviations from original plan
+      - Save all deliverables to agreed locations
+      - Update template library if new reusable patterns emerge
+      - Log completion and lessons learned for future similar ideas
+      
+  # === OVERALL APPROVAL STATUS ===
+  # Summary of all section approvals for UI dashboard
+  overall_status:
+    total_sections: 5 # plan_summary, leading_instruction, project_structure, execution_steps, trailing_instruction
+    sections_approved: 0
+    sections_pending: 5
+    sections_rejected: 0
+    all_sections_approved: false
+    ready_for_execution: false
+    last_updated: null

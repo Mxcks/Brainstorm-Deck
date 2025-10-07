@@ -1,0 +1,263 @@
+# Feynman Learning System Template - Justin Sung's Learning Methodology
+# Template Type: Learning Framework
+# Purpose: Master any concept through teaching, simplification, and systematic understanding
+
+template_metadata:
+  template_id: "feynman-learning-001"
+  template_name: "Feynman Learning System"
+  template_type: "learning_framework"
+  version: "1.0.0"
+  created_by: "ai-assistant"
+  created_date: "2025-08-26"
+  description: "Learn by teaching and simplification - Justin Sung methodology"
+  tags: ["feynman", "learning", "teaching", "simplification", "justin-sung"]
+
+template_configuration:
+  customizable: true
+  user_modifications_allowed: true
+  required_components: ["choose_concept", "explain_simply", "identify_gaps", "review_source", "simplify_further", "test_understanding"]
+  optional_components: ["create_analogies", "build_connections", "teach_others", "create_content"]
+  integration_points: ["systems_thinking", "value_equation", "project_completion"]
+
+learning_philosophy:
+  core_principle: "If you can't explain it simply, you don't understand it well enough"
+  methodology: "Learn through teaching and progressive simplification"
+  outcome: "Deep, transferable understanding that can be applied and shared"
+  evidence_base: "Feynman Technique + Justin Sung's learning science research"
+
+learning_process:
+  step_1_choose_concept:
+    step_name: "CHOOSE CONCEPT"
+    purpose: "Select specific concept to master"
+    time_allocation: "5-10%"
+    
+    selection_criteria:
+      - "Importance to current goals"
+      - "Complexity level appropriate for learning session"
+      - "Clear boundaries and scope"
+      - "Practical application potential"
+    
+    ai_guidance:
+      - "Help user identify most valuable concepts to learn"
+      - "Break down complex topics into learnable chunks"
+      - "Suggest optimal learning sequence"
+      - "Connect to user's existing knowledge"
+    
+    output_requirements:
+      - "Clearly defined concept boundaries"
+      - "Learning objectives stated"
+      - "Success criteria established"
+      - "Connection to larger goals identified"
+
+  step_2_explain_simply:
+    step_name: "EXPLAIN SIMPLY"
+    purpose: "Explain concept as if teaching a child"
+    time_allocation: "25-30%"
+    
+    explanation_guidelines:
+      - "Use simple, everyday language"
+      - "Avoid jargon and technical terms"
+      - "Create vivid, concrete examples"
+      - "Focus on core principles"
+    
+    ai_assistance:
+      - "Prompt for simpler explanations"
+      - "Suggest better analogies"
+      - "Identify overly complex language"
+      - "Help create concrete examples"
+    
+    quality_indicators:
+      - "A 12-year-old could understand it"
+      - "Uses familiar concepts and analogies"
+      - "Focuses on 'why' not just 'what'"
+      - "Creates clear mental pictures"
+
+  step_3_identify_gaps:
+    step_name: "IDENTIFY GAPS"
+    purpose: "Find areas of confusion or incomplete understanding"
+    time_allocation: "20-25%"
+    
+    gap_detection_methods:
+      - "Look for areas where explanation breaks down"
+      - "Identify points of confusion or uncertainty"
+      - "Find concepts that require complex language"
+      - "Notice missing connections or logic jumps"
+    
+    ai_probing_questions:
+      - "What part of this explanation feels unclear?"
+      - "Where do you notice yourself using complex terms?"
+      - "What connections are you assuming but not explaining?"
+      - "What would someone ask that you couldn't answer simply?"
+    
+    gap_documentation:
+      - "Specific areas of confusion"
+      - "Missing knowledge components"
+      - "Weak connections between ideas"
+      - "Assumptions that need verification"
+
+  step_4_review_source:
+    step_name: "REVIEW SOURCE"
+    purpose: "Return to original material to fill knowledge gaps"
+    time_allocation: "20-25%"
+    
+    review_strategy:
+      - "Focus specifically on identified gaps"
+      - "Look for explanations of confusing points"
+      - "Seek additional examples and analogies"
+      - "Find different perspectives on the concept"
+    
+    ai_support:
+      - "Suggest relevant sources for gap-filling"
+      - "Help interpret complex source material"
+      - "Identify key insights from sources"
+      - "Connect new information to existing understanding"
+    
+    review_outcomes:
+      - "Gaps filled with accurate information"
+      - "New examples and analogies discovered"
+      - "Deeper understanding of core principles"
+      - "Connections to related concepts strengthened"
+
+  step_5_simplify_further:
+    step_name: "SIMPLIFY FURTHER"
+    purpose: "Create even clearer, more accessible explanations"
+    time_allocation: "15-20%"
+    
+    simplification_techniques:
+      - "Create better analogies"
+      - "Use more familiar examples"
+      - "Eliminate unnecessary complexity"
+      - "Focus on essential principles"
+    
+    analogy_creation:
+      - "Find everyday situations that mirror the concept"
+      - "Use physical, tangible comparisons"
+      - "Create story-based explanations"
+      - "Build on universally understood experiences"
+    
+    ai_assistance:
+      - "Suggest powerful analogies"
+      - "Help refine explanations"
+      - "Identify remaining complexity"
+      - "Test explanation clarity"
+
+  step_6_test_understanding:
+    step_name: "TEST UNDERSTANDING"
+    purpose: "Verify mastery through application and teaching"
+    time_allocation: "10-15%"
+    
+    testing_methods:
+      - "Explain to someone else"
+      - "Apply concept to new situations"
+      - "Answer challenging questions"
+      - "Create original examples"
+    
+    application_scenarios:
+      - "Real-world problem solving"
+      - "Teaching others the concept"
+      - "Creating content about the topic"
+      - "Connecting to other domains"
+    
+    mastery_indicators:
+      - "Can explain without referring to notes"
+      - "Can answer unexpected questions"
+      - "Can create new examples spontaneously"
+      - "Can connect to other concepts easily"
+
+advanced_techniques:
+  create_analogies:
+    purpose: "Build bridges between new and familiar concepts"
+    methods:
+      - "Physical world comparisons"
+      - "Story and narrative analogies"
+      - "System and process parallels"
+      - "Emotional and experiential connections"
+  
+  build_connections:
+    purpose: "Link new learning to existing knowledge"
+    methods:
+      - "Identify related concepts"
+      - "Find common principles"
+      - "Create knowledge maps"
+      - "Build conceptual frameworks"
+  
+  teach_others:
+    purpose: "Solidify understanding through teaching"
+    methods:
+      - "Formal presentations"
+      - "Informal conversations"
+      - "Written explanations"
+      - "Visual demonstrations"
+
+integration_with_systems:
+  systems_thinking_connection:
+    - "Understand concepts as part of larger systems"
+    - "Identify relationships and feedback loops"
+    - "See patterns across different domains"
+    - "Apply systems principles to learning itself"
+  
+  value_equation_application:
+    - "Maximize learning outcome value"
+    - "Minimize time and effort investment"
+    - "Increase confidence in understanding"
+    - "Accelerate application and transfer"
+  
+  project_completion_integration:
+    - "Apply learned concepts to current projects"
+    - "Use understanding to solve real problems"
+    - "Create deliverables that demonstrate mastery"
+    - "Build learning into project workflows"
+
+template_usage:
+  activation_triggers:
+    - "When user needs to learn new concept"
+    - "When understanding seems superficial"
+    - "When preparing to teach or explain"
+    - "When applying knowledge to new domains"
+  
+  success_metrics:
+    - "Clarity of explanation to others"
+    - "Ability to answer unexpected questions"
+    - "Speed of application to new situations"
+    - "Quality of analogies and examples created"
+    - "Confidence in understanding"
+
+customization_options:
+  learning_styles:
+    visual:
+      - "Emphasis on diagrams and visual analogies"
+      - "Mind mapping and concept visualization"
+      - "Image-based examples"
+    
+    auditory:
+      - "Focus on verbal explanations"
+      - "Discussion and dialogue emphasis"
+      - "Sound-based analogies"
+    
+    kinesthetic:
+      - "Physical demonstrations and models"
+      - "Hands-on application emphasis"
+      - "Movement and action analogies"
+  
+  domain_adaptations:
+    technical:
+      - "Code examples and system analogies"
+      - "Process flow explanations"
+      - "Architecture and design patterns"
+    
+    business:
+      - "Market and economic analogies"
+      - "Organizational and process examples"
+      - "Strategy and competition frameworks"
+    
+    creative:
+      - "Artistic and aesthetic analogies"
+      - "Story and narrative examples"
+      - "Emotional and experiential connections"
+
+template_storage:
+  location: "templates/learning-frameworks/"
+  backup_location: "templates/backups/learning-frameworks/"
+  version_control: true
+  learning_outcomes_tracked: true
+  user_customizations_saved: true
