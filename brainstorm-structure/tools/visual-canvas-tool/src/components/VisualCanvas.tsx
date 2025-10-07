@@ -8,6 +8,7 @@ interface CanvasComponent {
   position: { x: number; y: number }
   size?: { width: number; height: number }
   data?: any
+  zIndex?: number
 }
 
 interface ViewportState {
@@ -31,6 +32,7 @@ interface VisualCanvasProps {
   onComponentUpdate?: (component: CanvasComponent) => void
   onComponentDelete?: (componentId: string) => void
   onComponentSelect?: (componentId: string | null) => void
+  selectedComponent?: string | null
 }
 
 // Component renderer for different types
@@ -204,10 +206,9 @@ function ComponentRenderer({
   )
 }
 
-export default function VisualCanvas({ components, onComponentUpdate, onComponentDelete, onComponentSelect }: VisualCanvasProps) {
+export default function VisualCanvas({ components, onComponentUpdate, onComponentDelete, onComponentSelect, selectedComponent }: VisualCanvasProps) {
   const canvasRef = useRef<HTMLDivElement>(null)
   const [viewport, setViewport] = useState<ViewportState>({ x: 0, y: 0, scale: 1 })
-  const [selectedComponents, setSelectedComponents] = useState<string[]>([])
   const [canvasMode, setCanvasMode] = useState<CanvasMode>('design')
   const [dragState, setDragState] = useState<DragState>({
     isDragging: false,
@@ -231,16 +232,19 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
       bottom: -viewport.y + canvasRect.height * (1 + bufferDistance)
     }
 
-    return components.map(component => {
+    // Sort components by zIndex (back to front for proper rendering order)
+    const sortedComponents = [...components].sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0))
+
+    return sortedComponents.map(component => {
       const defaultSizes = {
         button: { width: 120, height: 40 },
         input: { width: 200, height: 40 },
         text: { width: 150, height: 30 },
         container: { width: 300, height: 200 }
       }
-      
+
       const size = component.size || defaultSizes[component.type as keyof typeof defaultSizes] || { width: 100, height: 40 }
-      
+
       const isVisible = (
         component.position.x + size.width >= viewportBounds.left &&
         component.position.x <= viewportBounds.right &&
@@ -257,7 +261,6 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
     if (e.button === 0) { // Left mouse button
       // Clear selection if clicking on empty canvas (only in design mode)
       if (canvasMode === 'design') {
-        setSelectedComponent(null)
         onComponentSelect?.(null)
       }
 
@@ -315,7 +318,6 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
 
     if (canvasMode === 'design' && e.button === 0) { // Left mouse button in design mode
       // Select the component
-      setSelectedComponent(componentId)
       onComponentSelect?.(componentId)
 
       // Start component dragging
@@ -338,7 +340,6 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
     e.stopPropagation()
 
     if (canvasMode === 'design') {
-      setSelectedComponent(componentId)
       onComponentSelect?.(componentId)
       setContextMenu({
         x: e.clientX,
@@ -359,7 +360,6 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
       if (canvasMode === 'design' && selectedComponent && (e.key === 'Delete' || e.key === 'Backspace')) {
         e.preventDefault()
         onComponentDelete?.(selectedComponent)
-        setSelectedComponent(null)
         onComponentSelect?.(null)
       }
     }
@@ -468,7 +468,6 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
               className="context-menu-item"
               onClick={() => {
                 onComponentDelete?.(contextMenu.componentId)
-                setSelectedComponent(null)
                 onComponentSelect?.(null)
                 setContextMenu(null)
               }}

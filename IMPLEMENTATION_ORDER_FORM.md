@@ -12,44 +12,60 @@
 
 ## ✅ **IMPLEMENTATION ORDER - AS REQUESTED**
 
-### **Phase 1: Component Reordering System** ⭐ PRIORITY 1
+### **Phase 1: Right-Side Layer Panel System** ⭐ PRIORITY 1
 
-**Time**: 2-3 hours | **Risk**: LOW | **Value**: HIGH
+**Time**: 3-4 hours | **Risk**: MEDIUM | **Value**: HIGH
 
 **What to Build:**
 
-- Add "Bring to Front" option to existing right-click context menu
-- Add "Send to Back" option to existing right-click context menu
-- Add "Bring Forward" option (move up one layer)
-- Add "Send Backward" option (move down one layer)
-- Update component z-index/rendering order in real-time
+- Right-side panel that mirrors left sidebar design and behavior
+- Component list showing all canvas components in layer order (top = front, bottom = back)
+- Drag-and-drop reordering within the panel
+- Component icons/previews with names
+- Real-time layer order updates on canvas
+- Synchronized open/close with left sidebar using existing toggle button
 
 **Technical Implementation:**
 
+- Create `LayerPanel` component matching left sidebar structure
 - Add `zIndex` property to component interface
+- Implement drag-and-drop list reordering (react-beautiful-dnd or native)
 - Modify component rendering to respect z-index order
-- Add reorder functions to context menu handlers
 - Update component array ordering for persistence
+- Sync panel visibility with existing sidebar toggle state
+
+**Visual Specifications:**
+
+- **Panel Width**: Same as left sidebar
+- **Styling**: Sage green theme matching existing sidebar
+- **Component Items**: Small icon/preview + component name
+- **Empty State**: Light gray text "No Components Added"
+- **Toggle**: Use existing left menu button to open/close both panels simultaneously
 
 **Why This First:**
 
 - ✅ User specifically requested this tackled first
-- ✅ Builds on existing right-click menu system
-- ✅ Low risk, high user value
+- ✅ Superior UX compared to right-click menus
+- ✅ Matches professional design tool standards
 - ✅ Foundation for layered design work
+- ✅ Always visible layer hierarchy
 
 **Success Criteria:**
 
-- Right-click shows reorder options
-- Components move to front/back as expected
+- Right panel opens/closes with left panel
+- Components listed in correct layer order
+- Drag-and-drop reordering works smoothly
+- Canvas updates immediately when layers reordered
 - Layer order persists when saving/loading
-- No conflicts with existing context menu (delete)
+- Empty state displays correctly
 
 **Potential Failure Points:**
 
+- ⚠️ **Drag-and-drop complexity** - List reordering implementation
+- ⚠️ **Panel synchronization** - Both panels opening/closing together
 - ⚠️ **Z-index conflicts** with existing CSS
 - ⚠️ **Component array ordering** vs visual rendering order
-- ⚠️ **Context menu positioning** with new options
+- ⚠️ **Performance** with many components in list
 - ⚠️ **State persistence** of layer order
 
 ---
@@ -162,13 +178,13 @@
 - **Minimum Size**: 20px x 20px (prevent invisible components)
 - **Cursor Changes**: Appropriate resize cursors for each handle type
 
-### **Reorder Menu Options:**
+### **Layer Panel Features:**
 
-- **Bring to Front**: Move to highest z-index
-- **Bring Forward**: Move up one layer
-- **Send Backward**: Move down one layer
-- **Send to Back**: Move to lowest z-index
-- **Visual Feedback**: Immediate reordering in canvas
+- **Drag-and-Drop Reordering**: Drag components up/down in list to change layer order
+- **Visual Layer Hierarchy**: Top of list = front layer, bottom = back layer
+- **Component Icons**: Small previews/icons for each component type
+- **Synchronized Toggle**: Opens/closes with left sidebar using existing button
+- **Real-time Updates**: Canvas reflects layer changes immediately
 
 ---
 
@@ -200,12 +216,14 @@
 **EXACT USER REQUIREMENTS:**
 
 - ✅ 8 resize handles (4 corners + 4 edges) with specified styling
-- ✅ Reordering via right-click menu (tackle first)
+- ✅ Right-side layer panel with drag-and-drop reordering (tackle first)
 - ✅ All enhancements in Design mode only (no new modes)
 - ✅ Corner handles for diagonal resize, edge handles for single-axis resize
+- ✅ Panel synchronized with left sidebar toggle
+- ✅ Component icons/previews in layer list
 
-**TOTAL ESTIMATED TIME**: 6-9 hours
-**IMPLEMENTATION ORDER**: Reordering → Resize → Integration
+**TOTAL ESTIMATED TIME**: 7-10 hours
+**IMPLEMENTATION ORDER**: Layer Panel → Resize → Integration
 **NEXT STEP**: Commit current working state to GitHub
 
 **Ready to proceed with user's exact specifications.**

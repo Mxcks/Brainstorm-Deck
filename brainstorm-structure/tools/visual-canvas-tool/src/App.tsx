@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import VisualCanvas from './components/VisualCanvas'
+import LayerPanel from './components/LayerPanel'
 
 // Simple types for now
 interface Project {
@@ -110,15 +111,22 @@ function ProjectSelector({
 }
 
 // Simple Sidebar Component
-function SimpleSidebar({ onCreateComponent }: { onCreateComponent: (type: string) => void }) {
-  const [isCollapsed, setIsCollapsed] = useState(false)
+function SimpleSidebar({
+  onCreateComponent,
+  isCollapsed,
+  onToggleCollapse
+}: {
+  onCreateComponent: (type: string) => void
+  isCollapsed: boolean
+  onToggleCollapse: () => void
+})
 
   return (
     <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
       <div className="sidebar-header">
-        <button 
+        <button
           className="collapse-btn"
-          onClick={() => setIsCollapsed(!isCollapsed)}
+          onClick={onToggleCollapse}
         >
           {isCollapsed ? '▶' : '◀'}
         </button>
@@ -144,6 +152,8 @@ function App() {
   const [currentProject, setCurrentProject] = useState<Project | null>(null)
   const [projects, setProjects] = useState<Project[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [selectedComponent, setSelectedComponent] = useState<string | null>(null)
+  const [isPanelsOpen, setIsPanelsOpen] = useState(false)
 
   // Load projects on mount
   useEffect(() => {
@@ -210,7 +220,8 @@ function App() {
       id: Date.now().toString(),
       type,
       name: `${type}_${Date.now()}`,
-      position: { x: 200 + Math.random() * 100, y: 150 + Math.random() * 100 }
+      position: { x: 200 + Math.random() * 100, y: 150 + Math.random() * 100 },
+      zIndex: currentProject.canvasState.components.length // New components go to front
     }
 
     const updatedProject = {
@@ -271,6 +282,47 @@ function App() {
     console.log(`🗑️ Deleted component: ${componentId}`)
   }
 
+  const handleComponentReorder = (componentId: string, newIndex: number) => {
+    if (!currentProject) return
+
+    const components = [...currentProject.canvasState.components]
+
+    // Sort components by current zIndex to get proper order
+    const sortedComponents = components.sort((a, b) => (b.zIndex || 0) - (a.zIndex || 0))
+
+    // Find the component being moved
+    const componentIndex = sortedComponents.findIndex(c => c.id === componentId)
+    if (componentIndex === -1) return
+
+    // Remove component from current position
+    const [movedComponent] = sortedComponents.splice(componentIndex, 1)
+
+    // Insert at new position
+    sortedComponents.splice(newIndex, 0, movedComponent)
+
+    // Reassign zIndex values (highest index = front layer)
+    const updatedComponents = sortedComponents.map((component, index) => ({
+      ...component,
+      zIndex: sortedComponents.length - 1 - index
+    }))
+
+    const updatedProject = {
+      ...currentProject,
+      canvasState: {
+        components: updatedComponents
+      },
+      lastModified: new Date()
+    }
+
+    // Update projects list and save
+    const updatedProjects = projects.map(p =>
+      p.id === updatedProject.id ? updatedProject : p
+    )
+    saveProjects(updatedProjects)
+    setCurrentProject(updatedProject)
+    console.log(`🔄 Reordered component ${componentId} to position ${newIndex}`)
+  }
+
   return (
     <div className="app">
       {/* Show Project Selector if no project is selected */}
@@ -313,7 +365,22 @@ function App() {
 
       {/* Left Sidebar - only show when project is selected */}
       {currentProject && (
-        <SimpleSidebar onCreateComponent={handleCreateComponent} />
+        <SimpleSidebar
+          onCreateComponent={handleCreateComponent}
+          isCollapsed={!isPanelsOpen}
+          onToggleCollapse={() => setIsPanelsOpen(!isPanelsOpen)}
+        />
+      )}
+
+      {/* Right Layer Panel - only show when project is selected */}
+      {currentProject && (
+        <LayerPanel
+          isOpen={isPanelsOpen}
+          components={currentProject.canvasState.components}
+          selectedComponent={selectedComponent}
+          onComponentSelect={setSelectedComponent}
+          onComponentReorder={handleComponentReorder}
+        />
       )}
 
       {/* Main Content Area - only show when project is selected */}
@@ -323,9 +390,8 @@ function App() {
             components={currentProject.canvasState.components}
             onComponentUpdate={handleComponentUpdate}
             onComponentDelete={handleComponentDelete}
-            onComponentSelect={(componentId) => {
-              console.log('Component selected:', componentId)
-            }}
+            onComponentSelect={setSelectedComponent}
+            selectedComponent={selectedComponent}
           />
         </div>
       )}
