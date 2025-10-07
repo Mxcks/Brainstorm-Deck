@@ -227,6 +227,7 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
   const canvasRef = useRef<HTMLDivElement>(null)
   const [viewport, setViewport] = useState<ViewportState>({ x: 0, y: 0, scale: 1 })
   const [canvasMode, setCanvasMode] = useState<CanvasMode>('design')
+  const [showZoomDropdown, setShowZoomDropdown] = useState(false)
   const [dragState, setDragState] = useState<DragState>({
     isDragging: false,
     dragType: 'viewport',
@@ -393,6 +394,25 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
     }
   }
 
+  // Handle zoom changes
+  const handleZoomChange = (newZoom: number) => {
+    setViewport(prev => ({ ...prev, scale: newZoom / 100 }))
+    setShowZoomDropdown(false)
+    // Save zoom level to localStorage
+    localStorage.setItem('canvas-zoom', newZoom.toString())
+  }
+
+  // Load saved zoom level on mount
+  useEffect(() => {
+    const savedZoom = localStorage.getItem('canvas-zoom')
+    if (savedZoom) {
+      const zoomValue = parseInt(savedZoom)
+      if (zoomValue >= 10 && zoomValue <= 500) {
+        setViewport(prev => ({ ...prev, scale: zoomValue / 100 }))
+      }
+    }
+  }, [])
+
   // Initialize components in backend when they're loaded
   useEffect(() => {
     components.forEach(component => {
@@ -421,19 +441,25 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [canvasMode, selectedComponent, onComponentDelete, onComponentSelect])
 
-  // Close context menu when clicking elsewhere
+  // Close context menu and zoom dropdown when clicking elsewhere
   useEffect(() => {
-    const handleClickOutside = () => setContextMenu(null)
-    if (contextMenu) {
+    const handleClickOutside = () => {
+      setContextMenu(null)
+      setShowZoomDropdown(false)
+    }
+    if (contextMenu || showZoomDropdown) {
       window.addEventListener('click', handleClickOutside)
       return () => window.removeEventListener('click', handleClickOutside)
     }
-  }, [contextMenu])
+  }, [contextMenu, showZoomDropdown])
 
   return (
     <div className="visual-canvas-container">
       <div className="canvas-controls">
-        <button onClick={() => setViewport({ x: 0, y: 0, scale: 1 })} title="Reset View">
+        <button onClick={() => {
+          setViewport({ x: 0, y: 0, scale: 1 })
+          localStorage.setItem('canvas-zoom', '100')
+        }} title="Reset View">
           🏠 Reset
         </button>
         <button onClick={() => console.log('Fit all')} title="Fit to Components">
@@ -460,9 +486,44 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
           </button>
         </div>
         
-        <span className="zoom-indicator">
-          {Math.round(viewport.scale * 100)}%
-        </span>
+        <div className="zoom-dropdown-container">
+          <button
+            className="zoom-indicator"
+            onClick={(e) => {
+              e.stopPropagation()
+              setShowZoomDropdown(!showZoomDropdown)
+            }}
+            title="Change zoom level"
+          >
+            {Math.round(viewport.scale * 100)}% ▼
+          </button>
+
+          {showZoomDropdown && (
+            <div className="zoom-dropdown" onClick={(e) => e.stopPropagation()}>
+              <div className="zoom-slider-container">
+                <label>Zoom: {Math.round(viewport.scale * 100)}%</label>
+                <input
+                  type="range"
+                  min="10"
+                  max="500"
+                  step="2"
+                  value={Math.round(viewport.scale * 100)}
+                  onChange={(e) => handleZoomChange(parseInt(e.target.value))}
+                  className="zoom-slider"
+                />
+                <div className="zoom-presets">
+                  <button onClick={() => handleZoomChange(25)}>25%</button>
+                  <button onClick={() => handleZoomChange(50)}>50%</button>
+                  <button onClick={() => handleZoomChange(75)}>75%</button>
+                  <button onClick={() => handleZoomChange(100)}>100%</button>
+                  <button onClick={() => handleZoomChange(125)}>125%</button>
+                  <button onClick={() => handleZoomChange(150)}>150%</button>
+                  <button onClick={() => handleZoomChange(200)}>200%</button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
         <span className="component-count">
           {components.length} components
         </span>
