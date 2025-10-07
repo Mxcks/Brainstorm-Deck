@@ -59,12 +59,7 @@ function ComponentRenderer({
   canvasMode,
   onMouseDown,
   onContextMenu,
-  onComponentInteraction,
-  isRenaming,
-  tempName,
-  onRename,
-  onStartRename,
-  onCancelRename
+  onComponentInteraction
 }: {
   component: CanvasComponent
   isVisible: boolean
@@ -73,12 +68,6 @@ function ComponentRenderer({
   onMouseDown: (e: React.MouseEvent, componentId: string) => void
   onContextMenu: (e: React.MouseEvent, componentId: string) => void
   onComponentInteraction: (componentId: string, action: string, data?: any) => void
-  isRenaming: boolean
-  tempName: string
-  onRename: (componentId: string, newName: string) => void
-  onStartRename: (componentId: string) => void
-  onCancelRename: () => void
-  onTempNameChange: (newName: string) => void
 }) {
   const [isHovered, setIsHovered] = useState(false)
   if (!isVisible) return null
@@ -234,7 +223,7 @@ function ComponentRenderer({
   }
 
   return (
-    <div
+    <div 
       key={component.id}
       data-component-id={component.id}
       title={`${component.name} (${component.type})`}
@@ -243,57 +232,6 @@ function ComponentRenderer({
       style={{ position: 'relative' }}
     >
       {getComponentContent()}
-
-      {/* Component Name Label */}
-      <div
-        className="component-name-label"
-        style={{
-          position: 'absolute',
-          top: '-24px',
-          left: '0',
-          background: 'rgba(0, 0, 0, 0.8)',
-          color: 'white',
-          padding: '2px 6px',
-          borderRadius: '3px',
-          fontSize: '11px',
-          fontWeight: '500',
-          whiteSpace: 'nowrap',
-          pointerEvents: 'none',
-          opacity: canvasMode === 'design' ? (isSelected || isHovered ? 1 : 0.7) : 0,
-          transition: 'opacity 0.2s ease',
-          zIndex: 1000
-        }}
-      >
-        {isRenaming ? (
-          <input
-            type="text"
-            value={tempName}
-            onChange={(e) => onTempNameChange(e.target.value)}
-            onBlur={() => onRename(component.id, tempName)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                onRename(component.id, tempName)
-              } else if (e.key === 'Escape') {
-                onCancelRename()
-              }
-            }}
-            autoFocus
-            style={{
-              background: 'white',
-              color: 'black',
-              border: 'none',
-              padding: '1px 4px',
-              borderRadius: '2px',
-              fontSize: '11px',
-              width: '80px',
-              pointerEvents: 'auto'
-            }}
-            onClick={(e) => e.stopPropagation()}
-          />
-        ) : (
-          component.name
-        )}
-      </div>
     </div>
   )
 }
@@ -310,8 +248,6 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
   })
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; componentId: string } | null>(null)
   const [reorderSubmenu, setReorderSubmenu] = useState<boolean>(false)
-  const [renamingComponent, setRenamingComponent] = useState<string | null>(null)
-  const [tempName, setTempName] = useState<string>('')
 
   // Calculate which components are visible in the viewport
   const getVisibleComponents = useCallback(() => {
@@ -468,42 +404,6 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
       }
     } catch (error) {
       console.error(`❌ Backend interaction error:`, error)
-    }
-  }
-
-  // Handle component renaming
-  const handleRenameComponent = (componentId: string, newName: string) => {
-    if (!newName.trim()) return
-
-    const updatedComponents = components.map(comp =>
-      comp.id === componentId
-        ? { ...comp, name: newName.trim() }
-        : comp
-    )
-
-    onComponentsChange?.(updatedComponents)
-    setRenamingComponent(null)
-    setTempName('')
-
-    // Save to localStorage
-    if (currentProject) {
-      const projects = JSON.parse(localStorage.getItem('canvas-projects') || '[]')
-      const updatedProjects = projects.map((proj: any) =>
-        proj.id === currentProject.id
-          ? { ...proj, components: updatedComponents }
-          : proj
-      )
-      localStorage.setItem('canvas-projects', JSON.stringify(updatedProjects))
-    }
-  }
-
-  // Start renaming a component
-  const startRenaming = (componentId: string) => {
-    const component = components.find(c => c.id === componentId)
-    if (component) {
-      setRenamingComponent(componentId)
-      setTempName(component.name)
-      setContextMenu(null)
     }
   }
 
@@ -678,15 +578,6 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
               onMouseDown={handleComponentMouseDown}
               onContextMenu={handleComponentContextMenu}
               onComponentInteraction={handleComponentInteraction}
-              isRenaming={renamingComponent === component.id}
-              tempName={tempName}
-              onRename={handleRenameComponent}
-              onStartRename={startRenaming}
-              onCancelRename={() => {
-                setRenamingComponent(null)
-                setTempName('')
-              }}
-              onTempNameChange={setTempName}
             />
           ))}
 
@@ -736,24 +627,6 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
             <button
               className="context-menu-item"
               onClick={() => {
-                startRenaming(contextMenu.componentId)
-              }}
-              style={{
-                width: '100%',
-                padding: '0.5rem 1rem',
-                background: 'transparent',
-                border: 'none',
-                color: 'var(--text-primary)',
-                textAlign: 'left',
-                cursor: 'pointer',
-                fontSize: '0.9rem'
-              }}
-            >
-              ✏️ Rename Component
-            </button>
-            <button
-              className="context-menu-item"
-              onClick={() => {
                 onComponentDelete?.(contextMenu.componentId)
                 onComponentSelect?.(null)
                 setContextMenu(null)
@@ -781,7 +654,7 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
         </span>
         <span style={{ marginLeft: '1rem', fontSize: '0.8rem', color: 'var(--text-tertiary)' }}>
           {canvasMode === 'design'
-            ? 'Click & drag components • Ctrl+drag to pan • Right-click to rename/delete'
+            ? 'Click & drag components • Ctrl+drag to pan • Right-click to delete'
             : 'Interact with components as real UI elements'
           }
         </span>
