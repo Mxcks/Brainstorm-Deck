@@ -1,7 +1,20 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import './VisualCanvas.css'
 import ResizeHandles from './ResizeHandles'
-import { backendEngine } from '../component-backend'
+
+// Simple mock backend to prevent white screen issues
+const mockBackendEngine = {
+  handleAction: async (componentId: string, componentType: string, action: string, data?: any) => {
+    console.log(`🎯 Mock Backend: ${componentId} (${componentType}) ${action}:`, data)
+    return { success: true }
+  },
+  initializeComponent: (componentId: string, componentType: string, data: any) => {
+    console.log(`🔧 Mock Backend: Initialize ${componentId} (${componentType})`)
+  },
+  cleanupComponent: (componentId: string, componentType: string) => {
+    console.log(`🧹 Mock Backend: Cleanup ${componentId} (${componentType})`)
+  }
+}
 
 interface CanvasComponent {
   id: string
@@ -382,8 +395,8 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
     }
 
     try {
-      // Call the backend engine to handle the interaction
-      const result = await backendEngine.handleAction(componentId, component.type, action, data)
+      // Call the mock backend engine to handle the interaction
+      const result = await mockBackendEngine.handleAction(componentId, component.type, action, data)
       console.log(`✅ Backend result:`, result)
 
       if (!result.success) {
@@ -416,18 +429,19 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
   }, [])
 
   // Initialize components in backend when they're loaded
-  useEffect(() => {
-    components.forEach(component => {
-      backendEngine.initializeComponent(component.id, component.type, component.data || {})
-    })
-
-    // Cleanup function to clean up components when they're removed
-    return () => {
-      components.forEach(component => {
-        backendEngine.cleanupComponent(component.id, component.type)
-      })
-    }
-  }, [components])
+  // Temporarily disabled to debug white screen
+  // useEffect(() => {
+  //   components.forEach(component => {
+  //     backendEngine.initializeComponent(component.id, component.type, component.data || {})
+  //   })
+  //
+  //   // Cleanup function to clean up components when they're removed
+  //   return () => {
+  //     components.forEach(component => {
+  //       backendEngine.cleanupComponent(component.id, component.type)
+  //     })
+  //   }
+  // }, [components])
 
   // Handle keyboard events
   useEffect(() => {
@@ -443,17 +457,18 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [canvasMode, selectedComponent, onComponentDelete, onComponentSelect])
 
-  // Close context menu and zoom dropdown when clicking elsewhere
+  // Close context menu when clicking elsewhere (simplified)
   useEffect(() => {
     const handleClickOutside = () => {
       setContextMenu(null)
-      setShowZoomDropdown(false)
+      // Don't auto-close zoom dropdown to prevent conflicts
+      // setShowZoomDropdown(false)
     }
-    if (contextMenu || showZoomDropdown) {
+    if (contextMenu) {
       window.addEventListener('click', handleClickOutside)
       return () => window.removeEventListener('click', handleClickOutside)
     }
-  }, [contextMenu, showZoomDropdown])
+  }, [contextMenu])
 
   return (
     <div className="visual-canvas-container">
@@ -511,8 +526,6 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
                   step="2"
                   value={Math.round(viewport.scale * 100)}
                   onChange={(e) => handleZoomChange(parseInt(e.target.value), false)}
-                  onMouseUp={() => setShowZoomDropdown(false)}
-                  onTouchEnd={() => setShowZoomDropdown(false)}
                   className="zoom-slider"
                 />
                 <div className="zoom-presets">
