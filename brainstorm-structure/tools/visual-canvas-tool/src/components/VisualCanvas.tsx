@@ -395,9 +395,11 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
   }
 
   // Handle zoom changes
-  const handleZoomChange = (newZoom: number) => {
+  const handleZoomChange = (newZoom: number, closeDropdown: boolean = false) => {
     setViewport(prev => ({ ...prev, scale: newZoom / 100 }))
-    setShowZoomDropdown(false)
+    if (closeDropdown) {
+      setShowZoomDropdown(false)
+    }
     // Save zoom level to localStorage
     localStorage.setItem('canvas-zoom', newZoom.toString())
   }
@@ -508,17 +510,19 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
                   max="500"
                   step="2"
                   value={Math.round(viewport.scale * 100)}
-                  onChange={(e) => handleZoomChange(parseInt(e.target.value))}
+                  onChange={(e) => handleZoomChange(parseInt(e.target.value), false)}
+                  onMouseUp={() => setShowZoomDropdown(false)}
+                  onTouchEnd={() => setShowZoomDropdown(false)}
                   className="zoom-slider"
                 />
                 <div className="zoom-presets">
-                  <button onClick={() => handleZoomChange(25)}>25%</button>
-                  <button onClick={() => handleZoomChange(50)}>50%</button>
-                  <button onClick={() => handleZoomChange(75)}>75%</button>
-                  <button onClick={() => handleZoomChange(100)}>100%</button>
-                  <button onClick={() => handleZoomChange(125)}>125%</button>
-                  <button onClick={() => handleZoomChange(150)}>150%</button>
-                  <button onClick={() => handleZoomChange(200)}>200%</button>
+                  <button onClick={() => handleZoomChange(25, true)}>25%</button>
+                  <button onClick={() => handleZoomChange(50, true)}>50%</button>
+                  <button onClick={() => handleZoomChange(75, true)}>75%</button>
+                  <button onClick={() => handleZoomChange(100, true)}>100%</button>
+                  <button onClick={() => handleZoomChange(125, true)}>125%</button>
+                  <button onClick={() => handleZoomChange(150, true)}>150%</button>
+                  <button onClick={() => handleZoomChange(200, true)}>200%</button>
                 </div>
               </div>
             </div>
