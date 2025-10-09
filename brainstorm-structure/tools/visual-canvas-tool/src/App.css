@@ -16,6 +16,8 @@
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-primary);
   z-index: 100;
+  height: 60px;
+  box-sizing: border-box;
 }
 
 .app-header h1 {
@@ -35,7 +37,7 @@
   position: fixed;
   left: 0;
   top: 60px; /* Below header */
-  width: 280px;
+  width: 300px;
   height: calc(100vh - 60px);
   background: var(--bg-secondary);
   border-right: 1px solid var(--border-primary);
@@ -52,7 +54,24 @@
   align-items: center;
   padding: 1rem;
   border-bottom: 1px solid var(--border-primary);
-  gap: 0.5rem;
+  gap: 0.75rem;
+  height: 60px;
+  box-sizing: border-box;
+}
+
+.sidebar-header span {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.collapse-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .collapse-btn {
@@ -108,7 +127,7 @@
   flex: 1;
   position: relative;
   overflow: hidden;
-  margin-left: 280px; /* Sidebar width */
+  margin-left: 300px; /* Sidebar width */
   transition: margin-left 0.3s ease;
 }
 

@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import './VisualCanvas.css'
 import ResizeHandles from './ResizeHandles'
+import { ComponentImporter } from '../services/ComponentImporter'
+import Switch from './Switch'
 
 // Simple mock backend to prevent white screen issues
 const mockBackendEngine = {
@@ -199,21 +201,76 @@ function ComponentRenderer({
         
       case 'container':
         return (
-          <div style={{ 
-            ...baseStyle, 
-            background: 'var(--bg-secondary)', 
+          <div style={{
+            ...baseStyle,
+            background: 'var(--bg-secondary)',
             border: canvasMode === 'design' ? '2px solid var(--border-primary)' : '1px solid var(--border-primary)',
             color: 'var(--text-secondary)'
           }}>
             {canvasMode === 'design' ? 'Container' : ''}
           </div>
         )
-        
+
+      case 'switch':
+        return (
+          <div style={{
+            ...baseStyle,
+            background: 'transparent',
+            border: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <Switch />
+          </div>
+        )
+
+      case 'imported':
+        return (
+          <div style={{
+            ...baseStyle,
+            background: 'var(--bg-primary)',
+            border: '1px solid var(--border-primary)',
+            borderRadius: '6px',
+            overflow: 'hidden',
+            position: 'relative'
+          }}>
+            {component.data?.css && (
+              <style dangerouslySetInnerHTML={{ __html: component.data.css }} />
+            )}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: component.data?.html || '<div>Imported Component</div>'
+              }}
+              style={{
+                width: '100%',
+                height: '100%',
+                overflow: 'hidden'
+              }}
+            />
+            {canvasMode === 'design' && (
+              <div style={{
+                position: 'absolute',
+                top: '2px',
+                right: '2px',
+                background: 'rgba(0, 0, 0, 0.7)',
+                color: 'white',
+                padding: '2px 6px',
+                borderRadius: '3px',
+                fontSize: '10px',
+                pointerEvents: 'none'
+              }}>
+                {component.data?.name || 'Imported'}
+              </div>
+            )}
+          </div>
+        )
+
       default:
         return (
-          <div style={{ 
-            ...baseStyle, 
-            background: 'var(--bg-tertiary)', 
+          <div style={{
+            ...baseStyle,
+            background: 'var(--bg-tertiary)',
             color: 'var(--text-primary)'
           }}>
             {component.type}
@@ -249,6 +306,9 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; componentId: string } | null>(null)
   const [reorderSubmenu, setReorderSubmenu] = useState<boolean>(false)
   const [showHelpModal, setShowHelpModal] = useState<boolean>(false)
+  const [showImportModal, setShowImportModal] = useState<boolean>(false)
+  const [importUrl, setImportUrl] = useState<string>('')
+  const [importLoading, setImportLoading] = useState<boolean>(false)
 
   // Calculate which components are visible in the viewport
   const getVisibleComponents = useCallback(() => {
@@ -287,6 +347,53 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
       return { component, isVisible }
     })
   }, [components, viewport])
+
+  // Handle component import
+  const handleImportComponent = async () => {
+    if (!importUrl.trim()) return
+
+    setImportLoading(true)
+    try {
+      const result = await ComponentImporter.importFromUrl(importUrl)
+
+      if (result.success && result.component) {
+        // Create a new component from the imported data
+        const newComponent: CanvasComponent = {
+          id: `component-${Date.now()}`,
+          type: 'imported',
+          position: { x: 100, y: 100 },
+          size: { width: 200, height: 100 },
+          data: {
+            html: result.component.html,
+            css: result.component.css,
+            name: result.component.name,
+            source: result.component.source,
+            sourceUrl: result.component.sourceUrl
+          },
+          zIndex: Math.max(...components.map(c => c.zIndex || 0)) + 1
+        }
+
+        // Add to components
+        const updatedComponents = [...components, newComponent]
+        setComponents(updatedComponents)
+        localStorage.setItem('canvas-components', JSON.stringify(updatedComponents))
+
+        // Close modal and reset form
+        setShowImportModal(false)
+        setImportUrl('')
+
+        console.log('✅ Component imported successfully:', result.component.name)
+      } else {
+        console.error('❌ Import failed:', result.error)
+        alert(`Import failed: ${result.error}`)
+      }
+    } catch (error) {
+      console.error('❌ Import error:', error)
+      alert(`Import error: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    } finally {
+      setImportLoading(false)
+    }
+  }
 
   // Handle mouse events for panning and component movement
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -474,30 +581,91 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
   return (
     <div className="visual-canvas-container">
       <div className="canvas-controls">
+        <button
+          onClick={() => setShowHelpModal(true)}
+          title="Component Development Guide"
+        >
+          📚 Dev Guide
+        </button>
+        <button
+          onClick={() => setShowImportModal(true)}
+          title="Import Component from Website"
+        >
+          📥 Import
+        </button>
         <button onClick={() => {
           setViewport({ x: 0, y: 0, scale: 1 })
           localStorage.setItem('canvas-zoom', '100')
         }} title="Reset View">
           🏠 Reset
         </button>
-        <button onClick={() => console.log('Fit all')} title="Fit to Components">
+        <button onClick={() => {
+          if (components.length === 0) return
+
+          // Get actual canvas container size
+          const canvasContainer = canvasRef.current
+          if (!canvasContainer) return
+
+          const containerRect = canvasContainer.getBoundingClientRect()
+          const canvasWidth = containerRect.width
+          const canvasHeight = containerRect.height
+
+          // Calculate actual bounds of all components
+          let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity
+
+          components.forEach(comp => {
+            // Get component size with proper defaults
+            const defaultSizes = {
+              button: { width: 120, height: 40 },
+              input: { width: 200, height: 40 },
+              text: { width: 150, height: 30 },
+              container: { width: 300, height: 200 },
+              imported: { width: 200, height: 100 }
+            }
+
+            const size = comp.size || defaultSizes[comp.type as keyof typeof defaultSizes] || { width: 120, height: 40 }
+
+            const left = comp.position.x
+            const top = comp.position.y
+            const right = left + size.width
+            const bottom = top + size.height
+
+            minX = Math.min(minX, left)
+            minY = Math.min(minY, top)
+            maxX = Math.max(maxX, right)
+            maxY = Math.max(maxY, bottom)
+          })
+
+          // Add reasonable padding (10% of canvas size or minimum 50px)
+          const paddingX = Math.max(50, canvasWidth * 0.1)
+          const paddingY = Math.max(50, canvasHeight * 0.1)
+
+          const contentWidth = maxX - minX
+          const contentHeight = maxY - minY
+
+          // Calculate scale to fit content with padding
+          const availableWidth = canvasWidth - paddingX * 2
+          const availableHeight = canvasHeight - paddingY * 2
+
+          const scaleX = availableWidth / contentWidth
+          const scaleY = availableHeight / contentHeight
+          const scale = Math.min(scaleX, scaleY, 2) // Allow up to 200% zoom
+
+          // Calculate center position of content
+          const contentCenterX = (minX + maxX) / 2
+          const contentCenterY = (minY + maxY) / 2
+
+          // Calculate viewport position to center the content
+          const viewportCenterX = canvasWidth / 2
+          const viewportCenterY = canvasHeight / 2
+
+          const offsetX = viewportCenterX / scale - contentCenterX
+          const offsetY = viewportCenterY / scale - contentCenterY
+
+          setViewport({ x: offsetX, y: offsetY, scale })
+          localStorage.setItem('canvas-zoom', Math.round(scale * 100).toString())
+        }} title="Fit to Components">
           📐 Fit All
-        </button>
-        <button
-          onClick={() => setShowHelpModal(true)}
-          title="Component Development Guide"
-          style={{
-            background: 'var(--accent-primary)',
-            color: 'white',
-            border: 'none',
-            borderRadius: '6px',
-            padding: '0.5rem 1rem',
-            cursor: 'pointer',
-            fontSize: '0.9rem',
-            fontWeight: '500'
-          }}
-        >
-          📚 Dev Guide
         </button>
 
         <div className="mode-toggle">
@@ -663,18 +831,6 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
             </button>
           </div>
         )}
-      </div>
-
-      <div className="mode-info">
-        <span className={`mode-indicator ${canvasMode}`}>
-          {canvasMode === 'design' ? '✏️ Design Mode' : '▶️ Preview Mode'}
-        </span>
-        <span style={{ marginLeft: '1rem', fontSize: '0.8rem', color: 'var(--text-tertiary)' }}>
-          {canvasMode === 'design'
-            ? 'Click & drag components • Ctrl+drag to pan • Right-click to delete'
-            : 'Interact with components as real UI elements'
-          }
-        </span>
       </div>
 
       {/* Component Development Help Modal */}
@@ -873,6 +1029,150 @@ export const componentLibrary = [
                   <li style={{ marginBottom: '0.5rem' }}>Check browser console for backend logs</li>
                 </ol>
               </section>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Import Modal */}
+      {showImportModal && (
+        <div
+          className="import-modal-overlay"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0, 0, 0, 0.7)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10000
+          }}
+          onClick={() => setShowImportModal(false)}
+        >
+          <div
+            className="import-modal"
+            style={{
+              background: 'var(--bg-primary)',
+              border: '1px solid var(--border-primary)',
+              borderRadius: '12px',
+              padding: '2rem',
+              maxWidth: '600px',
+              width: '90%',
+              maxHeight: '80vh',
+              overflow: 'auto',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+              color: 'var(--text-primary)'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+              <h2 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '600' }}>📥 Import Component</h2>
+              <button
+                onClick={() => setShowImportModal(false)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  fontSize: '1.5rem',
+                  cursor: 'pointer',
+                  color: 'var(--text-secondary)',
+                  padding: '0.25rem'
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            <div style={{ marginBottom: '1.5rem' }}>
+              <p style={{ margin: '0 0 1rem 0', color: 'var(--text-secondary)' }}>
+                Import components from popular websites like uiverse.io, CodePen, and more.
+              </p>
+
+              <div style={{ marginBottom: '1rem' }}>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
+                  Component URL:
+                </label>
+                <input
+                  type="url"
+                  value={importUrl}
+                  onChange={(e) => setImportUrl(e.target.value)}
+                  placeholder="https://uiverse.io/username/component-name"
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    border: '1px solid var(--border-primary)',
+                    borderRadius: '6px',
+                    background: 'var(--bg-secondary)',
+                    color: 'var(--text-primary)',
+                    fontSize: '0.9rem'
+                  }}
+                />
+              </div>
+
+              <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                <button
+                  onClick={handleImportComponent}
+                  disabled={!importUrl || importLoading}
+                  style={{
+                    padding: '0.75rem 1.5rem',
+                    background: importUrl && !importLoading ? 'var(--accent-primary)' : 'var(--bg-tertiary)',
+                    color: importUrl && !importLoading ? 'white' : 'var(--text-secondary)',
+                    border: 'none',
+                    borderRadius: '6px',
+                    cursor: importUrl && !importLoading ? 'pointer' : 'not-allowed',
+                    fontSize: '0.9rem',
+                    fontWeight: '500'
+                  }}
+                >
+                  {importLoading ? '⏳ Importing...' : '📥 Import Component'}
+                </button>
+
+                <button
+                  onClick={() => {
+                    setImportUrl('')
+                    setShowImportModal(false)
+                  }}
+                  style={{
+                    padding: '0.75rem 1.5rem',
+                    background: 'var(--bg-tertiary)',
+                    color: 'var(--text-primary)',
+                    border: '1px solid var(--border-primary)',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontSize: '0.9rem'
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+
+            <div style={{ borderTop: '1px solid var(--border-primary)', paddingTop: '1.5rem' }}>
+              <h3 style={{ margin: '0 0 1rem 0', fontSize: '1.1rem', color: 'var(--accent-primary)' }}>
+                🌐 Supported Websites
+              </h3>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+                <div style={{ padding: '1rem', background: 'var(--bg-secondary)', borderRadius: '6px' }}>
+                  <div style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>⬢ uiverse.io</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                    CSS components and animations
+                  </div>
+                </div>
+                <div style={{ padding: '1rem', background: 'var(--bg-secondary)', borderRadius: '6px' }}>
+                  <div style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>🖊️ CodePen</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                    Interactive demos and snippets
+                  </div>
+                </div>
+                <div style={{ padding: '1rem', background: 'var(--bg-secondary)', borderRadius: '6px' }}>
+                  <div style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>🎨 CSS-Tricks</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                    Tutorials and examples
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

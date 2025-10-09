@@ -1,9 +1,9 @@
 .layer-panel {
   position: fixed;
-  top: 0;
+  top: 108px;
   right: 0;
   width: 280px;
-  height: 100vh;
+  height: calc(100vh - 108px);
   background: var(--bg-primary);
   border-left: 1px solid var(--border-primary);
   display: flex;

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import VisualCanvas from './components/VisualCanvas'
 import LayerPanel from './components/LayerPanel'
+import Switch from './components/Switch'
+// import ThemeProvider from './styles/ThemeProvider'
 
 // Simple types for now
 interface Project {
@@ -23,7 +25,7 @@ function ProjectSelector({
 }: {
   projects: Project[]
   onSelectProject: (project: Project) => void
-  onCreateProject: () => void
+  onCreateProject: (projectName: string) => void
   isLoading: boolean
 }) {
   const [showCreateForm, setShowCreateForm] = useState(false)
@@ -31,7 +33,7 @@ function ProjectSelector({
 
   const handleCreateProject = () => {
     if (newProjectName.trim()) {
-      onCreateProject()
+      onCreateProject(newProjectName.trim())
       setNewProjectName('')
       setShowCreateForm(false)
     }
@@ -123,13 +125,14 @@ function SimpleSidebar({
   return (
     <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
       <div className="sidebar-header">
-        <button
-          className="collapse-btn"
-          onClick={onToggleCollapse}
-        >
-          {isCollapsed ? '▶' : '◀'}
-        </button>
-        {!isCollapsed && <span>Tools</span>}
+        <div className="collapse-switch">
+          <Switch
+            checked={!isCollapsed}
+            onChange={(checked) => onToggleCollapse()}
+            id="sidebar-toggle"
+          />
+        </div>
+        {!isCollapsed && <span>Component Library</span>}
       </div>
       
       {!isCollapsed && (
@@ -140,6 +143,7 @@ function SimpleSidebar({
             <button onClick={() => onCreateComponent('input')}>📝 Input</button>
             <button onClick={() => onCreateComponent('text')}>🔤 Text</button>
             <button onClick={() => onCreateComponent('container')}>📦 Container</button>
+            <button onClick={() => onCreateComponent('switch')}>🔄 Switch</button>
           </div>
         </div>
       )}
@@ -181,11 +185,8 @@ function App() {
     setProjects(updatedProjects)
   }
 
-  const handleCreateProject = () => {
-    // This will be called from the ProjectSelector with the name
-    const projectName = prompt('Enter project name:')
-    if (!projectName) return
-
+  const handleCreateProject = (projectName: string) => {
+    // Create project with the name from the ProjectSelector form
     const newProject: Project = {
       id: Date.now().toString(),
       name: projectName,
@@ -363,7 +364,7 @@ function App() {
         <div className="app-header">
           <h1>Visual Canvas Tool</h1>
           <div className="project-info">
-            <span>
+            <span style={{ marginLeft: '2rem' }}>
               {currentProject.name} ({currentProject.canvasState.components.length} components)
             </span>
             <button
