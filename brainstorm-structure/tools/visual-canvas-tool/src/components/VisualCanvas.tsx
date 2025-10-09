@@ -61,7 +61,9 @@ function ComponentRenderer({
   canvasMode,
   onMouseDown,
   onContextMenu,
-  onComponentInteraction
+  onComponentInteraction,
+  localPosition,
+  isCtrlHeld
 }: {
   component: CanvasComponent
   isVisible: boolean
@@ -70,6 +72,8 @@ function ComponentRenderer({
   onMouseDown: (e: React.MouseEvent, componentId: string) => void
   onContextMenu: (e: React.MouseEvent, componentId: string) => void
   onComponentInteraction: (componentId: string, action: string, data?: any) => void
+  localPosition?: { x: number; y: number }
+  isCtrlHeld?: boolean
 }) {
   const [isHovered, setIsHovered] = useState(false)
   if (!isVisible) return null
@@ -83,10 +87,13 @@ function ComponentRenderer({
 
   const size = component.size || defaultSizes[component.type as keyof typeof defaultSizes] || { width: 100, height: 40 }
 
+  // Use local position if available (for smooth dragging), otherwise use component position
+  const currentPosition = localPosition || component.position
+
   const componentStyle = {
     position: 'absolute' as const,
-    left: component.position.x,
-    top: component.position.y,
+    left: currentPosition.x,
+    top: currentPosition.y,
     width: size.width,
     height: size.height,
     border: canvasMode === 'design'
@@ -98,9 +105,9 @@ function ComponentRenderer({
     justifyContent: 'center',
     fontSize: '14px',
     fontWeight: '500',
-    cursor: canvasMode === 'design' ? 'move' : 'default',
+    cursor: canvasMode === 'design' ? (isCtrlHeld ? 'grab' : 'move') : 'default',
     userSelect: canvasMode === 'design' ? 'none' as const : 'auto' as const,
-    transition: 'all 0.2s ease',
+    transition: localPosition ? 'none' : 'all 0.2s ease', // Disable transition during drag
     // Only show selection border in design mode
     boxShadow: canvasMode === 'design' && isSelected ? '0 0 0 2px rgba(124, 152, 133, 0.3)' : 'none'
   }
@@ -303,6 +310,11 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
     dragType: 'viewport',
     startPosition: { x: 0, y: 0 }
   })
+
+  // Local component positions for smooth dragging
+  const [localComponentPositions, setLocalComponentPositions] = useState<Record<string, { x: number; y: number }>>({})
+  const [draggedComponentId, setDraggedComponentId] = useState<string | null>(null)
+  const [isCtrlHeld, setIsCtrlHeld] = useState(false)
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; componentId: string } | null>(null)
   const [reorderSubmenu, setReorderSubmenu] = useState<boolean>(false)
   const [showHelpModal, setShowHelpModal] = useState<boolean>(false)
@@ -395,6 +407,46 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
     }
   }
 
+  // Handle component mouse down for dragging
+  const handleComponentMouseDown = (e: React.MouseEvent, componentId: string) => {
+    if (canvasMode !== 'design') return
+
+    e.preventDefault()
+    e.stopPropagation()
+
+    // If Ctrl is held, prioritize viewport panning over component selection
+    if (e.ctrlKey || e.metaKey) {
+      setDragState({
+        isDragging: true,
+        dragType: 'viewport',
+        startPosition: { x: e.clientX - viewport.x, y: e.clientY - viewport.y }
+      })
+      return
+    }
+
+    // Select the component
+    onComponentSelect?.(componentId)
+
+    // Start component dragging
+    const component = components.find(c => c.id === componentId)
+    if (component) {
+      setDraggedComponentId(componentId)
+      setDragState({
+        isDragging: true,
+        dragType: 'component',
+        startPosition: { x: e.clientX, y: e.clientY },
+        componentId: componentId,
+        componentStartPosition: component.position
+      })
+
+      // Initialize local position for smooth dragging
+      setLocalComponentPositions(prev => ({
+        ...prev,
+        [componentId]: { ...component.position }
+      }))
+    }
+  }
+
   // Handle mouse events for panning and component movement
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button === 0) { // Left mouse button
@@ -426,24 +478,45 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
         // Calculate movement delta
         const deltaX = (e.clientX - dragState.startPosition.x) / viewport.scale
         const deltaY = (e.clientY - dragState.startPosition.y) / viewport.scale
-        
-        // Update component position
-        const updatedComponent = components.find(c => c.id === dragState.componentId)
-        if (updatedComponent) {
-          const newComponent = {
-            ...updatedComponent,
-            position: {
-              x: dragState.componentStartPosition.x + deltaX,
-              y: dragState.componentStartPosition.y + deltaY
-            }
-          }
-          onComponentUpdate?.(newComponent)
+
+        // Update local position for smooth dragging (no parent re-render)
+        const newPosition = {
+          x: dragState.componentStartPosition.x + deltaX,
+          y: dragState.componentStartPosition.y + deltaY
         }
+
+        setLocalComponentPositions(prev => ({
+          ...prev,
+          [dragState.componentId!]: newPosition
+        }))
       }
     }
   }
 
   const handleMouseUp = () => {
+    // If we were dragging a component, commit the final position
+    if (dragState.isDragging && dragState.dragType === 'component' && dragState.componentId) {
+      const finalPosition = localComponentPositions[dragState.componentId]
+      if (finalPosition) {
+        const updatedComponent = components.find(c => c.id === dragState.componentId)
+        if (updatedComponent) {
+          const newComponent = {
+            ...updatedComponent,
+            position: finalPosition
+          }
+          onComponentUpdate?.(newComponent)
+        }
+      }
+
+      // Clear local position after committing
+      setLocalComponentPositions(prev => {
+        const newPositions = { ...prev }
+        delete newPositions[dragState.componentId!]
+        return newPositions
+      })
+      setDraggedComponentId(null)
+    }
+
     setDragState({
       isDragging: false,
       dragType: 'viewport',
@@ -451,30 +524,7 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
     })
   }
 
-  // Handle component mouse down for dragging
-  const handleComponentMouseDown = (e: React.MouseEvent, componentId: string) => {
-    e.stopPropagation() // Prevent canvas mouse down
 
-    if (canvasMode === 'design' && e.button === 0) { // Left mouse button in design mode
-      // Select the component
-      onComponentSelect?.(componentId)
-
-      // Start component dragging
-      const component = components.find(c => c.id === componentId)
-      if (component) {
-        setDragState({
-          isDragging: true,
-          dragType: 'component',
-          startPosition: { x: e.clientX, y: e.clientY },
-          componentId: componentId,
-          componentStartPosition: { x: component.position.x, y: component.position.y }
-        })
-      }
-    } else if (canvasMode === 'preview') {
-      // In preview mode, trigger component interaction instead of selection
-      handleComponentInteraction(componentId, 'click', { event: e })
-    }
-  }
 
   // Handle component context menu
   const handleComponentContextMenu = (e: React.MouseEvent, componentId: string) => {
@@ -554,6 +604,11 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
   // Handle keyboard events
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Track Ctrl key state
+      if (e.ctrlKey || e.metaKey) {
+        setIsCtrlHeld(true)
+      }
+
       if (canvasMode === 'design' && selectedComponent && (e.key === 'Delete' || e.key === 'Backspace')) {
         e.preventDefault()
         onComponentDelete?.(selectedComponent)
@@ -561,8 +616,19 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
       }
     }
 
+    const handleKeyUp = (e: KeyboardEvent) => {
+      // Track Ctrl key state
+      if (!e.ctrlKey && !e.metaKey) {
+        setIsCtrlHeld(false)
+      }
+    }
+
     window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
+    window.addEventListener('keyup', handleKeyUp)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('keyup', handleKeyUp)
+    }
   }, [canvasMode, selectedComponent, onComponentDelete, onComponentSelect])
 
   // Close context menu when clicking elsewhere (simplified)
@@ -763,6 +829,8 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
               onMouseDown={handleComponentMouseDown}
               onContextMenu={handleComponentContextMenu}
               onComponentInteraction={handleComponentInteraction}
+              localPosition={localComponentPositions[component.id]}
+              isCtrlHeld={isCtrlHeld}
             />
           ))}
 
