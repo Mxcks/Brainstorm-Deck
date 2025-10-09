@@ -1,4 +1,4 @@
-import { ComponentDefinition, ComponentLibrary, ComponentCategory } from './types'
+import type { ComponentDefinition, ComponentLibrary, ComponentCategory } from './types'
 import { ButtonComponent } from './basic/Button'
 import { InputComponent } from './basic/Input'
 

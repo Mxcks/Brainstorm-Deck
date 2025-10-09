@@ -1,4 +1,4 @@
-import { ComponentDefinition } from '../types'
+import type { ComponentDefinition } from '../types'
 
 const getButtonStyles = (variant: string, disabled: boolean) => {
   const baseStyles = {

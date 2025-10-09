@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import './VisualCanvas.css'
+import { componentLibrary } from '../component-library'
 import ResizeHandles from './ResizeHandles'
 import { ComponentImporter } from '../services/ComponentImporter'
 import Switch from './Switch'
@@ -49,6 +50,7 @@ interface VisualCanvasProps {
   onComponentUpdate?: (component: CanvasComponent) => void
   onComponentDelete?: (componentId: string) => void
   onComponentSelect?: (componentId: string | null) => void
+  onComponentAdd?: (component: CanvasComponent) => void
   selectedComponent?: string | null
   onComponentResize?: (componentId: string, newPosition: { x: number; y: number }, newSize: { width: number; height: number }) => void
 }
@@ -113,8 +115,22 @@ function ComponentRenderer({
   }
 
   const getComponentContent = () => {
+    // Try to get component definition from library first
+    const componentDef = componentLibrary.getComponent(component.type)
+
+    if (componentDef && componentDef.render) {
+      // Use component library's render function
+      return componentDef.render({
+        data: component.data || {},
+        size: size,
+        isPreview: canvasMode === 'preview',
+        onInteraction: (action: string, data?: any) => onComponentInteraction(component.id, action, data)
+      })
+    }
+
+    // Fallback to hardcoded components for backwards compatibility
     const baseStyle = { ...componentStyle }
-    
+
     switch (component.type) {
       case 'button':
         if (canvasMode === 'preview') {
@@ -300,7 +316,7 @@ function ComponentRenderer({
   )
 }
 
-export default function VisualCanvas({ components, onComponentUpdate, onComponentDelete, onComponentSelect, selectedComponent, onComponentResize }: VisualCanvasProps) {
+export default function VisualCanvas({ components, onComponentUpdate, onComponentDelete, onComponentSelect, onComponentAdd, selectedComponent, onComponentResize }: VisualCanvasProps) {
   const canvasRef = useRef<HTMLDivElement>(null)
   const [viewport, setViewport] = useState<ViewportState>({ x: 0, y: 0, scale: 1 })
   const [canvasMode, setCanvasMode] = useState<CanvasMode>('design')
@@ -321,6 +337,7 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
   const [showImportModal, setShowImportModal] = useState<boolean>(false)
   const [importUrl, setImportUrl] = useState<string>('')
   const [importLoading, setImportLoading] = useState<boolean>(false)
+  const [textEditor, setTextEditor] = useState<{ componentId: string; property: string; value: string; x: number; y: number } | null>(null)
 
   // Calculate which components are visible in the viewport
   const getVisibleComponents = useCallback(() => {
@@ -373,6 +390,7 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
         const newComponent: CanvasComponent = {
           id: `component-${Date.now()}`,
           type: 'imported',
+          name: result.component.name || 'Imported Component',
           position: { x: 100, y: 100 },
           size: { width: 200, height: 100 },
           data: {
@@ -386,9 +404,7 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
         }
 
         // Add to components
-        const updatedComponents = [...components, newComponent]
-        setComponents(updatedComponents)
-        localStorage.setItem('canvas-components', JSON.stringify(updatedComponents))
+        onComponentAdd?.(newComponent)
 
         // Close modal and reset form
         setShowImportModal(false)
@@ -541,6 +557,88 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
     }
   }
 
+  // Get editable text properties for a component
+  const getEditableTextProperties = (component: CanvasComponent): Array<{ property: string; label: string; value: string }> => {
+    const properties: Array<{ property: string; label: string; value: string }> = []
+
+    if (!component.data) {
+      return properties
+    }
+
+    switch (component.type) {
+      case 'button':
+        if ('text' in component.data) {
+          properties.push({ property: 'text', label: 'Button Text', value: component.data.text || 'Button' })
+        }
+        break
+      case 'input':
+        if ('placeholder' in component.data) {
+          properties.push({ property: 'placeholder', label: 'Placeholder', value: component.data.placeholder || 'Enter text...' })
+        }
+        if ('value' in component.data) {
+          properties.push({ property: 'value', label: 'Value', value: component.data.value || '' })
+        }
+        break
+      default:
+        // For other components, look for common text properties
+        if ('text' in component.data) {
+          properties.push({ property: 'text', label: 'Text', value: component.data.text || 'Text' })
+        }
+        if ('label' in component.data) {
+          properties.push({ property: 'label', label: 'Label', value: component.data.label || 'Label' })
+        }
+        break
+    }
+
+    return properties
+  }
+
+  // Start text editing
+  const startTextEditing = (componentId: string, property: string, currentValue: string, x: number, y: number) => {
+    console.log('Starting text editing:', { componentId, property, currentValue, x, y })
+    setContextMenu(null) // Close context menu first
+    setTextEditor({
+      componentId,
+      property,
+      value: currentValue,
+      x,
+      y
+    })
+  }
+
+  // Save text changes
+  const saveTextChanges = () => {
+    if (!textEditor) return
+
+    const component = components.find(c => c.id === textEditor.componentId)
+    if (component && onComponentUpdate) {
+      console.log('Saving text changes:', {
+        componentId: textEditor.componentId,
+        property: textEditor.property,
+        newValue: textEditor.value,
+        oldData: component.data
+      })
+
+      const updatedComponent = {
+        ...component,
+        data: {
+          ...component.data,
+          [textEditor.property]: textEditor.value
+        }
+      }
+
+      console.log('Updated component:', updatedComponent)
+      onComponentUpdate(updatedComponent)
+    }
+
+    setTextEditor(null)
+  }
+
+  // Cancel text editing
+  const cancelTextEditing = () => {
+    setTextEditor(null)
+  }
+
   // Handle component interactions in preview mode
   const handleComponentInteraction = async (componentId: string, action: string, data?: any) => {
     console.log(`🎯 Component ${componentId} ${action}:`, data)
@@ -631,18 +729,33 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
     }
   }, [canvasMode, selectedComponent, onComponentDelete, onComponentSelect])
 
-  // Close context menu when clicking elsewhere (simplified)
+  // Close context menu and text editor when clicking elsewhere
   useEffect(() => {
-    const handleClickOutside = () => {
-      setContextMenu(null)
-      // Don't auto-close zoom dropdown to prevent conflicts
-      // setShowZoomDropdown(false)
+    const handleClickOutside = (e: MouseEvent) => {
+      // Check if click is outside text editor
+      if (textEditor) {
+        const target = e.target as Element
+        const textEditorElement = target.closest('[data-text-editor]')
+        if (!textEditorElement) {
+          cancelTextEditing()
+        }
+      }
+
+      // Check if click is outside context menu
+      if (contextMenu) {
+        const target = e.target as Element
+        const contextMenuElement = target.closest('.context-menu')
+        if (!contextMenuElement) {
+          setContextMenu(null)
+        }
+      }
     }
-    if (contextMenu) {
+
+    if (contextMenu || textEditor) {
       window.addEventListener('click', handleClickOutside)
       return () => window.removeEventListener('click', handleClickOutside)
     }
-  }, [contextMenu])
+  }, [contextMenu, textEditor])
 
   return (
     <div className="visual-canvas-container">
@@ -862,41 +975,167 @@ export default function VisualCanvas({ components, onComponentUpdate, onComponen
         </div>
 
         {/* Context Menu */}
-        {contextMenu && canvasMode === 'design' && (
-          <div
-            className="context-menu"
-            style={{
-              position: 'fixed',
-              left: contextMenu.x,
-              top: contextMenu.y,
-              background: 'var(--bg-primary)',
-              border: '1px solid var(--border-primary)',
-              borderRadius: 'var(--radius-sm)',
-              padding: '0.5rem 0',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-              zIndex: 1000
-            }}
-          >
-            <button
-              className="context-menu-item"
-              onClick={() => {
-                onComponentDelete?.(contextMenu.componentId)
-                onComponentSelect?.(null)
-                setContextMenu(null)
-              }}
+        {contextMenu && canvasMode === 'design' && (() => {
+          const component = components.find(c => c.id === contextMenu.componentId)
+          const editableProperties = component ? getEditableTextProperties(component) : []
+
+          return (
+            <div
+              className="context-menu"
               style={{
-                width: '100%',
-                padding: '0.5rem 1rem',
-                background: 'transparent',
-                border: 'none',
-                color: 'var(--text-primary)',
-                textAlign: 'left',
-                cursor: 'pointer',
-                fontSize: '0.9rem'
+                position: 'fixed',
+                left: contextMenu.x,
+                top: contextMenu.y,
+                background: 'var(--bg-primary)',
+                border: '1px solid var(--border-primary)',
+                borderRadius: 'var(--radius-sm)',
+                padding: '0.5rem 0',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                zIndex: 1000,
+                minWidth: '180px'
               }}
             >
-              🗑️ Delete Component
-            </button>
+              {/* Text editing options */}
+              {editableProperties.map((prop) => (
+                <button
+                  key={prop.property}
+                  className="context-menu-item"
+                  onClick={() => {
+                    startTextEditing(
+                      contextMenu.componentId,
+                      prop.property,
+                      prop.value,
+                      contextMenu.x,
+                      contextMenu.y
+                    )
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '0.5rem 1rem',
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--text-primary)',
+                    textAlign: 'left',
+                    cursor: 'pointer',
+                    fontSize: '0.9rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem'
+                  }}
+                >
+                  ✏️ Edit {prop.label}
+                </button>
+              ))}
+
+              {/* Separator if there are text properties */}
+              {editableProperties.length > 0 && (
+                <div style={{
+                  height: '1px',
+                  background: 'var(--border-primary)',
+                  margin: '0.5rem 0'
+                }} />
+              )}
+
+              {/* Delete option */}
+              <button
+                className="context-menu-item"
+                onClick={() => {
+                  onComponentDelete?.(contextMenu.componentId)
+                  onComponentSelect?.(null)
+                  setContextMenu(null)
+                }}
+                style={{
+                  width: '100%',
+                  padding: '0.5rem 1rem',
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'var(--text-primary)',
+                  textAlign: 'left',
+                  cursor: 'pointer',
+                  fontSize: '0.9rem'
+                }}
+              >
+                🗑️ Delete Component
+              </button>
+            </div>
+          )
+        })()}
+
+        {/* Inline Text Editor */}
+        {textEditor && (
+          <div
+            data-text-editor
+            style={{
+              position: 'fixed',
+              left: textEditor.x,
+              top: textEditor.y,
+              background: 'var(--bg-primary)',
+              border: '2px solid var(--accent-primary)',
+              borderRadius: 'var(--radius-sm)',
+              padding: '0.75rem',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+              zIndex: 2000,
+              minWidth: '200px'
+            }}
+          >
+            <div style={{ marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+              Edit {getEditableTextProperties(components.find(c => c.id === textEditor.componentId)!)
+                .find(p => p.property === textEditor.property)?.label || textEditor.property}
+            </div>
+            <input
+              type="text"
+              value={textEditor.value}
+              onChange={(e) => setTextEditor(prev => prev ? { ...prev, value: e.target.value } : null)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  saveTextChanges()
+                } else if (e.key === 'Escape') {
+                  cancelTextEditing()
+                }
+              }}
+              autoFocus
+              style={{
+                width: '100%',
+                padding: '0.5rem',
+                border: '1px solid var(--border-primary)',
+                borderRadius: 'var(--radius-sm)',
+                background: 'var(--bg-secondary)',
+                color: 'var(--text-primary)',
+                fontSize: '0.9rem',
+                outline: 'none',
+                marginBottom: '0.5rem'
+              }}
+            />
+            <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+              <button
+                onClick={cancelTextEditing}
+                style={{
+                  padding: '0.25rem 0.75rem',
+                  background: 'var(--bg-tertiary)',
+                  border: '1px solid var(--border-primary)',
+                  borderRadius: 'var(--radius-sm)',
+                  color: 'var(--text-primary)',
+                  cursor: 'pointer',
+                  fontSize: '0.8rem'
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={saveTextChanges}
+                style={{
+                  padding: '0.25rem 0.75rem',
+                  background: 'var(--accent-primary)',
+                  border: 'none',
+                  borderRadius: 'var(--radius-sm)',
+                  color: 'white',
+                  cursor: 'pointer',
+                  fontSize: '0.8rem'
+                }}
+              >
+                Save
+              </button>
+            </div>
           </div>
         )}
       </div>

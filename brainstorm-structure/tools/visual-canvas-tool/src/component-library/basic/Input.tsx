@@ -1,4 +1,4 @@
-import { ComponentDefinition } from '../types'
+import type { ComponentDefinition } from '../types'
 
 const getInputStyles = (variant: string) => {
   const baseStyles = {
@@ -8,8 +8,6 @@ const getInputStyles = (variant: string) => {
     fontSize: '14px',
     outline: 'none',
     transition: 'border-color 0.2s ease',
-    width: '100%',
-    height: '100%',
     boxSizing: 'border-box' as const
   }
 

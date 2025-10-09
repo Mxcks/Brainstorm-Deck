@@ -319,9 +319,9 @@ export interface DragState {
   resizeHandle?: ResizeHandle
 }
 
-export type ResizeHandle = 
+export type ResizeHandle =
   | 'nw' | 'n' | 'ne'
-  | 'w'  |     | 'e'
+  | 'w'  | 'e'
   | 'sw' | 's' | 'se'
 
 // ============================================================================

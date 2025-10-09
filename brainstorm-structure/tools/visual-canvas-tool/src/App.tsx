@@ -3,6 +3,7 @@ import './App.css'
 import VisualCanvas from './components/VisualCanvas'
 import LayerPanel from './components/LayerPanel'
 import Switch from './components/Switch'
+import { getDefaultData, getDefaultSize } from './component-library'
 // import ThemeProvider from './styles/ThemeProvider'
 
 // Simple types for now
@@ -216,11 +217,16 @@ function App() {
       return
     }
 
+    const defaultData = getDefaultData(type)
+    const defaultSize = getDefaultSize(type)
+
     const newComponent = {
       id: Date.now().toString(),
       type,
       name: `${type}_${Date.now()}`,
       position: { x: 200 + Math.random() * 100, y: 150 + Math.random() * 100 },
+      size: defaultSize,
+      data: defaultData,
       zIndex: currentProject.canvasState.components.length // New components go to front
     }
 
@@ -250,6 +256,25 @@ function App() {
         components: currentProject.canvasState.components.map(c =>
           c.id === updatedComponent.id ? updatedComponent : c
         )
+      },
+      lastModified: new Date()
+    }
+
+    // Update projects list and save
+    const updatedProjects = projects.map(p =>
+      p.id === updatedProject.id ? updatedProject : p
+    )
+    saveProjects(updatedProjects)
+    setCurrentProject(updatedProject)
+  }
+
+  const handleComponentAdd = (newComponent: any) => {
+    if (!currentProject) return
+
+    const updatedProject = {
+      ...currentProject,
+      canvasState: {
+        components: [...currentProject.canvasState.components, newComponent]
       },
       lastModified: new Date()
     }
@@ -415,6 +440,7 @@ function App() {
             onComponentUpdate={handleComponentUpdate}
             onComponentDelete={handleComponentDelete}
             onComponentSelect={setSelectedComponent}
+            onComponentAdd={handleComponentAdd}
             selectedComponent={selectedComponent}
             onComponentResize={handleComponentResize}
           />
